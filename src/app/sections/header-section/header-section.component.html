@@ -1,0 +1,55 @@
+<header
+  class="flex items-center justify-between gap-3 border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] bg-white px-[var(--dashboard-margin)] py-3"
+  aria-label="Mobile navigation"
+>
+  <p-button
+    type="button"
+    icon="pi pi-bars"
+    [rounded]="true"
+    [text]="true"
+    ariaLabel="Open navigation menu"
+    (onClick)="openDrawer()"
+  />
+
+  <div
+    class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-widest text-[var(--bright-blue)]"
+  >
+    Pipeline
+  </div>
+
+  <div class="flex min-w-0 items-center gap-2">
+    <p-avatar [label]="userInitials" shape="circle" aria-hidden="true" />
+    <span class="truncate text-sm font-medium text-[var(--gray-900)]">{{ user.name }}</span>
+  </div>
+</header>
+
+<p-drawer
+  [(visible)]="drawerVisible"
+  position="left"
+  [modal]="true"
+  [showCloseIcon]="true"
+  styleClass="dashboard-drawer"
+>
+  <ng-template #header>
+    <span
+      class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-wide text-[var(--gray-900)]"
+    >
+      Menu
+    </span>
+  </ng-template>
+
+  <div class="flex flex-col gap-4">
+    <div
+      class="flex items-center gap-3 border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-4"
+      aria-label="Signed in user"
+    >
+      <p-avatar [label]="userInitials" shape="circle" aria-hidden="true" />
+      <div class="min-w-0">
+        <div class="truncate text-base font-medium text-[var(--gray-900)]">{{ user.name }}</div>
+        <div class="truncate text-sm text-[var(--gray-700)]">{{ user.title }}</div>
+      </div>
+    </div>
+
+    <p-menu [model]="menuItems" [popup]="false" styleClass="dashboard-nav-menu w-full" />
+  </div>
+</p-drawer>

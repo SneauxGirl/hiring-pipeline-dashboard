@@ -1,0 +1,14 @@
+---
+description: Pipeline dashboard mockup scope and constraints
+alwaysApply: true
+---
+
+# Project Scope
+
+- Mockup only — no backend, no auth, no HttpClient, no NgRx
+- PrimeNG-first — check PrimeNG catalog before custom UI
+- Section-based edits — change one section at a time; no cross-section refactors without ask
+- No new npm packages without explicit approval
+- All data from `src/app/data/` static files
+- Nav items are visual placeholders — no routing
+- **Dev verification:** user runs `pnpm start` — do not run or suggest `pnpm build` / `ng build` unless the user explicitly asks

@@ -1,0 +1,11 @@
+<div class="flex min-h-screen bg-white">
+  <app-sidebar-nav-section [navItems]="data.navItems" [user]="data.user" />
+
+  <div class="flex min-w-0 flex-1 flex-col">
+    <app-header-section [user]="data.user" [navItems]="data.navItems" />
+
+    <main class="dashboard-main flex flex-1 flex-col gap-5 py-5 md:py-6">
+      <app-page-header-section [user]="data.user" />
+    </main>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+---
+description: Angular and PrimeNG patterns for Pipeline dashboard
+globs: src/**/*.{ts,html}
+alwaysApply: false
+---
+
+# Angular + PrimeNG
+
+- Standalone components only
+- PrimeNG over custom UI; custom HTML only when PrimeNG has no fit
+- No new abstractions (services, base classes, shared wrappers) without explicit ask
+- Section components receive data via `@Input()` from dashboard parent
+- Use flex containers around components to dictate shape and responsiveness relative to other components

@@ -1,0 +1,23 @@
+---
+description: Mobile-first layout, design tokens, and font roles
+globs: src/**/*.{html,css}
+alwaysApply: false
+---
+
+# Layout and Design
+
+- Mobile-first: base at 375px, then sm/md/lg/xl breakpoints
+- **Flexbox only** for page and section layout — never CSS Grid or absolute layout without explicit user permission
+- Dashboard shell: max-width 1440px, 20px horizontal margins
+- Tailwind - stick to Tailwind throughout, don't mix and match styling
+- Semantic HTML, logical heading order, keyboard focus on interactive widgets
+- Border radius: 10px (`--radius-md`) on cards, buttons, inputs, tags
+- Depth: inset box-shadows on recessed surfaces; same-hue gradients only
+- Icons via PrimeIcons/SVG — not Unicode emoji
+- Prefer consistent variables over hardcoded values
+
+# Font Roles
+
+- **Sansation** — body, UI, captions, table text
+- **Cormorant SC** — section headings, card titles
+- **Tangerine** — script accent only (e.g. "Welcome back, ")

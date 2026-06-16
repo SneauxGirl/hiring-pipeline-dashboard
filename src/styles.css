@@ -1,3 +1,132 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@source "./app/**/*.{html,ts}";
+@import 'primeicons/primeicons.css';
+
+:root {
+  --bright-blue: oklch(51.01% 0.274 263.83);
+  --electric-violet: oklch(53.18% 0.28 296.97);
+  --french-violet: oklch(47.66% 0.246 305.88);
+  --vivid-pink: oklch(69.02% 0.277 332.77);
+  --hot-red: oklch(61.42% 0.238 15.34);
+  --orange-red: oklch(63.32% 0.24 31.68);
+
+  --gray-900: oklch(19.37% 0.006 300.98);
+  --gray-700: oklch(36.98% 0.014 302.71);
+  --gray-400: oklch(70.9% 0.015 304.04);
+
+  --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+    180deg,
+    var(--orange-red) 0%,
+    var(--vivid-pink) 50%,
+    var(--electric-violet) 100%
+  );
+
+  --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+    90deg,
+    var(--orange-red) 0%,
+    var(--vivid-pink) 50%,
+    var(--electric-violet) 100%
+  );
+
+  --font-size-body: 1rem;
+  --font-size-control: 1rem;
+  --font-size-label: 0.875rem;
+  --font-size-heading-sm: 1.125rem;
+  --font-size-heading-md: 1.35rem;
+
+  --font-body: 'Sansation', sans-serif;
+  --font-heading: 'Cormorant SC', serif;
+  --font-accent: 'Tangerine', cursive;
+
+  --radius-md: 10px;
+  --dashboard-max-width: 1440px;
+  --dashboard-margin: 20px;
+  --sidebar-width: 240px;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    color: var(--gray-900);
+    background: #fff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .p-component {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+  }
+}
+
+@layer components {
+  .nav-item--active > .p-panelmenu-header-content,
+  .nav-item--active > .p-menuitem-content {
+    background: color-mix(in srgb, var(--bright-blue) 12%, transparent);
+    color: var(--bright-blue);
+    border-radius: var(--radius-md);
+  }
+
+  .dashboard-nav-menu.p-menu {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .dashboard-nav-menu .p-menu-list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dashboard-nav-menu .p-menuitem > .p-menuitem-content {
+    border-radius: var(--radius-md);
+  }
+
+  .dashboard-nav-menu .p-menuitem:not(.nav-item--active) > .p-menuitem-content:hover {
+    background: color-mix(in srgb, var(--bright-blue) 6%, transparent);
+  }
+
+  .dashboard-drawer.p-drawer {
+    width: min(18rem, 85vw);
+  }
+
+  .dashboard-main {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--dashboard-max-width);
+    margin-inline: auto;
+    padding-inline: var(--dashboard-margin);
+  }
+
+  .week-range-select.p-select {
+    border-radius: var(--radius-md);
+    border-color: color-mix(in oklch, var(--gray-400) 35%, white);
+    background: #fff;
+  }
+
+  .week-range-select .p-select-label {
+    color: var(--gray-900);
+    font-size: var(--font-size-label);
+  }
+}

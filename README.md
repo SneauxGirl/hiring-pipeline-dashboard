@@ -1,59 +1,69 @@
-# Pip
+# Pipeline Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.1.
+Hiring-manager dashboard built in Angular, with Typescript and Tailwind and using PrimeNG components. Mocked with dummy data.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- **Angular** 21.2.x
+- **PrimeNG** 21.x
+- **Tailwind CSS** 4 + `tailwindcss-primeui`
+- **Node** 20.19+, 22.12+, or 24+ (26.2.x used in development)
+- **npm** 8+ (`package-lock.json` — use npm, not yarn/pnpm)
+Check `node -v` and `npm -v` against the ranges above before installing.
 
-```bash
-ng serve
-```
+## Setup
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**1. Clone the repo**
 
 ```bash
-ng generate --help
+git clone https://github.com/SneauxGirl/pipeline-dashboard.git
+cd pipeline-dashboard
 ```
 
-## Building
-
-To build the project run:
+**2. Install dependencies**
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**3. Start the dev server**
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+**4. Open the app**
 
-For end-to-end (e2e) testing, run:
+[http://localhost:4200](http://localhost:4200)
+
+The dev server reloads when you change source files.
+
+### Production build (optional)
 
 ```bash
-ng e2e
+npm run build
+npm run serve:ssr:pip
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Output goes to `dist/pip/`. Fonts load from Google Fonts on first visit (network required for typography).
 
-## Additional Resources
+Section components live under `src/app/sections/` and compose on `src/app/pages/dashboard/`.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Project conventions
+
+- PrimeNG-first UI; custom markup only when PrimeNG has no fit
+- Mobile-first layout (flexbox)
+- Design tokens and fonts in `src/styles.css`
+
+## Scripts
+
+| Command                 | Purpose                          |
+| ----------------------- | -------------------------------- |
+| `npm start`             | Dev server (`ng serve`)          |
+| `npm test`              | Unit tests (Vitest)              |
+| `npm run build`         | Production build                 |
+| `npm run serve:ssr:pip` | Run SSR server after build       |
+
+## Status
+
+Work in progress — additional dashboard sections (KPIs, schedule, charts, etc.) are not built yet.
