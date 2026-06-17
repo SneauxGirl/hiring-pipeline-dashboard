@@ -1,6 +1,12 @@
 # Pipeline Dashboard
 
-Hiring-manager dashboard built in Angular, with Typescript and Tailwind and using PrimeNG components. Mocked with dummy data.
+Work in progress: Hiring-manager dashboard. Built in Angular, with Typescript and Tailwind and using PrimeNG components. Mocked with dummy data.
+
+**Live demo:** [pipeline-dashboard-liyudev.vercel.app](http://pipeline-dashboard-liyudev.vercel.app/)
+
+## Current Stage
+
+First Pass: blocking in components for responsive layout.
 
 ## Stack
 

@@ -79,6 +79,11 @@ export interface OpenRequisition {
   risk: 'low' | 'medium' | 'high';
 }
 
+export interface OpenRequisitionsData {
+  items: OpenRequisition[];
+  moreCount: number;
+}
+
 export interface FunnelStage {
   stageKey: string;
   label: string;
@@ -113,7 +118,7 @@ export interface DashboardData {
   candidates: CandidateProfile[];
   bottlenecks: BottleneckCard[];
   trends: WorkforceTrends;
-  openRequisitions: OpenRequisition[];
+  openRequisitions: OpenRequisitionsData;
   funnelStages: FunnelStage[];
   stageDurations: StageDuration[];
   navItems: NavItem[];

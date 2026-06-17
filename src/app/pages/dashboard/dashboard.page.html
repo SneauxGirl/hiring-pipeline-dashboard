@@ -13,16 +13,16 @@
       <app-page-header class="w-full min-w-0 lg:order-1" [user]="data.user" />
       <app-kpi class="w-full min-w-0 lg:order-2" [kpis]="data.kpis" />
       <app-schedule
-        class="w-full min-w-0 lg:order-6 lg:w-[calc(33.333%-0.67rem)]"
+        class="w-full min-w-0 lg:order-6 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)/3)]"
         [schedule]="data.schedule"
         [candidates]="data.candidates"
       />
       <app-bottleneck
-        class="w-full min-w-0 lg:order-5 lg:w-[calc(33.333%-0.67rem)]"
+        class="w-full min-w-0 lg:order-5 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)/3)]"
         [bottlenecks]="data.bottlenecks"
       />
       <app-trends
-        class="w-full min-w-0 lg:order-7 lg:w-[calc(33.333%-0.67rem)]"
+        class="w-full min-w-0 lg:order-7 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)/3)]"
         [trends]="data.trends"
       />
     </main>
