@@ -13,25 +13,13 @@ import { MenuItem } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { Menu } from 'primeng/menu';
-import {
-  CategoryScale,
-  Chart,
-  ChartConfiguration,
-  Legend,
-  LinearScale,
-  LineController,
-  LineElement,
-  PointElement,
-  Tooltip,
-} from 'chart.js';
+import type { ChartConfiguration } from 'chart.js';
 
 import {
   WorkforceTrendColorToken,
   WorkforceTrendSeries,
   WorkforceTrends,
 } from '../../models/dashboard.models';
-
-Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
 
 type TrendsViewMode = 'chart' | 'table';
 
@@ -79,7 +67,7 @@ export class TrendsComponent implements OnDestroy {
   @ViewChild('chartCanvas') chartCanvas?: ElementRef<HTMLCanvasElement>;
 
   private readonly platformId = inject(PLATFORM_ID);
-  private chart: Chart<'line'> | null = null;
+  private chart: import('chart.js').Chart<'line'> | null = null;
 
   viewMode: TrendsViewMode = 'chart';
 
@@ -147,7 +135,7 @@ export class TrendsComponent implements OnDestroy {
     return `${MONTH_LABELS[monthIndex]} '${String(year).slice(-2)}`;
   }
 
-  private createChart(): void {
+  private async createChart(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -158,6 +146,27 @@ export class TrendsComponent implements OnDestroy {
     }
 
     this.destroyChart();
+
+    const {
+      CategoryScale,
+      Chart,
+      Legend,
+      LinearScale,
+      LineController,
+      LineElement,
+      PointElement,
+      Tooltip,
+    } = await import('chart.js');
+
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      CategoryScale,
+      Tooltip,
+      Legend,
+    );
 
     const config = this.buildChartConfig();
     this.chart = new Chart(canvas, config);
