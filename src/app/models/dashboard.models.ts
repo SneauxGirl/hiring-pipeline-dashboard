@@ -1,8 +1,6 @@
-export type KpiColorToken =
-  | 'bright-blue'
-  | 'electric-violet'
-  | 'orange-red'
-  | 'vivid-pink';
+import { ThemePalette } from '../theme/theme-colors';
+
+export type KpiColorToken = ThemePalette;
 
 export type KpiTrendDirection = 'up' | 'down' | 'neutral';
 
@@ -17,7 +15,7 @@ export interface KpiMetric {
 
 export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';
 
-export type ScheduleGroupColorToken = 'bright-blue' | 'electric-violet' | 'orange-red';
+export type ScheduleGroupColorToken = ThemePalette;
 
 export interface ScheduleInterview {
   id: string;
@@ -38,7 +36,7 @@ export interface WeekRangeOption {
   value: string;
 }
 
-export type BottleneckTheme = 'alexandrite' | 'magical' | 'orange';
+export type BottleneckTheme = ThemePalette;
 
 export interface BottleneckCard {
   id: string;
@@ -52,7 +50,7 @@ export interface BottleneckCard {
 
 export type WorkforceTrendMetricId = 'attrition' | 'promotions' | 'transfers' | 'backfills';
 
-export type WorkforceTrendColorToken = 'vivid-pink' | 'bright-blue' | 'alexandrite' | 'orange';
+export type WorkforceTrendColorToken = ThemePalette;
 
 export interface WorkforceTrendSeries {
   id: WorkforceTrendMetricId;
@@ -89,14 +87,14 @@ export interface FunnelStage {
   label: string;
   count: number;
   conversionPct?: number;
-  colorZone: 'blue' | 'orange';
+  colorZone: 'primary' | 'amber';
 }
 
 export interface StageDuration {
   fromStage: string;
   toStage: string;
   days: number;
-  colorToken: 'chart-blue' | 'chart-purple' | 'attention';
+  colorToken: ThemePalette;
 }
 
 export type StageDurationColorToken = StageDuration['colorToken'];

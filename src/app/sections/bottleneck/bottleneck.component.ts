@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
 import { BottleneckCard, BottleneckTheme } from '../../models/dashboard.models';
+import { themePaletteTint, themePaletteVar } from '../../theme/theme-colors';
 
 interface BottleneckThemeConfig {
   iconClass: string;
@@ -17,20 +18,22 @@ export class BottleneckComponent {
 
   themeConfig(theme: BottleneckTheme): BottleneckThemeConfig {
     switch (theme) {
-      case 'alexandrite':
+      case 'teal':
         return { iconClass: 'pi pi-clock' };
-      case 'magical':
+      case 'primary':
         return { iconClass: 'pi pi-user' };
-      case 'orange':
+      case 'amber':
         return { iconClass: 'pi pi-calendar' };
+      default:
+        return { iconClass: 'pi pi-info-circle' };
     }
   }
 
   colorVar(theme: BottleneckTheme): string {
-    return `var(--${theme})`;
+    return themePaletteVar(theme, 600);
   }
 
   iconBg(theme: BottleneckTheme): string {
-    return `color-mix(in oklch, ${this.colorVar(theme)} 14%, white)`;
+    return themePaletteTint(theme, 600);
   }
 }

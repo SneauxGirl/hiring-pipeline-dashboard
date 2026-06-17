@@ -20,6 +20,7 @@ import {
   WorkforceTrendSeries,
   WorkforceTrends,
 } from '../../models/dashboard.models';
+import { readPaletteColor, readThemeVar, themeBorderColor } from '../../theme/theme-colors';
 
 type TrendsViewMode = 'chart' | 'table';
 
@@ -185,7 +186,7 @@ export class TrendsComponent implements OnDestroy {
       data: {
         labels: [...MONTH_LABELS],
         datasets: this.trends.series.map((series) => {
-          const color = this.colorVar(series.colorToken);
+          const color = readPaletteColor(series.colorToken, 600);
           const paleColor = this.paleColor(series.colorToken);
 
           return {
@@ -226,12 +227,12 @@ export class TrendsComponent implements OnDestroy {
               usePointStyle: true,
               pointStyle: 'circle',
               padding: 20,
-              color: this.colorVar('gray-900'),
+              color: readThemeVar('text-color'),
               font: { family: this.fontFamily(), size: 14 },
             },
           },
           tooltip: {
-            backgroundColor: this.colorVar('gray-900'),
+            backgroundColor: readThemeVar('text-color'),
             titleFont: { family: this.fontFamily(), size: 14, weight: 'bold' },
             bodyFont: { family: this.fontFamily(), size: 14 },
             padding: 12,
@@ -255,7 +256,7 @@ export class TrendsComponent implements OnDestroy {
             grid: { display: false },
             border: { color: this.gridColor() },
             ticks: {
-              color: this.colorVar('gray-700'),
+              color: readThemeVar('text-muted-color'),
               font: { family: this.fontFamily(), size: 14 },
               maxRotation: 0,
               autoSkip: false,
@@ -272,7 +273,7 @@ export class TrendsComponent implements OnDestroy {
             },
             ticks: {
               stepSize: 6,
-              color: this.colorVar('gray-700'),
+              color: readThemeVar('text-muted-color'),
               font: { family: this.fontFamily(), size: 14 },
               padding: 8,
             },
@@ -282,21 +283,13 @@ export class TrendsComponent implements OnDestroy {
     };
   }
 
-  private colorVar(token: WorkforceTrendColorToken | 'gray-900' | 'gray-700' | 'gray-400'): string {
-    if (!isPlatformBrowser(this.platformId)) {
-      return '';
-    }
-
-    return getComputedStyle(document.documentElement).getPropertyValue(`--${token}`).trim();
-  }
-
   private paleColor(token: WorkforceTrendColorToken): string {
-    const base = this.colorVar(token);
-    return `color-mix(in oklch, ${base} 38%, white)`;
+    const base = readPaletteColor(token, 600);
+    return `color-mix(in srgb, ${base} 38%, white)`;
   }
 
   private gridColor(): string {
-    return `color-mix(in oklch, ${this.colorVar('gray-400')} 35%, white)`;
+    return themeBorderColor();
   }
 
   private fontFamily(): string {

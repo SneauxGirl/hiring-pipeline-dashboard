@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
-import { KpiColorToken, KpiMetric, KpiTrendDirection } from '../../models/dashboard.models';
+import { KpiMetric, KpiTrendDirection } from '../../models/dashboard.models';
+import { themeMutedColor, themePaletteVar } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-kpi',
@@ -11,8 +12,8 @@ import { KpiColorToken, KpiMetric, KpiTrendDirection } from '../../models/dashbo
 export class KpiComponent {
   @Input({ required: true }) kpis: KpiMetric[] = [];
 
-  colorVar(token: KpiColorToken): string {
-    return `var(--${token})`;
+  colorVar(token: KpiMetric['colorToken']): string {
+    return themePaletteVar(token, 600);
   }
 
   trendIcon(trend?: KpiTrendDirection): string | null {
@@ -27,6 +28,6 @@ export class KpiComponent {
   }
 
   trendColor(kpi: KpiMetric): string {
-    return kpi.trend === 'neutral' ? 'var(--gray-700)' : this.colorVar(kpi.colorToken);
+    return kpi.trend === 'neutral' ? themeMutedColor() : this.colorVar(kpi.colorToken);
   }
 }

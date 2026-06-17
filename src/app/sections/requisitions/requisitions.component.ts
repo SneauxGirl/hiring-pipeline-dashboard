@@ -2,8 +2,16 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
 import { OpenRequisition, OpenRequisitionsData } from '../../models/dashboard.models';
+import { ThemePalette, themePaletteTint, themePaletteVar } from '../../theme/theme-colors';
 
-type BadgeTone = 'alexandrite' | 'magical' | 'orange' | 'hot-red';
+type BadgeTone = 'success' | 'info' | 'warn' | 'danger';
+
+const BADGE_PALETTE: Record<BadgeTone, ThemePalette> = {
+  success: 'teal',
+  info: 'primary',
+  warn: 'amber',
+  danger: 'red',
+};
 
 @Component({
   selector: 'app-requisitions',
@@ -16,22 +24,22 @@ export class RequisitionsComponent {
   stageTone(stage: string): BadgeTone {
     switch (stage) {
       case 'Final Round':
-        return 'alexandrite';
+        return 'success';
       case 'Interview':
-        return 'magical';
+        return 'info';
       default:
-        return 'orange';
+        return 'warn';
     }
   }
 
   riskTone(risk: OpenRequisition['risk']): BadgeTone {
     switch (risk) {
       case 'low':
-        return 'alexandrite';
+        return 'success';
       case 'medium':
-        return 'orange';
+        return 'warn';
       case 'high':
-        return 'hot-red';
+        return 'danger';
     }
   }
 
@@ -40,10 +48,10 @@ export class RequisitionsComponent {
   }
 
   badgeBackground(tone: BadgeTone): string {
-    return `color-mix(in oklch, var(--${tone}) 16%, white)`;
+    return themePaletteTint(BADGE_PALETTE[tone], 600);
   }
 
   badgeColor(tone: BadgeTone): string {
-    return `var(--${tone})`;
+    return themePaletteVar(BADGE_PALETTE[tone], 700);
   }
 }

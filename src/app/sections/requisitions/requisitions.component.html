@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-4">
     <div class="flex items-start justify-between gap-3">
       <h2
-        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-color"
       >
         Open requisitions
       </h2>
       <a
         href="#"
-        class="inline-flex shrink-0 items-center gap-1 text-[length:var(--font-size-label)] text-[var(--gray-700)] no-underline hover:text-[var(--gray-900)] hover:underline"
+        class="inline-flex shrink-0 items-center gap-1 text-[length:var(--font-size-label)] text-muted-color no-underline hover:text-color hover:underline"
       >
         View all
         <span class="pi pi-arrow-right text-xs" aria-hidden="true"></span>
@@ -21,35 +21,35 @@
           <tr>
             <th
               scope="col"
-              class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+              class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
             >
               Role
             </th>
             <th
               scope="col"
-              class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+              class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
             >
               Candidates
             </th>
             <th
               scope="col"
-              class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+              class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
             >
               Stage
             </th>
             <th
               scope="col"
-              class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+              class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
             >
               Days open
             </th>
             <th
               scope="col"
-              class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+              class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
             >
               Risk
             </th>
-            <th scope="col" class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3">
+            <th scope="col" class="border-b border-surface pb-3">
               <span class="sr-only">Actions</span>
             </th>
           </tr>
@@ -59,17 +59,17 @@
             <tr>
               <th
                 scope="row"
-                class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3 pr-4 text-left font-bold text-[var(--gray-900)]"
+                class="border-b border-surface py-3 pr-4 text-left font-bold text-color"
               >
                 {{ req.role }}
               </th>
-              <td class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3">
-                <span class="inline-flex items-center gap-1.5 text-[var(--gray-900)]">
+              <td class="border-b border-surface py-3">
+                <span class="inline-flex items-center gap-1.5 text-color">
                   {{ req.candidates }}
-                  <span class="pi pi-users text-sm text-[var(--gray-700)]" aria-hidden="true"></span>
+                  <span class="pi pi-users text-sm text-muted-color" aria-hidden="true"></span>
                 </span>
               </td>
-              <td class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3">
+              <td class="border-b border-surface py-3">
                 @if (stageTone(req.stage); as tone) {
                   <span
                     class="inline-block rounded-full px-2.5 py-0.5 text-[length:var(--font-size-label)] font-medium"
@@ -81,11 +81,11 @@
                 }
               </td>
               <td
-                class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3 text-[var(--gray-900)]"
+                class="border-b border-surface py-3 text-color"
               >
                 {{ req.daysOpen }}
               </td>
-              <td class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3">
+              <td class="border-b border-surface py-3">
                 @if (riskTone(req.risk); as tone) {
                   <span
                     class="inline-block rounded-full px-2.5 py-0.5 text-[length:var(--font-size-label)] font-medium"
@@ -96,10 +96,10 @@
                   </span>
                 }
               </td>
-              <td class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3 text-right">
+              <td class="border-b border-surface py-3 text-right">
                 <button
                   type="button"
-                  class="inline-flex cursor-pointer items-center justify-center border-0 bg-transparent p-1 text-[var(--gray-700)] hover:text-[var(--gray-900)]"
+                  class="inline-flex cursor-pointer items-center justify-center border-0 bg-transparent p-1 text-muted-color hover:text-color"
                   [attr.aria-label]="'Actions for ' + req.role"
                 >
                   <span class="pi pi-ellipsis-v" aria-hidden="true"></span>
@@ -114,7 +114,7 @@
     @if (requisitions.moreCount > 0) {
       <button
         type="button"
-        class="self-start rounded-full border border-[color-mix(in_oklch,var(--gray-400)_35%,white)] bg-[color-mix(in_oklch,var(--gray-400)_12%,white)] px-3 py-1.5 text-[length:var(--font-size-label)] font-medium text-[var(--gray-700)]"
+        class="self-start rounded-full border border-surface bg-surface-100 px-3 py-1.5 text-[length:var(--font-size-label)] font-medium text-muted-color"
       >
         + {{ requisitions.moreCount }} more roles
       </button>

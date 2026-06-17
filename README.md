@@ -2,7 +2,7 @@
 
 Work in progress: Hiring-manager dashboard. Built in Angular, with Typescript and Tailwind and using PrimeNG components. Mocked with dummy data.
 
-**Live demo:** [pipeline-dashboard-liyudev.vercel.app](http://pipeline-dashboard-liyudev.vercel.app/)
+**Live demo:** [pipeline-dashboard-seven-chi.vercel.app/](https://pipeline-dashboard-seven-chi.vercel.app/)
 
 ## Current Stage
 

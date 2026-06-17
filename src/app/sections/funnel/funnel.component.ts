@@ -7,6 +7,7 @@ import {
   StageDuration,
   StageDurationColorToken,
 } from '../../models/dashboard.models';
+import { themePaletteVar } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-funnel',
@@ -40,13 +41,13 @@ export class FunnelComponent {
   }
 
   barColor(stage: FunnelStage, index: number): string {
-    if (stage.colorZone === 'blue') {
-      const mixes = [96, 82, 68];
-      return `color-mix(in oklch, var(--bright-blue) ${mixes[index] ?? 68}%, white)`;
+    if (stage.colorZone === 'primary') {
+      const shades = [200, 300, 400] as const;
+      return themePaletteVar('primary', shades[index] ?? 400);
     }
 
-    const mixes = [90, 74, 58];
-    return `color-mix(in oklch, var(--orange-red) ${mixes[index - 3] ?? 58}%, white)`;
+    const shades = [200, 300, 400] as const;
+    return themePaletteVar('amber', shades[index - 3] ?? 400);
   }
 
   stageTitle(stage: FunnelStage): string {
@@ -70,6 +71,6 @@ export class FunnelComponent {
   }
 
   durationColor(token: StageDurationColorToken): string {
-    return `var(--${token})`;
+    return themePaletteVar(token, 500);
   }
 }

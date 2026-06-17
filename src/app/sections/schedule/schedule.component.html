@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-4">
     <div class="flex items-start justify-between gap-3">
       <h2
-        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-color"
       >
         Upcoming interviews
       </h2>
       <a
         href="#"
-        class="shrink-0 text-[length:var(--font-size-label)] text-[var(--gray-700)] no-underline hover:underline"
+        class="shrink-0 text-[length:var(--font-size-label)] text-muted-color no-underline hover:underline"
       >
         View calendar
       </a>
@@ -29,7 +29,7 @@
               @if (candidateFor(interview); as candidate) {
                 <li class="flex items-center gap-3">
                   <span
-                    class="w-[5.5rem] shrink-0 text-[length:var(--font-size-label)] text-[var(--gray-700)]"
+                    class="w-[5.5rem] shrink-0 text-[length:var(--font-size-label)] text-muted-color"
                   >
                     {{ interview.timeLabel }}
                   </span>
@@ -37,19 +37,19 @@
                   <div class="min-w-0 flex-1">
                     <button
                       type="button"
-                      class="m-0 cursor-pointer border-0 bg-transparent p-0 text-left text-base font-bold text-[var(--gray-900)] hover:underline"
+                      class="m-0 cursor-pointer border-0 bg-transparent p-0 text-left text-base font-bold text-color hover:underline"
                       (click)="openCandidate(candidate.id)"
                     >
                       {{ candidate.name }}
                     </button>
-                    <div class="truncate text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+                    <div class="truncate text-[length:var(--font-size-label)] text-muted-color">
                       {{ candidate.roleTitle }}
                     </div>
                   </div>
 
                   <a
                     href="#"
-                    class="shrink-0 text-[var(--gray-700)] no-underline hover:text-[var(--gray-900)]"
+                    class="shrink-0 text-muted-color no-underline hover:text-color"
                     [attr.aria-label]="'Zoom link for ' + candidate.name"
                   >
                     <span class="pi pi-users text-lg" aria-hidden="true"></span>
@@ -61,7 +61,7 @@
         </section>
 
         @if (!last) {
-          <hr class="m-0 border-0 border-t border-[color-mix(in_oklch,var(--gray-400)_35%,white)]" />
+          <hr class="m-0 border-0 border-t border-surface" />
         }
       }
     }
@@ -81,10 +81,10 @@
   (onHide)="closeCandidateDialog()"
 >
   @if (selectedCandidate; as candidate) {
-    <p class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]">
+    <p class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color">
       {{ candidate.roleTitle }}
     </p>
-    <p class="m-0 text-[length:var(--font-size-body)] leading-relaxed text-[var(--gray-900)]">
+    <p class="m-0 text-[length:var(--font-size-body)] leading-relaxed text-color">
       {{ candidate.roleSpecs }}
     </p>
   }

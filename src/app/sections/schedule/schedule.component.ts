@@ -9,6 +9,7 @@ import {
   ScheduleGroupColorToken,
   ScheduleInterview,
 } from '../../models/dashboard.models';
+import { themePaletteVar } from '../../theme/theme-colors';
 
 interface ScheduleGroupConfig {
   key: ScheduleGroup;
@@ -29,9 +30,9 @@ export class ScheduleComponent {
   selectedCandidate: CandidateProfile | null = null;
 
   readonly groupConfigs: ScheduleGroupConfig[] = [
-    { key: 'today', label: 'Today', colorToken: 'bright-blue' },
-    { key: 'tomorrow', label: 'Tomorrow', colorToken: 'electric-violet' },
-    { key: 'this-week', label: 'This week', colorToken: 'orange-red' },
+    { key: 'today', label: 'Today', colorToken: 'primary' },
+    { key: 'tomorrow', label: 'Tomorrow', colorToken: 'teal' },
+    { key: 'this-week', label: 'This week', colorToken: 'amber' },
   ];
 
   interviewsForGroup(group: ScheduleGroup): ScheduleInterview[] {
@@ -43,7 +44,7 @@ export class ScheduleComponent {
   }
 
   colorVar(token: ScheduleGroupColorToken): string {
-    return `var(--${token})`;
+    return themePaletteVar(token, 600);
   }
 
   openCandidate(candidateId: string): void {

@@ -1,5 +1,5 @@
 <header
-  class="flex items-center justify-between gap-3 border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] bg-white px-[var(--dashboard-margin)] py-3"
+  class="flex items-center justify-between gap-3 border-b border-surface bg-surface-0 px-[var(--dashboard-margin)] py-3"
   aria-label="Mobile navigation"
 >
   <p-button
@@ -12,14 +12,14 @@
   />
 
   <div
-    class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-widest text-[var(--bright-blue)]"
+    class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-widest text-primary"
   >
     Pipeline
   </div>
 
   <div class="flex min-w-0 items-center gap-2">
     <p-avatar [label]="userInitials" shape="circle" aria-hidden="true" />
-    <span class="truncate text-[length:var(--font-size-label)] font-medium text-[var(--gray-900)]">{{ user.name }}</span>
+    <span class="truncate text-[length:var(--font-size-label)] font-medium text-color">{{ user.name }}</span>
   </div>
 </header>
 
@@ -33,7 +33,7 @@
 >
   <ng-template #header>
     <span
-      class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-wide text-[var(--gray-900)]"
+      class="font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-sm)] font-semibold uppercase tracking-wide text-color"
     >
       Menu
     </span>
@@ -41,13 +41,13 @@
 
   <div class="flex flex-col gap-4">
     <div
-      class="flex items-center gap-3 border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-4"
+      class="flex items-center gap-3 border-b border-surface pb-4"
       aria-label="Signed in user"
     >
       <p-avatar [label]="userInitials" shape="circle" aria-hidden="true" />
       <div class="min-w-0">
-        <div class="truncate text-base font-medium text-[var(--gray-900)]">{{ user.name }}</div>
-        <div class="truncate text-[length:var(--font-size-label)] text-[var(--gray-700)]">{{ user.title }}</div>
+        <div class="truncate text-base font-medium text-color">{{ user.name }}</div>
+        <div class="truncate text-[length:var(--font-size-label)] text-muted-color">{{ user.title }}</div>
       </div>
     </div>
 

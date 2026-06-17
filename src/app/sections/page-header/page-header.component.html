@@ -1,18 +1,18 @@
 <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
   <div class="min-w-0">
     <h1
-      class="m-0 font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-lg)] font-semibold leading-tight text-[var(--gray-900)]"
+      class="m-0 font-[family-name:var(--font-heading)] text-[length:var(--font-size-heading-lg)] font-semibold leading-tight text-color"
     >
       <span class="font-[family-name:var(--font-accent)] text-[1.15em] font-normal">{{ timeGreeting }}</span
       >{{ firstName }}.
     </h1>
-    <p class="m-0 mt-1 text-[length:var(--font-size-label)] font-normal text-[var(--gray-700)]">
+    <p class="m-0 mt-1 text-[length:var(--font-size-label)] font-normal text-muted-color">
       Here's what's happening with your hiring.
     </p>
   </div>
 
   <div class="flex shrink-0 items-center gap-2 self-start sm:self-center">
-    <span class="pi pi-calendar text-[var(--gray-700)]" aria-hidden="true"></span>
+    <span class="pi pi-calendar text-muted-color" aria-hidden="true"></span>
     <p-select
       [options]="weekOptions"
       [(ngModel)]="selectedWeek"

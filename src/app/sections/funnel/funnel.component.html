@@ -2,11 +2,11 @@
   <div class="flex flex-col gap-4">
     <div>
       <h2
-        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-color"
       >
         Recruitment funnel
       </h2>
-      <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+      <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-muted-color">
         N of applicants (% of going to next stage)
       </p>
     </div>
@@ -15,7 +15,7 @@
       @for (stage of funnelStages; track stage.stageKey; let index = $index) {
         <div class="flex min-w-0 items-center gap-3">
           <span
-            class="w-[9.5rem] shrink-0 truncate text-[length:var(--font-size-label)] text-[var(--gray-700)] sm:w-[11rem]"
+            class="w-[9.5rem] shrink-0 truncate text-[length:var(--font-size-label)] text-muted-color sm:w-[11rem]"
             [title]="stageTitle(stage)"
           >
             {{ stageTitle(stage) }}
@@ -23,7 +23,7 @@
 
           <div class="flex min-w-0 flex-1 justify-center">
             <div
-              class="flex h-7 min-w-[3rem] items-center rounded-[4px] px-2 text-[length:var(--font-size-label)] font-medium text-[var(--gray-900)]"
+              class="flex h-7 min-w-[3rem] items-center rounded-[4px] px-2 text-[length:var(--font-size-label)] font-medium text-color"
               [style.width]="barWidth(stage.count)"
               [style.background]="barColor(stage, index)"
             >
@@ -41,27 +41,27 @@
 
     <div class="flex justify-center">
       <div
-        class="inline-flex items-center gap-1 border border-[color-mix(in_oklch,var(--gray-400)_35%,white)] px-2 py-0.5 text-[length:var(--font-size-label)] text-[var(--gray-700)]"
+        class="inline-flex items-center gap-1 border border-surface px-2 py-0.5 text-[length:var(--font-size-label)] text-muted-color"
         aria-label="Overall funnel conversion"
       >
-        <span class="border-l border-[var(--gray-700)] pl-1">{{ overallConversionPct }}%</span>
+        <span class="border-l border-surface-400 pl-1">{{ overallConversionPct }}%</span>
       </div>
     </div>
 
     <section
-      class="border-t border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pt-4"
+      class="border-t border-surface pt-4"
       aria-label="Average days between funnel stages"
     >
       <h3
-        class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.1em] text-[var(--gray-900)]"
+        class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.1em] text-color"
       >
         Days to go through stages
       </h3>
 
-      <div class="flex h-10 w-full overflow-hidden rounded-[var(--radius-md)]">
+      <div class="flex h-10 w-full overflow-hidden rounded-border">
         @for (segment of stageDurations; track $index; let index = $index) {
           <div
-            class="flex min-w-0 items-center justify-center text-[length:var(--font-size-label)] font-medium text-[var(--gray-900)]"
+            class="flex min-w-0 items-center justify-center text-[length:var(--font-size-label)] font-medium text-color"
             [style.width]="segmentWidth(segment.days)"
             [style.background]="durationColor(segment.colorToken)"
             [attr.title]="durationLabel(index) + ': ' + segment.days + ' days'"
@@ -75,7 +75,7 @@
 
       <ul class="m-0 mt-3 flex list-none flex-wrap gap-x-4 gap-y-2 p-0">
         @for (segment of stageDurations; track $index; let index = $index) {
-          <li class="flex items-center gap-1.5 text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+          <li class="flex items-center gap-1.5 text-[length:var(--font-size-label)] text-muted-color">
             <span
               class="h-2.5 w-2.5 shrink-0 rounded-full"
               [style.background]="durationColor(segment.colorToken)"

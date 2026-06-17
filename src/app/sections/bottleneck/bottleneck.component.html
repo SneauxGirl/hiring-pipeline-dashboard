@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
       <h2
-        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-color"
       >
         Bottlenecks
       </h2>
       <button
         type="button"
-        class="inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-[var(--gray-700)] hover:text-[var(--gray-900)]"
+        class="inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-muted-color hover:text-color"
         aria-label="About bottlenecks"
       >
         <span class="pi pi-info-circle text-sm" aria-hidden="true"></span>
@@ -18,12 +18,12 @@
     <ul class="m-0 flex list-none flex-col gap-3 p-0">
       @for (bottleneck of bottlenecks; track bottleneck.id) {
         <li
-          class="flex items-center gap-3 rounded-[var(--radius-md)] border border-[color-mix(in_oklch,var(--gray-400)_35%,white)] p-3"
+          class="flex items-center gap-3 rounded-border border border-surface p-3"
           [style.border-inline-start-width]="'3px'"
           [style.border-inline-start-color]="colorVar(bottleneck.theme)"
         >
           <span
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] text-base"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-border text-base"
             [style.background]="iconBg(bottleneck.theme)"
             [style.color]="colorVar(bottleneck.theme)"
             aria-hidden="true"
@@ -32,8 +32,8 @@
           </span>
 
           <div class="min-w-0 flex-1">
-            <div class="text-base font-bold text-[var(--gray-900)]">{{ bottleneck.title }}</div>
-            <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+            <div class="text-base font-bold text-color">{{ bottleneck.title }}</div>
+            <div class="text-[length:var(--font-size-label)] text-muted-color">
               {{ bottleneck.subtitle }}
             </div>
           </div>
@@ -46,7 +46,7 @@
               >
                 {{ bottleneck.candidateCount }}
               </div>
-              <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+              <div class="text-[length:var(--font-size-label)] text-muted-color">
                 candidates
               </div>
             </div>
@@ -57,7 +57,7 @@
               >
                 {{ bottleneck.avgMetric }} days
               </div>
-              <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+              <div class="text-[length:var(--font-size-label)] text-muted-color">
                 {{ bottleneck.avgLabel }}
               </div>
             </div>

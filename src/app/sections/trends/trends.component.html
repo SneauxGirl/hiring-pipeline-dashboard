@@ -3,11 +3,11 @@
     <div class="flex items-start justify-between gap-3">
       <div class="min-w-0">
         <h2
-          class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+          class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-color"
         >
           Workforce movement trends
         </h2>
-        <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+        <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-muted-color">
           Quarterly workforce movement patterns that drive future hiring demand.
         </p>
       </div>
@@ -34,14 +34,14 @@
             <tr>
               <th
                 scope="col"
-                class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+                class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
               >
                 Quarter
               </th>
               @for (series of trends.series; track series.id) {
                 <th
                   scope="col"
-                  class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-[var(--gray-700)]"
+                  class="border-b border-surface pb-3 text-left text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.08em] text-muted-color"
                 >
                   {{ series.label }}
                 </th>
@@ -53,22 +53,22 @@
               <tr>
                 <th
                   scope="row"
-                  class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3 pr-4 text-left font-bold text-[var(--gray-900)]"
+                  class="border-b border-surface py-3 pr-4 text-left font-bold text-color"
                 >
                   {{ quarter.label }}
                   @if (isPriorMonth(quarter.monthIndex)) {
-                    <span class="ml-1 text-[length:var(--font-size-label)] font-normal text-[var(--gray-700)]">
+                    <span class="ml-1 text-[length:var(--font-size-label)] font-normal text-muted-color">
                       '{{ priorYearShort() }}
                     </span>
                   }
                 </th>
                 @for (series of trends.series; track series.id) {
                   <td
-                    class="border-b border-[color-mix(in_oklch,var(--gray-400)_35%,white)] py-3"
+                    class="border-b border-surface py-3"
                     [class.font-bold]="!isPriorMonth(quarter.monthIndex)"
-                    [class.text-[var(--gray-900)]]="!isPriorMonth(quarter.monthIndex)"
+                    [class.text-color]="!isPriorMonth(quarter.monthIndex)"
                     [class.font-normal]="isPriorMonth(quarter.monthIndex)"
-                    [class.text-[var(--gray-700)]]="isPriorMonth(quarter.monthIndex)"
+                    [class.text-muted-color]="isPriorMonth(quarter.monthIndex)"
                   >
                     {{ valueForMonth(series, quarter.monthIndex) }}
                   </td>
