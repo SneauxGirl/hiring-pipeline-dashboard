@@ -6,15 +6,15 @@ import { Menu } from 'primeng/menu';
 import { DashboardUser, NavItem } from '../../models/dashboard.models';
 
 @Component({
-  selector: 'app-sidebar-nav-section',
+  selector: 'app-sidebar-nav',
   imports: [Menu, Avatar],
-  templateUrl: './sidebar-nav-section.component.html',
+  templateUrl: './sidebar-nav.component.html',
   host: {
     class:
       'sidebar-shell hidden md:flex md:sticky md:top-0 md:h-screen md:shrink-0 md:self-start md:overflow-hidden md:transition-[width] md:duration-200 md:ease-out',
   },
 })
-export class SidebarNavSectionComponent {
+export class SidebarNavComponent {
   @Input({ required: true }) navItems: NavItem[] = [];
   @Input({ required: true }) user!: DashboardUser;
   @Input() collapsed = false;

@@ -17,11 +17,11 @@ interface ScheduleGroupConfig {
 }
 
 @Component({
-  selector: 'app-schedule-section',
+  selector: 'app-schedule',
   imports: [Button, Card, Dialog],
-  templateUrl: './schedule-section.component.html',
+  templateUrl: './schedule.component.html',
 })
-export class ScheduleSectionComponent {
+export class ScheduleComponent {
   @Input({ required: true }) schedule: ScheduleInterview[] = [];
   @Input({ required: true }) candidates: CandidateProfile[] = [];
 

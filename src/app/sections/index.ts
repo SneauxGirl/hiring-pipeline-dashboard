@@ -1,5 +1,6 @@
-export { HeaderSectionComponent } from './header-section/header-section.component';
-export { KpiSectionComponent } from './kpi-section/kpi-section.component';
-export { PageHeaderSectionComponent } from './page-header-section/page-header-section.component';
-export { ScheduleSectionComponent } from './schedule-section/schedule-section.component';
-export { SidebarNavSectionComponent } from './sidebar-nav-section/sidebar-nav-section.component';
+export { BottleneckComponent } from './bottleneck/bottleneck.component';
+export { KpiComponent } from './kpi/kpi.component';
+export { MobileHeaderComponent } from './mobile-header/mobile-header.component';
+export { PageHeaderComponent } from './page-header/page-header.component';
+export { ScheduleComponent } from './schedule/schedule.component';
+export { SidebarNavComponent } from './sidebar-nav/sidebar-nav.component';

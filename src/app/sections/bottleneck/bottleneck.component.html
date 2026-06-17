@@ -1,0 +1,69 @@
+<p-card styleClass="dashboard-card">
+  <div class="flex flex-col gap-4">
+    <div class="flex items-center gap-2">
+      <h2
+        class="m-0 text-[length:var(--font-size-label)] font-bold uppercase tracking-[0.12em] text-[var(--gray-900)]"
+      >
+        Bottlenecks
+      </h2>
+      <button
+        type="button"
+        class="inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-[var(--gray-700)] hover:text-[var(--gray-900)]"
+        aria-label="About bottlenecks"
+      >
+        <span class="pi pi-info-circle text-sm" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <ul class="m-0 flex list-none flex-col gap-3 p-0">
+      @for (bottleneck of bottlenecks; track bottleneck.id) {
+        <li
+          class="flex items-center gap-3 rounded-[var(--radius-md)] border border-[color-mix(in_oklch,var(--gray-400)_35%,white)] p-3"
+          [style.border-inline-start-width]="'3px'"
+          [style.border-inline-start-color]="colorVar(bottleneck.theme)"
+        >
+          <span
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] text-base"
+            [style.background]="iconBg(bottleneck.theme)"
+            [style.color]="colorVar(bottleneck.theme)"
+            aria-hidden="true"
+          >
+            <span [class]="themeConfig(bottleneck.theme).iconClass"></span>
+          </span>
+
+          <div class="min-w-0 flex-1">
+            <div class="text-base font-bold text-[var(--gray-900)]">{{ bottleneck.title }}</div>
+            <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+              {{ bottleneck.subtitle }}
+            </div>
+          </div>
+
+          <div class="flex shrink-0 items-center gap-4 text-right sm:gap-5">
+            <div>
+              <div
+                class="text-base font-bold leading-tight"
+                [style.color]="colorVar(bottleneck.theme)"
+              >
+                {{ bottleneck.candidateCount }}
+              </div>
+              <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+                candidates
+              </div>
+            </div>
+            <div>
+              <div
+                class="text-base font-bold leading-tight"
+                [style.color]="colorVar(bottleneck.theme)"
+              >
+                {{ bottleneck.avgMetric }} days
+              </div>
+              <div class="text-[length:var(--font-size-label)] text-[var(--gray-700)]">
+                {{ bottleneck.avgLabel }}
+              </div>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</p-card>

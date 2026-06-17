@@ -5,11 +5,11 @@ import { Select } from 'primeng/select';
 import { DashboardUser, WeekRangeOption } from '../../models/dashboard.models';
 
 @Component({
-  selector: 'app-page-header-section',
+  selector: 'app-page-header',
   imports: [FormsModule, Select],
-  templateUrl: './page-header-section.component.html',
+  templateUrl: './page-header.component.html',
 })
-export class PageHeaderSectionComponent implements OnInit {
+export class PageHeaderComponent implements OnInit {
   @Input({ required: true }) user!: DashboardUser;
 
   weekOptions: WeekRangeOption[] = [];
@@ -20,7 +20,7 @@ export class PageHeaderSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.weekOptions = this.buildWeekOptions();
-    this.selectedWeek = this.weekOptions[PageHeaderSectionComponent.weeksBefore]?.value ?? '';
+    this.selectedWeek = this.weekOptions[PageHeaderComponent.weeksBefore]?.value ?? '';
   }
 
   get firstName(): string {
@@ -42,7 +42,7 @@ export class PageHeaderSectionComponent implements OnInit {
     const currentWeekStart = this.startOfWeek(new Date());
     const options: WeekRangeOption[] = [];
 
-    for (let offset = -PageHeaderSectionComponent.weeksBefore; offset < PageHeaderSectionComponent.weekCount - PageHeaderSectionComponent.weeksBefore; offset++) {
+    for (let offset = -PageHeaderComponent.weeksBefore; offset < PageHeaderComponent.weekCount - PageHeaderComponent.weeksBefore; offset++) {
       const start = new Date(currentWeekStart);
       start.setDate(start.getDate() + offset * 7);
       options.push({

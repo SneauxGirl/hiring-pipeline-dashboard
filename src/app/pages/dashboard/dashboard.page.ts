@@ -2,21 +2,23 @@ import { Component } from '@angular/core';
 
 import { MOCK_DASHBOARD } from '../../data/mock-dashboard.data';
 import {
-  HeaderSectionComponent,
-  KpiSectionComponent,
-  PageHeaderSectionComponent,
-  ScheduleSectionComponent,
-  SidebarNavSectionComponent,
+  BottleneckComponent,
+  KpiComponent,
+  MobileHeaderComponent,
+  PageHeaderComponent,
+  ScheduleComponent,
+  SidebarNavComponent,
 } from '../../sections';
 
 @Component({
   selector: 'app-dashboard-page',
   imports: [
-    HeaderSectionComponent,
-    KpiSectionComponent,
-    PageHeaderSectionComponent,
-    ScheduleSectionComponent,
-    SidebarNavSectionComponent,
+    BottleneckComponent,
+    KpiComponent,
+    MobileHeaderComponent,
+    PageHeaderComponent,
+    ScheduleComponent,
+    SidebarNavComponent,
   ],
   templateUrl: './dashboard.page.html',
 })

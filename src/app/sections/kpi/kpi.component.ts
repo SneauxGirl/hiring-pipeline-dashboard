@@ -4,11 +4,11 @@ import { Card } from 'primeng/card';
 import { KpiColorToken, KpiMetric, KpiTrendDirection } from '../../models/dashboard.models';
 
 @Component({
-  selector: 'app-kpi-section',
+  selector: 'app-kpi',
   imports: [Card],
-  templateUrl: './kpi-section.component.html',
+  templateUrl: './kpi.component.html',
 })
-export class KpiSectionComponent {
+export class KpiComponent {
   @Input({ required: true }) kpis: KpiMetric[] = [];
 
   colorVar(token: KpiColorToken): string {

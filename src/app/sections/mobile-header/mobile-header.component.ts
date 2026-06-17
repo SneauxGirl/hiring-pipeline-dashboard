@@ -8,12 +8,12 @@ import { Menu } from 'primeng/menu';
 import { DashboardUser, NavItem } from '../../models/dashboard.models';
 
 @Component({
-  selector: 'app-header-section',
+  selector: 'app-mobile-header',
   imports: [Button, Drawer, Menu, Avatar],
-  templateUrl: './header-section.component.html',
+  templateUrl: './mobile-header.component.html',
   host: { class: 'block md:hidden' },
 })
-export class HeaderSectionComponent {
+export class MobileHeaderComponent {
   @Input({ required: true }) user!: DashboardUser;
   @Input({ required: true }) navItems: NavItem[] = [];
 
