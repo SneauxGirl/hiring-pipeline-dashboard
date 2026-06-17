@@ -99,6 +99,8 @@ export interface StageDuration {
   colorToken: 'chart-blue' | 'chart-purple' | 'attention';
 }
 
+export type StageDurationColorToken = StageDuration['colorToken'];
+
 export interface NavItem {
   id: string;
   label: string;

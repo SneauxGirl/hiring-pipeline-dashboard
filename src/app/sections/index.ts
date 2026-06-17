@@ -1,4 +1,5 @@
 export { BottleneckComponent } from './bottleneck/bottleneck.component';
+export { FunnelComponent } from './funnel/funnel.component';
 export { KpiComponent } from './kpi/kpi.component';
 export { MobileHeaderComponent } from './mobile-header/mobile-header.component';
 export { PageHeaderComponent } from './page-header/page-header.component';

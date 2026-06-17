@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MOCK_DASHBOARD } from '../../data/mock-dashboard.data';
 import {
   BottleneckComponent,
+  FunnelComponent,
   KpiComponent,
   MobileHeaderComponent,
   PageHeaderComponent,
@@ -16,6 +17,7 @@ import {
   selector: 'app-dashboard-page',
   imports: [
     BottleneckComponent,
+    FunnelComponent,
     KpiComponent,
     MobileHeaderComponent,
     PageHeaderComponent,
