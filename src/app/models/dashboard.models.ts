@@ -15,15 +15,26 @@ export interface KpiMetric {
   colorToken: KpiColorToken;
 }
   
-  export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';
-  
-  export interface ScheduleInterview {
-    id: string;
-    timeLabel: string;
-    group: ScheduleGroup;
-    candidateName: string;
-    roleTitle: string;
-  }
+export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';
+
+export type ScheduleGroupColorToken =
+  | 'bright-blue'
+  | 'electric-violet'
+  | 'orange-red';
+
+export interface ScheduleInterview {
+  id: string;
+  timeLabel: string;
+  group: ScheduleGroup;
+  candidateId: string;
+}
+
+export interface CandidateProfile {
+  id: string;
+  name: string;
+  roleTitle: string;
+  roleSpecs: string;
+}
   
   export type BottleneckTheme = 'alexandrite' | 'magical' | 'orange';
   
@@ -89,6 +100,7 @@ export interface KpiMetric {
     user: DashboardUser;
     kpis: KpiMetric[];
     schedule: ScheduleInterview[];
+    candidates: CandidateProfile[];
     bottlenecks: BottleneckCard[];
     trends: TrendSeries[];
     openRequisitions: OpenRequisition[];

@@ -4,9 +4,14 @@
   <div class="flex min-w-0 flex-1 flex-col">
     <app-header-section [user]="data.user" [navItems]="data.navItems" />
 
-    <main class="dashboard-main flex flex-1 flex-col gap-5 py-5 md:py-6">
-      <app-page-header-section [user]="data.user" />
-      <app-kpi-section [kpis]="data.kpis" />
+    <main class="dashboard-main flex flex-1 flex-col gap-5 py-5 lg:flex-row lg:flex-wrap lg:py-6">
+      <app-page-header-section class="w-full min-w-0 lg:order-1" [user]="data.user" />
+      <app-kpi-section class="w-full min-w-0 lg:order-2" [kpis]="data.kpis" />
+      <app-schedule-section
+        class="w-full min-w-0 lg:order-6 lg:w-[calc(33.333%-0.67rem)]"
+        [schedule]="data.schedule"
+        [candidates]="data.candidates"
+      />
     </main>
   </div>
 </div>

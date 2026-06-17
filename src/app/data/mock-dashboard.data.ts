@@ -51,36 +51,68 @@ export const MOCK_DASHBOARD: DashboardData = {
       id: '1',
       timeLabel: '10:00 AM',
       group: 'today',
-      candidateName: 'Sarah Chen',
-      roleTitle: 'Senior Frontend Engineer',
+      candidateId: 'c-sarah-chen',
     },
     {
       id: '2',
-      timeLabel: '2:30 PM',
+      timeLabel: '1:30 PM',
       group: 'today',
-      candidateName: 'Marcus Webb',
-      roleTitle: 'Product Designer',
+      candidateId: 'c-mike-davis',
     },
     {
       id: '3',
-      timeLabel: '11:00 AM',
-      group: 'tomorrow',
-      candidateName: 'Priya Nair',
-      roleTitle: 'Backend Engineer',
+      timeLabel: '3:00 PM',
+      group: 'today',
+      candidateId: 'c-emma-white',
     },
     {
       id: '4',
-      timeLabel: 'Thu 10:30 AM',
-      group: 'this-week',
-      candidateName: 'Jordan Lee',
-      roleTitle: 'Data Analyst',
+      timeLabel: '11:00 AM',
+      group: 'tomorrow',
+      candidateId: 'c-james-patel',
     },
     {
       id: '5',
-      timeLabel: 'Fri 3:00 PM',
+      timeLabel: 'Thu 10:30 AM',
       group: 'this-week',
-      candidateName: 'Elena Vasquez',
+      candidateId: 'c-olivia-brown',
+    },
+  ],
+  candidates: [
+    {
+      id: 'c-sarah-chen',
+      name: 'Sarah Chen',
+      roleTitle: 'Senior Frontend Engineer',
+      roleSpecs:
+        '5+ years building responsive web apps with Angular or React. Leads UI implementation, mentors junior engineers, and partners with design on component systems.',
+    },
+    {
+      id: 'c-mike-davis',
+      name: 'Mike Davis',
+      roleTitle: 'Product Designer',
+      roleSpecs:
+        'End-to-end product designer with strong UX research and visual design skills. Portfolio should show mobile-first flows and design-system work.',
+    },
+    {
+      id: 'c-emma-white',
+      name: 'Emma White',
       roleTitle: 'Marketing Manager',
+      roleSpecs:
+        'B2B marketing lead with campaign strategy, demand gen, and cross-functional launch experience. Comfortable owning pipeline metrics and content calendar.',
+    },
+    {
+      id: 'c-james-patel',
+      name: 'James Patel',
+      roleTitle: 'Backend Engineer',
+      roleSpecs:
+        'Backend engineer focused on API design, data modeling, and service reliability. Experience with Node or Java and cloud-native deployment patterns.',
+    },
+    {
+      id: 'c-olivia-brown',
+      name: 'Olivia Brown',
+      roleTitle: 'Data Analyst',
+      roleSpecs:
+        'Analyst who translates hiring and business data into dashboards and recommendations. SQL, spreadsheet modeling, and clear stakeholder communication required.',
     },
   ],
   bottlenecks: [

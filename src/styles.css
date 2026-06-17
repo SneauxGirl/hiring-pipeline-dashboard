@@ -34,10 +34,11 @@
   --font-size-label: 0.875rem;
   --font-size-heading-sm: 1.125rem;
   --font-size-heading-md: 1.35rem;
+  --font-size-heading-lg: 1.75rem;
 
   --font-body: 'Sansation', sans-serif;
   --font-heading: 'Cormorant SC', serif;
-  --font-accent: 'Tangerine', cursive;
+  --font-accent: 'Birthstone', cursive;
 
   --radius-md: 10px;
   --dashboard-max-width: 1440px;
@@ -138,6 +139,17 @@
   }
 
   .kpi-card .p-card-body {
+    padding: 1rem 1.125rem;
+  }
+
+  .dashboard-card.p-card {
+    border: 1px solid color-mix(in oklch, var(--gray-400) 35%, white);
+    border-radius: var(--radius-md);
+    box-shadow: none;
+    background: #fff;
+  }
+
+  .dashboard-card .p-card-body {
     padding: 1rem 1.125rem;
   }
 }

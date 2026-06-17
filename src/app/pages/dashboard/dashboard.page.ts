@@ -5,6 +5,7 @@ import {
   HeaderSectionComponent,
   KpiSectionComponent,
   PageHeaderSectionComponent,
+  ScheduleSectionComponent,
   SidebarNavSectionComponent,
 } from '../../sections';
 
@@ -14,6 +15,7 @@ import {
     HeaderSectionComponent,
     KpiSectionComponent,
     PageHeaderSectionComponent,
+    ScheduleSectionComponent,
     SidebarNavSectionComponent,
   ],
   templateUrl: './dashboard.page.html',
