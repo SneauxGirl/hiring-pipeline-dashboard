@@ -12,6 +12,10 @@
     <main class="dashboard-main flex flex-1 flex-col gap-5 py-5 lg:flex-row lg:flex-wrap lg:py-6">
       <app-page-header class="w-full min-w-0 lg:order-1" [user]="data.user" />
       <app-kpi class="w-full min-w-0 lg:order-2" [kpis]="data.kpis" />
+      <app-requisitions
+        class="w-full min-w-0 lg:order-4 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)*0.65)]"
+        [requisitions]="data.openRequisitions"
+      />
       <app-schedule
         class="w-full min-w-0 lg:order-6 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)/3)]"
         [schedule]="data.schedule"
