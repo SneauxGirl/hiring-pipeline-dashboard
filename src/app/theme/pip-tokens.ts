@@ -6,11 +6,11 @@ export type PipSlot = 0 | 1 | 2 | 3 | 4 | 5;
 
 /** Mockup pastel cycle: teal → purple → orange → gold → pink → charcoal. */
 const SLOTS = [
-  { fill: '#d4ebe6', ink: '#5fae9d' },
-  { fill: '#e6dff5', ink: '#9485c0' },
-  { fill: '#ffe2cc', ink: '#e8945f' },
-  { fill: '#fff4cc', ink: '#c9a227' },
-  { fill: '#fad4e0', ink: '#d46a8a' },
+  { fill: '#e7f2f1', ink: '#008782' },
+  { fill: '#f0ebf6', ink: '#6b229c' },
+  { fill: '#f7ebe4', ink: '#cf4a10' },
+  { fill: '#f9f2e2', ink: '#cb911a' },
+  { fill: '#f9e8e8', ink: '#be7774' },
   { fill: '#e5e7eb', ink: '#4b5563' },
 ] as const;
 
@@ -27,19 +27,19 @@ export type PipResponsibility =
 
 export const PIP_TOKENS = {
   surface: {
-    page: '#FEFDFB',
+    page: '#FeFdFc',
     card: '#ffffff',
     border: '#e8e8e7',
     hover: '#eef1f5',
   },
   text: {
     color: '#374151',
-    soft: '#6b7280',
-    muted: '#9ca3af',
+    soft: '#4b5563',
+    muted: '#6b7280',
   },
   /** Lara shadow overrides — ink-tinted, slightly softer than default black rgba. */
   shadow: {
-    card: '0 1px 3px color-mix(in srgb, #374151 6%, transparent)',
+    card: '0 1px 3px color-mix(in srgb,rgb(42, 56, 78) 55%, transparent)',
     popover: '0 1px 4px color-mix(in srgb, #374151 8%, transparent)',
     select: '0 2px 10px color-mix(in srgb, #374151 9%, transparent)',
     modal: '0 2px 6px color-mix(in srgb, #374151 22%, transparent)',

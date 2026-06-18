@@ -28,7 +28,7 @@ export const MOCK_DASHBOARD: DashboardData = {
       valueUnit: 'days',
       delta: '5 days',
       trend: 'down',
-      colorSlot: 1,
+      colorSlot: 2,
     },
     {
       label: 'Offer Acceptance Rate',
@@ -36,7 +36,7 @@ export const MOCK_DASHBOARD: DashboardData = {
       valueUnit: '%',
       delta: '6% this month',
       trend: 'up',
-      colorSlot: 2,
+      colorSlot: 0,
     },
     {
       label: 'Expected Hires This Month',
