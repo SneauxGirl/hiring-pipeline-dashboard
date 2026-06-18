@@ -19,7 +19,13 @@ import {
   WorkforceTrendSeries,
   WorkforceTrends,
 } from '../../models/dashboard.models';
-import { readChartColor, readThemeVar, paleChartColor, themeBorderColor } from '../../theme/theme-colors';
+import { PipTrendMetricId } from '../../theme/pip-tokens';
+import {
+  readThemeVar,
+  themeBorderColor,
+  trendSeriesColor,
+  trendSeriesPriorColor,
+} from '../../theme/theme-colors';
 
 type TrendsViewMode = 'chart' | 'table';
 
@@ -185,8 +191,9 @@ export class TrendsComponent implements OnDestroy {
       data: {
         labels: [...MONTH_LABELS],
         datasets: this.trends.series.map((series) => {
-          const color = readChartColor(series.colorToken);
-          const paleColor = paleChartColor(series.colorToken);
+          const metricId = series.id as PipTrendMetricId;
+          const color = trendSeriesColor(metricId);
+          const priorColor = trendSeriesPriorColor(metricId);
 
           return {
             label: series.label,
@@ -197,7 +204,7 @@ export class TrendsComponent implements OnDestroy {
             ),
             borderColor: color,
             pointBackgroundColor: (ctx) =>
-              (ctx.dataIndex ?? 0) > currentMonthIndex ? paleColor : color,
+              (ctx.dataIndex ?? 0) > currentMonthIndex ? priorColor : color,
             pointBorderColor: '#fff',
             pointRadius: 0,
             pointHoverRadius: 5,
@@ -207,7 +214,7 @@ export class TrendsComponent implements OnDestroy {
             spanGaps: false,
             segment: {
               borderColor: (ctx) =>
-                (ctx.p1DataIndex ?? 0) > currentMonthIndex ? paleColor : color,
+                (ctx.p1DataIndex ?? 0) > currentMonthIndex ? priorColor : color,
               borderDash: (ctx) =>
                 (ctx.p1DataIndex ?? 0) > currentMonthIndex ? [5, 4] : undefined,
               borderWidth: (ctx) => ((ctx.p1DataIndex ?? 0) > currentMonthIndex ? 1.5 : 2.5),

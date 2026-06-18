@@ -1,90 +1,85 @@
 /**
- * Pip design tokens — single source of truth for colors.
- * Surfaces/text feed pip-preset.ts (Lara); chart/semantic colors are read directly in theme-colors.ts.
+ * Pip design tokens — single source of truth.
+ * Lara surfaces/text/primary are overridden in pip-preset.ts.
  */
-const AMBER = {
-  bg: '#fdf0e6',
-  text: '#cb6e1d',
-  light: '#f3d5b8',
-  mid: '#e5a96a',
-} as const;
+export type PipSlot = 0 | 1 | 2 | 3 | 4 | 5;
 
-const BLUE = {
-  bg: '#e6f6fc',
-  text: '#0091d8',
-  light: '#b3e3f5',
-  mid: '#66c9eb',
-} as const;
+/** Mockup pastel cycle: teal → purple → orange → gold → pink → charcoal. */
+const SLOTS = [
+  { fill: '#d4ebe6', ink: '#5fae9d' },
+  { fill: '#e6dff5', ink: '#9485c0' },
+  { fill: '#ffe2cc', ink: '#e8945f' },
+  { fill: '#fff4cc', ink: '#c9a227' },
+  { fill: '#fad4e0', ink: '#d46a8a' },
+  { fill: '#e5e7eb', ink: '#4b5563' },
+] as const;
 
-const RED = {
-  bg: '#fceae8',
-  text: '#9f291b',
-} as const;
+const GREEN = { fill: '#d8edda', ink: '#5a9e6f' } as const;
+
+/**
+ * Who owns the delay — shared by requisition stage pills and bottleneck cards.
+ * Final Round → waiting on me · Interview → recruiter · Screening → aging pipeline.
+ */
+export type PipResponsibility =
+  | 'waiting-on-me'
+  | 'waiting-on-recruiter'
+  | 'candidates-aging';
 
 export const PIP_TOKENS = {
   surface: {
-    page: '#faf8f6',
+    page: '#f4f5f7',
     card: '#ffffff',
-    border: '#cecece',
-    /** Subtle fill on hover for nav rows, menu items, etc. — maps to Lara surface.100. */
-    hover: '#eef1f8',
+    border: '#e5e7eb',
+    hover: '#eef1f5',
   },
   text: {
-    color: '#1f2937',
-    soft: '#667085',
-    muted: '#98a2b3',
+    color: '#374151',
+    soft: '#6b7280',
+    muted: '#9ca3af',
   },
-  brand: {
-    amber: AMBER.text,
-    purple: '#8b35c9',
-    violet: '#6a2ccf',
-    indigo: '#2d2dbd',
-    aqua: BLUE.text,
-  },
-  primary: '#4f46e5',
-  amber: AMBER,
-  blue: BLUE,
-  red: RED,
-  chart: {
-    amber: AMBER.text,
-    purple: '#7c3aed',
-    blue: BLUE.text,
-    teal: BLUE.text,
-    orange: '#f97316',
-    green: '#16a34a',
-    indigo: '#4f46e5',
+  primary: SLOTS[0].ink,
+  slots: SLOTS,
+  responsibility: {
+    'waiting-on-me': 0,
+    'waiting-on-recruiter': 1,
+    'candidates-aging': 2,
   },
   risk: {
-    low: { bg: '#dcfce7', text: '#15803d' },
-    medium: AMBER,
-    high: RED,
+    low: SLOTS[0],
+    medium: SLOTS[2],
+    high: SLOTS[4],
   },
-  stage: {
-    screening: AMBER,
-    interview: { bg: '#ede9fe', text: '#6a2ccf' },
-    finalRound: BLUE,
+  schedule: {
+    today: GREEN.ink,
+    tomorrow: SLOTS[1].ink,
+    'this-week': SLOTS[2].ink,
   },
-  bottleneck: {
-    waitingOnMe: AMBER.text,
-    waitingOnRecruiter: '#16a34a',
-    candidatesAging: '#f97316',
+  /** Workforce movement chart — not on reference mockup; fixed palette per metric. */
+  trends: {
+    attrition: SLOTS[4],
+    promotions: SLOTS[1],
+    transfers: SLOTS[2],
+    backfills: SLOTS[0],
   },
-  trend: {
-    up: '#16a34a',
-    down: AMBER.text,
-    even: '#8b35c9',
+  chart: {
+    blue: SLOTS[0].ink,
+    purple: SLOTS[1].ink,
+    orange: SLOTS[2].ink,
+    amber: SLOTS[3].ink,
+    teal: SLOTS[0].ink,
+    indigo: SLOTS[1].ink,
+    green: GREEN.ink,
+    pink: SLOTS[4].ink,
   },
 } as const;
 
 export type PipChartColor = keyof typeof PIP_TOKENS.chart;
 
-export type PipBottleneckTheme =
-  | 'waiting-on-me'
-  | 'waiting-on-recruiter'
-  | 'candidates-aging';
+export type PipPatternSlot = PipSlot;
 
-export type PipStageTone = 'screening' | 'interview' | 'final-round';
+/** @deprecated Use PipResponsibility */
+export type PipBottleneckTheme = PipResponsibility;
 
 export type PipRiskLevel = 'low' | 'medium' | 'high';
 
-export type PipFunnelZone = 'early' | 'late';
+export type PipTrendMetricId = keyof typeof PIP_TOKENS.trends;

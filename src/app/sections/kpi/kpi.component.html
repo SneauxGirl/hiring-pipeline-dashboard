@@ -9,7 +9,7 @@
 
         <div
           class="font-[family-name:var(--font-heading)] text-[2rem] leading-none font-semibold"
-          [style.color]="metricColor(kpi.trend)"
+          [style.color]="metricColor(kpi)"
         >
           <span>{{ kpi.value }}</span>
           @if (kpi.valueUnit) {
@@ -20,7 +20,7 @@
         @if (kpi.delta) {
           <div
             class="flex items-center gap-1 text-[length:var(--font-size-label)]"
-            [style.color]="metricColor(kpi.trend)"
+            [style.color]="metricColor(kpi)"
           >
             @if (trendIcon(kpi.trend); as icon) {
               <span [class]="icon" aria-hidden="true"></span>

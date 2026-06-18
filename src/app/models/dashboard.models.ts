@@ -1,9 +1,7 @@
 import {
-  PipBottleneckTheme,
-  PipChartColor,
-  PipFunnelZone,
+  PipPatternSlot,
+  PipResponsibility,
   PipRiskLevel,
-  PipStageTone,
 } from '../theme/pip-tokens';
 
 export type KpiTrendDirection = 'up' | 'down' | 'neutral';
@@ -14,6 +12,7 @@ export interface KpiMetric {
   valueUnit?: string;
   delta?: string;
   trend?: KpiTrendDirection;
+  colorSlot: PipPatternSlot;
 }
 
 export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';
@@ -37,13 +36,13 @@ export interface WeekRangeOption {
   value: string;
 }
 
-export type BottleneckTheme = PipBottleneckTheme;
+export type BottleneckTheme = PipResponsibility;
 
 export interface BottleneckCard {
   id: string;
   title: string;
   subtitle: string;
-  theme: BottleneckTheme;
+  responsibility: PipResponsibility;
   candidateCount: number;
   avgMetric: number;
   avgLabel: string;
@@ -51,12 +50,9 @@ export interface BottleneckCard {
 
 export type WorkforceTrendMetricId = 'attrition' | 'promotions' | 'transfers' | 'backfills';
 
-export type WorkforceTrendColorToken = PipChartColor;
-
 export interface WorkforceTrendSeries {
   id: WorkforceTrendMetricId;
   label: string;
-  colorToken: WorkforceTrendColorToken;
   /** Twelve monthly values — index 0 = January. */
   currentYear: number[];
   /** Twelve monthly values — index 0 = January. */
@@ -74,7 +70,7 @@ export interface OpenRequisition {
   role: string;
   candidates: number;
   stage: string;
-  stageTone: PipStageTone;
+  responsibility: PipResponsibility;
   daysOpen: number;
   risk: PipRiskLevel;
 }
@@ -89,7 +85,6 @@ export interface FunnelStage {
   label: string;
   count: number;
   conversionPct?: number;
-  colorZone: PipFunnelZone;
 }
 
 export interface StageDuration {

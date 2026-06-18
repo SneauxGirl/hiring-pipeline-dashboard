@@ -2,11 +2,8 @@ import { DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
-import {
-  FunnelStage,
-  StageDuration,
-} from '../../models/dashboard.models';
-import { funnelBarFill } from '../../theme/theme-colors';
+import { FunnelStage, StageDuration } from '../../models/dashboard.models';
+import { funnelStageColor, funnelStageLabelColor } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-funnel',
@@ -39,9 +36,8 @@ export class FunnelComponent {
     return `${(count / this.maxCount) * 100}%`;
   }
 
-  barColor(stage: FunnelStage, index: number): string {
-    const zoneIndex = stage.colorZone === 'early' ? index : index - 3;
-    return funnelBarFill(stage.colorZone, zoneIndex);
+  barColor(index: number): string {
+    return funnelStageColor(index);
   }
 
   stageTitle(stage: FunnelStage): string {
@@ -64,12 +60,11 @@ export class FunnelComponent {
     return days >= 8 || (days / this.totalDurationDays) * 100 >= 8;
   }
 
-  durationColor(durationIndex: number): string {
-    const stage = this.funnelStages[durationIndex];
-    if (!stage) {
-      return funnelBarFill('early', 0);
-    }
+  barLabelColor(index: number): string {
+    return funnelStageLabelColor(index);
+  }
 
-    return this.barColor(stage, durationIndex);
+  durationColor(durationIndex: number): string {
+    return funnelStageColor(durationIndex);
   }
 }

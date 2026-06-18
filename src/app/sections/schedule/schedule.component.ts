@@ -8,6 +8,7 @@ import {
   ScheduleGroup,
   ScheduleInterview,
 } from '../../models/dashboard.models';
+import { scheduleGroupColor } from '../../theme/theme-colors';
 
 interface ScheduleGroupConfig {
   key: ScheduleGroup;
@@ -38,6 +39,10 @@ export class ScheduleComponent {
 
   candidateFor(interview: ScheduleInterview): CandidateProfile | undefined {
     return this.candidates.find((candidate) => candidate.id === interview.candidateId);
+  }
+
+  groupColor(group: ScheduleGroup): string {
+    return scheduleGroupColor(group);
   }
 
   openCandidate(candidateId: string): void {

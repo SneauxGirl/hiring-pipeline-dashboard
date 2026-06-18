@@ -20,15 +20,15 @@
         <li
           class="flex items-center gap-3 rounded-border border border-surface p-3"
           [style.border-inline-start-width]="'3px'"
-          [style.border-inline-start-color]="accentColor(bottleneck.theme)"
+          [style.border-inline-start-color]="accentColor(bottleneck.responsibility)"
         >
           <span
             class="flex h-9 w-9 shrink-0 items-center justify-center rounded-border text-base"
-            [style.background]="iconBg(bottleneck.theme)"
-            [style.color]="accentColor(bottleneck.theme)"
+            [style.background]="iconBg(bottleneck.responsibility)"
+            [style.color]="accentColor(bottleneck.responsibility)"
             aria-hidden="true"
           >
-            <span [class]="themeConfig(bottleneck.theme).iconClass"></span>
+            <span [class]="responsibilityConfig(bottleneck.responsibility).iconClass"></span>
           </span>
 
           <div class="min-w-0 flex-1">
@@ -42,7 +42,7 @@
             <div>
               <div
                 class="text-base font-bold leading-tight"
-                [style.color]="accentColor(bottleneck.theme)"
+                [style.color]="accentColor(bottleneck.responsibility)"
               >
                 {{ bottleneck.candidateCount }}
               </div>
@@ -53,7 +53,7 @@
             <div>
               <div
                 class="text-base font-bold leading-tight"
-                [style.color]="accentColor(bottleneck.theme)"
+                [style.color]="accentColor(bottleneck.responsibility)"
               >
                 {{ bottleneck.avgMetric }} days
               </div>

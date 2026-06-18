@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
 import { KpiMetric, KpiTrendDirection } from '../../models/dashboard.models';
-import { kpiColor } from '../../theme/theme-colors';
+import { kpiMetricColor } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-kpi',
@@ -12,8 +12,8 @@ import { kpiColor } from '../../theme/theme-colors';
 export class KpiComponent {
   @Input({ required: true }) kpis: KpiMetric[] = [];
 
-  metricColor(trend?: KpiTrendDirection): string {
-    return kpiColor(trend);
+  metricColor(kpi: KpiMetric): string {
+    return kpiMetricColor(kpi.colorSlot);
   }
 
   trendIcon(trend?: KpiTrendDirection): string | null {

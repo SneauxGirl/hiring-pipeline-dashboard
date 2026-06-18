@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
-import { BottleneckCard, BottleneckTheme } from '../../models/dashboard.models';
+import { BottleneckCard } from '../../models/dashboard.models';
+import { PipResponsibility } from '../../theme/pip-tokens';
 import { bottleneckAccent, bottleneckIconBg } from '../../theme/theme-colors';
 
-interface BottleneckThemeConfig {
+interface ResponsibilityConfig {
   iconClass: string;
 }
 
@@ -16,8 +17,8 @@ interface BottleneckThemeConfig {
 export class BottleneckComponent {
   @Input({ required: true }) bottlenecks: BottleneckCard[] = [];
 
-  themeConfig(theme: BottleneckTheme): BottleneckThemeConfig {
-    switch (theme) {
+  responsibilityConfig(responsibility: PipResponsibility): ResponsibilityConfig {
+    switch (responsibility) {
       case 'waiting-on-me':
         return { iconClass: 'pi pi-clock' };
       case 'waiting-on-recruiter':
@@ -27,11 +28,11 @@ export class BottleneckComponent {
     }
   }
 
-  accentColor(theme: BottleneckTheme): string {
-    return bottleneckAccent(theme);
+  accentColor(responsibility: PipResponsibility): string {
+    return bottleneckAccent(responsibility);
   }
 
-  iconBg(theme: BottleneckTheme): string {
-    return bottleneckIconBg(theme);
+  iconBg(responsibility: PipResponsibility): string {
+    return bottleneckIconBg(responsibility);
   }
 }

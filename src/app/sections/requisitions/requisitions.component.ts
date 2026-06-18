@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
 import { OpenRequisition, OpenRequisitionsData } from '../../models/dashboard.models';
-import { PipRiskLevel, PipStageTone } from '../../theme/pip-tokens';
-import { riskPill, stagePill } from '../../theme/theme-colors';
+import { PipResponsibility, PipRiskLevel } from '../../theme/pip-tokens';
+import { responsibilityPill, riskPill } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-requisitions',
@@ -13,8 +13,8 @@ import { riskPill, stagePill } from '../../theme/theme-colors';
 export class RequisitionsComponent {
   @Input({ required: true }) requisitions!: OpenRequisitionsData;
 
-  stageStyle(tone: PipStageTone): { bg: string; text: string } {
-    return stagePill(tone);
+  stageStyle(responsibility: PipResponsibility): { bg: string; text: string } {
+    return responsibilityPill(responsibility);
   }
 
   riskStyle(level: PipRiskLevel): { bg: string; text: string } {
