@@ -71,12 +71,6 @@ export const MOCK_DASHBOARD: DashboardData = {
       group: 'tomorrow',
       candidateId: 'c-james-patel',
     },
-    {
-      id: '5',
-      timeLabel: 'Thu 10:30 AM',
-      group: 'this-week',
-      candidateId: 'c-olivia-brown',
-    },
   ],
   candidates: [
     {

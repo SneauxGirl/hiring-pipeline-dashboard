@@ -46,6 +46,8 @@ export const PIP_TOKENS = {
     navigation: '0 2px 10px color-mix(in srgb, #374151 9%, transparent)',
   },
   primary: SLOTS[0].ink,
+  /** Sidebar / drawer nav active, hover, and focus — purple slot. */
+  nav: SLOTS[1],
   slots: SLOTS,
   responsibility: {
     'waiting-on-me': 0,

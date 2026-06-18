@@ -25,6 +25,11 @@
   --dashboard-header-row-height: var(--font-accent-size);
   --sidebar-width: 240px;
   --sidebar-width-collapsed: 4.5rem;
+
+  --pip-nav-active-bg: #f0ebf6;
+  --pip-nav-active-ink: #6b229c;
+  --pip-nav-hover-bg: color-mix(in srgb, #f0ebf6 55%, white);
+  --pip-nav-hover-ink: #6b229c;
 }
 
 @layer base {
@@ -61,8 +66,8 @@
 
 @layer components {
   .dashboard-nav-menu .p-menu-item.nav-item--active > .p-menu-item-content {
-    background: var(--p-highlight-background);
-    color: var(--p-highlight-color);
+    background: var(--pip-nav-active-bg);
+    color: var(--pip-nav-active-ink);
     border-radius: var(--p-content-border-radius);
   }
 
@@ -84,13 +89,24 @@
     border-radius: var(--p-content-border-radius);
   }
 
-  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover {
-    background: var(--p-content-hover-background);
-    color: var(--p-content-hover-color);
+  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover,
+  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:focus-within {
+    background: var(--pip-nav-hover-bg);
+    color: var(--pip-nav-hover-ink);
   }
 
   .dashboard-drawer.p-drawer {
     width: min(18rem, 85vw);
+  }
+
+  .candidate-dialog.p-dialog {
+    width: min(28rem, calc(100vw - 2rem));
+    max-width: min(28rem, calc(100vw - 2rem));
+  }
+
+  .candidate-dialog .p-dialog-content {
+    overflow-wrap: break-word;
+    text-wrap: pretty;
   }
 
   .dashboard-main {
@@ -182,7 +198,7 @@
   }
 
   .sidebar-toggle:focus-visible {
-    outline: 2px solid var(--p-primary-color);
+    outline: 2px solid var(--pip-nav-active-ink);
     outline-offset: 2px;
   }
 }

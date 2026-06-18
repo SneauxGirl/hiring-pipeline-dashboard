@@ -30,7 +30,6 @@ export class ScheduleComponent {
   readonly groupConfigs: ScheduleGroupConfig[] = [
     { key: 'today', label: 'Today' },
     { key: 'tomorrow', label: 'Tomorrow' },
-    { key: 'this-week', label: 'This week' },
   ];
 
   interviewsForGroup(group: ScheduleGroup): ScheduleInterview[] {
