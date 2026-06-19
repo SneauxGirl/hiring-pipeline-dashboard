@@ -23,8 +23,9 @@ export const PipPreset = definePreset(Lara, {
         },
         text: {
           color: PIP_TOKENS.text.color,
-          mutedColor: PIP_TOKENS.text.muted,
-          hoverMutedColor: PIP_TOKENS.text.soft,
+          hoverColor: PIP_TOKENS.text.hoverColor,
+          mutedColor: PIP_TOKENS.text.mutedColor,
+          hoverMutedColor: PIP_TOKENS.text.hoverMutedColor,
         },
       },
     },

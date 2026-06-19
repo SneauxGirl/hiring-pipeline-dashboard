@@ -4,9 +4,10 @@ import { Card } from 'primeng/card';
 
 import { FunnelStage, StageDuration } from '../../models/dashboard.models';
 import {
-  funnelStageColor,
-  funnelStageGlassStyle,
-  funnelStageLabelColor,
+  funnelBarColor,
+  funnelBarGlassStyle,
+  funnelBarLabelColor,
+  funnelDurationColor,
 } from '../../theme/theme-colors';
 
 @Component({
@@ -50,11 +51,11 @@ export class FunnelComponent {
   }
 
   barColor(index: number): string {
-    return funnelStageColor(index);
+    return funnelBarColor(index);
   }
 
   barGlassVars(index: number): Record<string, string> {
-    const { ink, fill } = funnelStageGlassStyle(index);
+    const { ink, fill } = funnelBarGlassStyle(index);
     return {
       '--bar-ink': ink,
       '--bar-fill': fill,
@@ -90,10 +91,10 @@ export class FunnelComponent {
   }
 
   barLabelColor(index: number): string {
-    return funnelStageLabelColor(index);
+    return funnelBarLabelColor(index);
   }
 
   durationColor(durationIndex: number): string {
-    return funnelStageColor(durationIndex);
+    return funnelDurationColor(durationIndex);
   }
 }

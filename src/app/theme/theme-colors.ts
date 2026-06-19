@@ -1,62 +1,84 @@
 import {
+  PIP_PALETTE,
   PIP_TOKENS,
-  PipChartColor,
-  PipPatternSlot,
+  PipColor,
   PipResponsibility,
   PipRiskLevel,
-  PipSlot,
   PipTrendMetricId,
 } from './pip-tokens';
 
-export type {
-  PipChartColor,
-  PipPatternSlot,
-  PipResponsibility,
-  PipRiskLevel,
-  PipSlot,
-  PipTrendMetricId,
-};
+export type { PipColor, PipResponsibility, PipRiskLevel, PipTrendMetricId };
 
-export function responsibilitySlot(responsibility: PipResponsibility): PipSlot {
+export { PIP_PALETTE };
+
+export function palettePair(color: PipColor): { fill: string; ink: string } {
+  return PIP_PALETTE[color];
+}
+
+export function paletteInk(color: PipColor): string {
+  return PIP_PALETTE[color].ink;
+}
+
+export function paletteFill(color: PipColor): string {
+  return PIP_PALETTE[color].fill;
+}
+
+export function responsibilityColor(responsibility: PipResponsibility): PipColor {
   return PIP_TOKENS.responsibility[responsibility];
 }
 
-export function slotFill(slot: PipSlot): string {
-  return PIP_TOKENS.slots[slot].fill;
-}
-
-export function slotInk(slot: PipSlot): string {
-  return PIP_TOKENS.slots[slot].ink;
-}
-
 export function responsibilityPill(responsibility: PipResponsibility): { bg: string; text: string } {
-  const slot = responsibilitySlot(responsibility);
-  return { bg: slotFill(slot), text: slotInk(slot) };
+  const color = responsibilityColor(responsibility);
+  return { bg: paletteFill(color), text: paletteInk(color) };
 }
 
+export function funnelBarColor(stageIndex: number): string {
+  const colors = PIP_TOKENS.funnel.bar;
+  const color = colors[Math.min(stageIndex, colors.length - 1)];
+  return paletteFill(color);
+}
+
+export function funnelBarLabelColor(stageIndex: number): string {
+  const colors = PIP_TOKENS.funnel.bar;
+  const color = colors[Math.min(stageIndex, colors.length - 1)];
+  return paletteInk(color);
+}
+
+export function funnelBarGlassStyle(stageIndex: number): { ink: string; fill: string } {
+  const colors = PIP_TOKENS.funnel.bar;
+  const color = colors[Math.min(stageIndex, colors.length - 1)];
+  return palettePair(color);
+}
+
+export function funnelDurationColor(durationIndex: number): string {
+  const colors = PIP_TOKENS.funnel.duration;
+  const color = colors[Math.min(durationIndex, colors.length - 1)];
+  return paletteFill(color);
+}
+
+/** @deprecated Use palettePair('blue') */
+export function brandBlue(): { fill: string; ink: string } {
+  return palettePair('blue');
+}
+
+/** @deprecated Use paletteInk('blue') */
+export function brandBlueInk(): string {
+  return paletteInk('blue');
+}
+
+/** @deprecated Use funnelBarColor */
 export function funnelStageColor(stageIndex: number): string {
-  const slot = Math.min(stageIndex, PIP_TOKENS.slots.length - 1) as PipSlot;
-  return slotFill(slot);
+  return funnelBarColor(stageIndex);
 }
 
+/** @deprecated Use funnelBarLabelColor */
 export function funnelStageLabelColor(stageIndex: number): string {
-  const slot = Math.min(stageIndex, PIP_TOKENS.slots.length - 1) as PipSlot;
-  return slotInk(slot);
+  return funnelBarLabelColor(stageIndex);
 }
 
-/** Funnel glass bars — layered ink/fill at ~85% strength for glass styling. */
-export function funnelStageGlassStyle(stageIndex: number): {
-  ink: string;
-  fill: string;
-} {
-  const slot = Math.min(stageIndex, PIP_TOKENS.slots.length - 1) as PipSlot;
-  const { fill, ink } = PIP_TOKENS.slots[slot];
-
-  return { ink, fill };
-}
-
-export function chartColor(token: PipChartColor): string {
-  return PIP_TOKENS.chart[token];
+/** @deprecated Use funnelBarGlassStyle */
+export function funnelStageGlassStyle(stageIndex: number): { ink: string; fill: string } {
+  return funnelBarGlassStyle(stageIndex);
 }
 
 export function brandIndigo(): string {
@@ -64,30 +86,29 @@ export function brandIndigo(): string {
 }
 
 export function riskPill(level: PipRiskLevel): { bg: string; text: string } {
-  const colors = PIP_TOKENS.risk[level];
-  return { bg: colors.fill, text: colors.ink };
+  const color = PIP_TOKENS.risk[level];
+  return { bg: paletteFill(color), text: paletteInk(color) };
 }
 
 export function bottleneckAccent(responsibility: PipResponsibility): string {
-  return slotInk(responsibilitySlot(responsibility));
+  return paletteInk(responsibilityColor(responsibility));
 }
 
 export function bottleneckIconBg(responsibility: PipResponsibility): string {
-  return slotFill(responsibilitySlot(responsibility));
+  return paletteFill(responsibilityColor(responsibility));
 }
 
 export function scheduleGroupColor(group: keyof typeof PIP_TOKENS.schedule): string {
-  return PIP_TOKENS.schedule[group];
+  return paletteInk(PIP_TOKENS.schedule[group]);
 }
 
 export function trendSeriesColor(metricId: PipTrendMetricId): string {
-  return PIP_TOKENS.trends[metricId].ink;
+  return paletteInk(PIP_TOKENS.trends[metricId]);
 }
 
-/** Prior-year projection segments — darker than fill, lighter than current-year ink. */
 export function trendSeriesPriorColor(metricId: PipTrendMetricId): string {
-  const { fill, ink } = PIP_TOKENS.trends[metricId];
-  return blendHex(fill, ink, 0.62);
+  const color = PIP_TOKENS.trends[metricId];
+  return blendHex(paletteFill(color), paletteInk(color), 0.62);
 }
 
 function blendHex(from: string, to: string, toWeight: number): string {
@@ -112,10 +133,6 @@ function blendHex(from: string, to: string, toWeight: number): string {
   return `#${channel(fr, tr)}${channel(fg, tg)}${channel(fb, tb)}`;
 }
 
-export function kpiMetricColor(slot: PipPatternSlot): string {
-  return slotInk(slot);
-}
-
 export function themeTextColor(): string {
   return 'var(--p-text-color)';
 }
@@ -135,12 +152,4 @@ export function readThemeVar(token: string): string {
 
   const name = token.startsWith('--') ? token : `--p-${token}`;
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-export function readChartColor(token: PipChartColor): string {
-  return chartColor(token);
-}
-
-export function paleChartColor(token: PipChartColor): string {
-  return chartColor(token);
 }

@@ -19,7 +19,8 @@
         <section [attr.aria-label]="group.label">
           <h3
             class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold"
-            [style.color]="groupColor(group.key)"
+            [class.text-color]="group.key === 'tomorrow'"
+            [style.color]="group.key === 'today' ? groupColor(group.key) : null"
           >
             {{ group.label }}
           </h3>

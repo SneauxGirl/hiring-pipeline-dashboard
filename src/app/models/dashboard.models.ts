@@ -1,8 +1,4 @@
-import {
-  PipPatternSlot,
-  PipResponsibility,
-  PipRiskLevel,
-} from '../theme/pip-tokens';
+import { PipResponsibility, PipRiskLevel } from '../theme/pip-tokens';
 
 export type KpiTrendDirection = 'up' | 'down' | 'neutral';
 
@@ -12,7 +8,6 @@ export interface KpiMetric {
   valueUnit?: string;
   delta?: string;
   trend?: KpiTrendDirection;
-  colorSlot: PipPatternSlot;
 }
 
 export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';

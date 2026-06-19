@@ -1,20 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
+import { Tooltip } from 'primeng/tooltip';
 
 import { KpiMetric, KpiTrendDirection } from '../../models/dashboard.models';
-import { kpiMetricColor } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-kpi',
-  imports: [Card],
+  imports: [Card, Tooltip],
   templateUrl: './kpi.component.html',
 })
 export class KpiComponent {
   @Input({ required: true }) kpis: KpiMetric[] = [];
-
-  metricColor(kpi: KpiMetric): string {
-    return kpiMetricColor(kpi.colorSlot);
-  }
 
   trendIcon(trend?: KpiTrendDirection): string | null {
     switch (trend) {
@@ -24,6 +20,23 @@ export class KpiComponent {
         return 'pi pi-arrow-down';
       default:
         return null;
+    }
+  }
+
+  deltaAccessibleLabel(kpi: KpiMetric): string {
+    if (!kpi.delta) {
+      return '';
+    }
+
+    const delta = kpi.delta.trim();
+
+    switch (kpi.trend) {
+      case 'up':
+        return `Increased by ${delta}`;
+      case 'down':
+        return `Decreased by ${delta}`;
+      default:
+        return delta;
     }
   }
 }

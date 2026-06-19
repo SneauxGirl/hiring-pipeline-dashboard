@@ -1,0 +1,17 @@
+---
+description: Pushback and clarification before edits when instructions conflict with project protocol
+alwaysApply: true
+---
+
+# Pushback Before Edits
+
+When the user's request may conflict with project rules, conventions, prior preferences, or standard protocol for this repo:
+
+1. **State assumptions up front** — what you believe they want and why.
+2. **Say what you checked and what you didn't** — files, docs, tokens, prior chat context.
+3. **Call out tradeoffs** — what breaks, what gets inconsistent, what's harder to maintain.
+4. **Ask one clarifying question** before making any edits.
+
+Do not silently override project rules or prior preferences. If something likely won't work (e.g. CSS limitation, missing font weight, utility remap), say so explicitly.
+
+Proceed without asking only when the request is unambiguous and fully aligned with existing project rules.
