@@ -11,12 +11,16 @@ export type { PipColor, PipResponsibility, PipRiskLevel, PipTrendMetricId };
 
 export { PIP_PALETTE };
 
-export function palettePair(color: PipColor): { fill: string; ink: string } {
+export function palettePair(color: PipColor): { fill: string; solid: string; ink: string } {
   return PIP_PALETTE[color];
 }
 
 export function paletteInk(color: PipColor): string {
   return PIP_PALETTE[color].ink;
+}
+
+export function paletteSolid(color: PipColor): string {
+  return PIP_PALETTE[color].solid;
 }
 
 export function paletteFill(color: PipColor): string {
@@ -32,6 +36,7 @@ export function responsibilityPill(responsibility: PipResponsibility): { bg: str
   return { bg: paletteFill(color), text: paletteInk(color) };
 }
 
+/** Conversion pill background — fill + ink for accessible contrast (not chart solid). */
 export function funnelBarColor(stageIndex: number): string {
   const colors = PIP_TOKENS.funnel.bar;
   const color = colors[Math.min(stageIndex, colors.length - 1)];
@@ -47,7 +52,8 @@ export function funnelBarLabelColor(stageIndex: number): string {
 export function funnelBarGlassStyle(stageIndex: number): { ink: string; fill: string } {
   const colors = PIP_TOKENS.funnel.bar;
   const color = colors[Math.min(stageIndex, colors.length - 1)];
-  return palettePair(color);
+  // Chart bars only — solid tint; pills use funnelBarColor (fill) + funnelBarLabelColor (ink).
+  return { ink: paletteSolid(color), fill: paletteFill(color) };
 }
 
 export function funnelDurationColor(durationIndex: number): string {
@@ -87,7 +93,7 @@ export function brandIndigo(): string {
 
 export function riskPill(level: PipRiskLevel): { bg: string; text: string } {
   const color = PIP_TOKENS.risk[level];
-  return { bg: paletteFill(color), text: paletteInk(color) };
+  return { bg: paletteFill(color), text: paletteInk('charcoal') };
 }
 
 export function bottleneckAccent(responsibility: PipResponsibility): string {
@@ -103,12 +109,14 @@ export function scheduleGroupColor(group: keyof typeof PIP_TOKENS.schedule): str
 }
 
 export function trendSeriesColor(metricId: PipTrendMetricId): string {
-  return paletteInk(PIP_TOKENS.trends[metricId]);
+  const color = PIP_TOKENS.trends[metricId];
+  return color === 'teal' ? paletteInk(color) : paletteSolid(color);
 }
 
 export function trendSeriesPriorColor(metricId: PipTrendMetricId): string {
   const color = PIP_TOKENS.trends[metricId];
-  return blendHex(paletteFill(color), paletteInk(color), 0.62);
+  const series = color === 'teal' ? paletteInk(color) : paletteSolid(color);
+  return blendHex(paletteFill(color), series, 0.62);
 }
 
 function blendHex(from: string, to: string, toWeight: number): string {

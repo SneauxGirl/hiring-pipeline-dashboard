@@ -3,16 +3,17 @@
  * Lara surfaces/text/primary are overridden in pip-preset.ts.
  */
 
-/** Fill + ink pairs keyed by color name. */
+/** Fill + solid + ink triples keyed by color name. Charts use solid; pills/labels use fill + ink. */
 export const PIP_PALETTE = {
-  teal: { fill: '#e7f2f1', ink: '#008782' },
-  purple: { fill: '#f0ebf6', ink: '#6b229c' },
-  orange: { fill: '#f6f4e6', ink: '#cf4a10' },
-  gold: { fill: '#f9f2e2', ink: '#cb911a' },
-  pink: { fill: '#FFF2F7', ink: '#E00048' },
-  charcoal: { fill: '#e5e7eb', ink: '#4b5563' },
-  blue: { fill: '#e8eef9', ink: '#143a91' },
-  green: { fill: '#d8edda', ink: '#5a9e6f' },
+  teal: { fill: '#e7f2f1', solid: '#008782', ink: '#008782' },
+  purple: { fill: '#F3EAF4', solid: '#9B2E8A', ink: '#5C1A53' },
+  orange: { fill: '#FFF1EB', solid: '#F85330', ink: '#A02F15' },
+  gold: { fill: '#f9f2e2', solid: '#e5b82e', ink: '#cb911a' },
+  pink: { fill: '#FFF0F6', solid: '#D0356D', ink: '#7A1D42' },
+  red: { fill: '#fce8ec', solid: '#DC143C', ink: '#9B1B30' },
+  charcoal: { fill: '#F1F0F2', solid: '#B0ACB4', ink: '#251827' },
+  blue: { fill: '#ECEBF8', solid: '#413E96', ink: '#252356' },
+  green: { fill: '#EAF8EB', solid: '#4CC851', ink: '#3C8735' },
 } as const;
 
 export type PipColor = keyof typeof PIP_PALETTE;
@@ -59,8 +60,8 @@ export const PIP_TOKENS = {
   } satisfies Record<PipResponsibility, PipColor>,
   risk: {
     low: 'teal',
-    medium: 'orange',
-    high: 'pink',
+    medium: 'gold',
+    high: 'red',
   } satisfies Record<'low' | 'medium' | 'high', PipColor>,
   schedule: {
     today: 'teal',

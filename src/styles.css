@@ -30,8 +30,8 @@
 
   --pip-nav-active-bg: #f0ebf6;
   --pip-nav-active-ink: #6b229c;
-  --pip-brand-blue: #143a91; /* PIP_PALETTE.blue.ink */
-  --pip-brand-blue-fill: #e8eef9; /* PIP_PALETTE.blue.fill */
+  --pip-brand-blue: #252356; /* PIP_PALETTE.blue.ink */
+  --pip-brand-blue-fill: #ECEBF8; /* PIP_PALETTE.blue.fill */
   --pip-nav-hover-bg: color-mix(in srgb, #f0ebf6 55%, white);
   --pip-nav-hover-ink: #6b229c;
 }

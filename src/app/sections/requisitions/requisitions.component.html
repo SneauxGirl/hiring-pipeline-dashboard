@@ -85,16 +85,12 @@
               >
                 {{ req.daysOpen }}
               </td>
-              <td class="border-b border-surface py-3">
-                @if (riskStyle(req.risk); as style) {
-                  <span
-                    class="inline-block rounded-full px-2.5 py-0.5 text-[length:var(--font-size-label)] font-medium"
-                    [style.background]="style.bg"
-                    [style.color]="style.text"
-                  >
-                    {{ riskLabel(req.risk) }}
-                  </span>
-                }
+              <td
+                class="border-b border-surface py-3 text-sm text-color"
+                [class.font-bold]="req.risk === 'high'"
+                [style.color]="riskInk(req.risk)"
+              >
+                {{ riskLabel(req.risk) }}
               </td>
               <td class="border-b border-surface py-3 text-right">
                 <button
