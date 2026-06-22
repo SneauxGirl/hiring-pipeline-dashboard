@@ -13,21 +13,64 @@ function week(
   };
 }
 
+function pct(current: number, previous: number): number {
+  if (previous === 0) return 0;
+
+  return Number(((current / previous) * 100).toFixed(2));
+}
+
+function funnelStages(counts: readonly [number, number, number, number, number, number]) {
+  return counts.map((count, index) =>
+    index === 0 ? { count } : { count, conversionPct: pct(count, counts[index - 1]) },
+  );
+}
+
+/**
+ * Funnel is ACTIVE pipeline, not YTD.
+ *
+ * These counts represent candidates currently sitting in each stage across the
+ * visible requisitions plus the hidden requisitions represented by `moreCount`.
+ *
+ * Stage mapping:
+ * - Application -> Applicants
+ * - Screening -> Screened
+ * - Assessment -> Assessment
+ * - Interview + Final Round -> Interviews
+ * - Offer -> Offer
+ * - Hired -> Hired
+ *
+ * The Offer Acceptance KPI should match the active funnel's Offer -> Hired rate.
+ */
+const ACTIVE_FUNNEL_BY_WEEK: Record<DashboardWeekKey, readonly [number, number, number, number, number, number]> = {
+  // Visible reqs only: Product Designer + Data Analyst in Screening;
+  // Frontend + Backend in Assessment.
+  '2026-06-01': [0, 1715, 1160, 0, 0, 0],
+
+  // Visible reqs only: Marketing in Screening; Designer + Data Analyst in Assessment;
+  // Frontend + Backend in Interview.
+  '2026-06-08': [0, 967, 1047, 181, 0, 0],
+
+  // Visible reqs plus 2 hidden offer-stage reqs:
+  // Hidden: People Ops Offer 2, Customer Success Manager Offer 1.
+  '2026-06-15': [1042, 0, 1056, 99, 3, 0],
+
+  // Visible reqs plus 2 hidden reqs:
+  // Hidden: People Ops Hired 1, Customer Success Manager Offer 1.
+  '2026-06-22': [0, 0, 0, 156, 5, 1],
+
+  // Visible reqs plus 3 hidden reqs:
+  // Hidden: People Ops Hired 1, Customer Success Manager Hired 1,
+  // Recruiting Operations Coordinator Screening 884.
+  '2026-06-29': [0, 884, 0, 87, 3, 2],
+};
+
 export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData> = {
   '2026-06-01': week('2026-06-01', {
     kpis: [
-      { value: 7, delta: '1 this month', trend: 'up' },
-      { value: 41,
-        valueUnit: 'days',
-        delta: '2 days',
-        trend: 'up',
-      },
-      { value: 81,
-        valueUnit: '%',
-        delta: '2% this month',
-        trend: 'down',
-      },
-      { value: 3, delta: '1 this month', trend: 'up' },
+      { value: 4, delta: '0 this month', trend: 'neutral' },
+      { value: 41, valueUnit: 'days', delta: '2 days', trend: 'up' },
+      { value: 87, valueUnit: '%', delta: 'No change', trend: 'neutral' },
+      { value: 6, delta: '2 versus previous month', trend: 'up' },
     ],
     openRequisitions: {
       items: [
@@ -50,15 +93,6 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           risk: 'medium',
         },
         {
-          id: 'r3',
-          role: 'Marketing Manager',
-          candidates: 1124,
-          stage: 'Application',
-          responsibility: 'candidates-aging',
-          daysOpen: 17,
-          risk: 'low',
-        },
-        {
           id: 'r4',
           role: 'Backend Engineer',
           candidates: 548,
@@ -77,29 +111,9 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           risk: 'low',
         },
       ],
-      moreCount: 2,
+      moreCount: 0,
     },
-    candidates: [
-      {
-        id: 'c-lena-morris',
-        name: 'Lena Morris',
-        roleTitle: 'Senior Frontend Engineer',
-        roleSpecs:
-          'Frontend engineer with Angular, accessibility, and design-system experience.',
-      },
-      {
-        id: 'c-omar-saleh',
-        name: 'Omar Saleh',
-        roleTitle: 'Backend Engineer',
-        roleSpecs: 'Backend engineer focused on APIs, services, and cloud deployment.',
-      },
-      {
-        id: 'c-grace-lee',
-        name: 'Grace Lee',
-        roleTitle: 'Senior Frontend Engineer',
-        roleSpecs: 'Senior UI engineer with component architecture and mentoring experience.',
-      },
-    ],
+    candidates: [],
     schedule: [
       { id: 'pto-0601-today', kind: 'pto', group: 'today' },
       { id: 'pto-0601-tomorrow', kind: 'pto', group: 'tomorrow' },
@@ -110,30 +124,15 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
       { responsibility: 'waiting-on-recruiter', candidateCount: 8, avgMetric: 5.6 },
       { responsibility: 'candidates-aging', candidateCount: 15, avgMetric: 20.4 },
     ],
-    funnelStages: [
-      { count: 3128 },
-      { count: 2867, conversionPct: 91.66 },
-      { count: 1734, conversionPct: 60.48 },
-      { count: 218, conversionPct: 12.57 },
-      { count: 5, conversionPct: 2.29 },
-      { count: 3, conversionPct: 60 },
-    ],
+    funnelStages: funnelStages(ACTIVE_FUNNEL_BY_WEEK['2026-06-01']),
   }),
 
   '2026-06-08': week('2026-06-08', {
     kpis: [
-      { value: 8, delta: '2 this month', trend: 'up' },
-      { value: 39,
-        valueUnit: 'days',
-        delta: '2 days',
-        trend: 'down',
-      },
-      { value: 83,
-        valueUnit: '%',
-        delta: '2% this month',
-        trend: 'up',
-      },
-      { value: 4, delta: '1 this month', trend: 'up' },
+      { value: 5, delta: '1 this month', trend: 'up' },
+      { value: 39, valueUnit: 'days', delta: '2 days', trend: 'down' },
+      { value: 87, valueUnit: '%', delta: 'No change', trend: 'neutral' },
+      { value: 6, delta: 'no change', trend: 'neutral' },
     ],
     openRequisitions: {
       items: [
@@ -183,7 +182,7 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           risk: 'low',
         },
       ],
-      moreCount: 3,
+      moreCount: 0,
     },
     candidates: [
       {
@@ -216,29 +215,66 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
       { responsibility: 'waiting-on-recruiter', candidateCount: 7, avgMetric: 4.9 },
       { responsibility: 'candidates-aging', candidateCount: 13, avgMetric: 18.8 },
     ],
-    funnelStages: [
-      { count: 3374 },
-      { count: 3098, conversionPct: 91.82 },
-      { count: 1879, conversionPct: 60.65 },
-      { count: 265, conversionPct: 14.1 },
-      { count: 7, conversionPct: 2.64 },
-      { count: 4, conversionPct: 57.14 },
-    ],
+    funnelStages: funnelStages(ACTIVE_FUNNEL_BY_WEEK['2026-06-08']),
   }),
 
   '2026-06-15': week('2026-06-15', {
     kpis: [
-      { value: 8, delta: '2 this month', trend: 'up' },
+      { value: 7, delta: '3 this month', trend: 'up' },
       { value: 34, valueUnit: 'days', delta: '5 days', trend: 'down' },
-      { value: 87, valueUnit: '%', delta: '6% this month', trend: 'up' },
-      { value: 6, delta: 'No change', trend: 'neutral' },
+      { value: 87, valueUnit: '%', delta: 'No change', trend: 'neutral' },
+      { value: 6, delta: '3 active offers', trend: 'up' },
     ],
-    schedule: [
-      { id: '1', timeLabel: '10:00 AM', group: 'today', candidateId: 'c-sarah-chen' },
-      { id: '2', timeLabel: '1:30 PM', group: 'today', candidateId: 'c-mike-davis' },
-      { id: '3', timeLabel: '3:00 PM', group: 'today', candidateId: 'c-emma-white' },
-      { id: '4', timeLabel: '11:00 AM', group: 'tomorrow', candidateId: 'c-james-patel' },
-    ],
+    openRequisitions: {
+      items: [
+        {
+          id: 'r1',
+          role: 'Senior Frontend Engineer',
+          candidates: 14,
+          stage: 'Final Round',
+          responsibility: 'waiting-on-me',
+          daysOpen: 32,
+          risk: 'low',
+        },
+        {
+          id: 'r2',
+          role: 'Product Designer',
+          candidates: 72,
+          stage: 'Interview',
+          responsibility: 'waiting-on-recruiter',
+          daysOpen: 38,
+          risk: 'medium',
+        },
+        {
+          id: 'r3',
+          role: 'Marketing Manager',
+          candidates: 561,
+          stage: 'Assessment',
+          responsibility: 'candidates-aging',
+          daysOpen: 31,
+          risk: 'medium',
+        },
+        {
+          id: 'r4',
+          role: 'Backend Engineer',
+          candidates: 13,
+          stage: 'Final Round',
+          responsibility: 'waiting-on-me',
+          daysOpen: 35,
+          risk: 'medium',
+        },
+        {
+          id: 'r5',
+          role: 'Data Analyst',
+          candidates: 495,
+          stage: 'Assessment',
+          responsibility: 'candidates-aging',
+          daysOpen: 30,
+          risk: 'medium',
+        },
+      ],
+      moreCount: 2,
+    },
     candidates: [
       {
         id: 'c-sarah-chen',
@@ -255,106 +291,39 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           'End-to-end product designer with strong UX research and visual design skills. Portfolio should show mobile-first flows and design-system work.',
       },
       {
-        id: 'c-emma-white',
-        name: 'Emma White',
-        roleTitle: 'Marketing Manager',
+        id: 'c-priya-shah',
+        name: 'Priya Shah',
+        roleTitle: 'Product Designer',
         roleSpecs:
-          'B2B marketing lead with campaign strategy, demand gen, and cross-functional launch experience. Comfortable owning pipeline metrics and content calendar.',
+          'Product designer with mobile-first UX, research synthesis, and design-system experience.',
       },
       {
-        id: 'c-james-patel',
-        name: 'James Patel',
-        roleTitle: 'Backend Engineer',
-        roleSpecs:
-          'Backend engineer focused on API design, data modeling, and service reliability. Experience with Node or Java and cloud-native deployment patterns.',
+        id: 'c-grace-lee',
+        name: 'Grace Lee',
+        roleTitle: 'Senior Frontend Engineer',
+        roleSpecs: 'Senior UI engineer with component architecture and mentoring experience.',
       },
-      {
-        id: 'c-olivia-brown',
-        name: 'Olivia Brown',
-        roleTitle: 'Data Analyst',
-        roleSpecs:
-          'Analyst who translates hiring and business data into dashboards and recommendations. SQL, spreadsheet modeling, and clear stakeholder communication required.',
-      },
+    ],
+    schedule: [
+      { id: 'i-0615-1', timeLabel: '10:00 AM', group: 'today', candidateId: 'c-sarah-chen' },
+      { id: 'i-0615-2', timeLabel: '1:30 PM', group: 'today', candidateId: 'c-mike-davis' },
+      { id: 'i-0615-3', timeLabel: '3:00 PM', group: 'today', candidateId: 'c-priya-shah' },
+      { id: 'i-0615-4', timeLabel: '11:00 AM', group: 'tomorrow', candidateId: 'c-grace-lee' },
     ],
     bottlenecks: [
       { responsibility: 'waiting-on-me', candidateCount: 4, avgMetric: 6.2 },
       { responsibility: 'waiting-on-recruiter', candidateCount: 6, avgMetric: 4.1 },
       { responsibility: 'candidates-aging', candidateCount: 9, avgMetric: 17.3 },
     ],
-    openRequisitions: {
-      items: [
-        {
-          id: 'r1',
-          role: 'Senior Frontend Engineer',
-          candidates: 14,
-          stage: 'Final Round',
-          responsibility: 'waiting-on-me',
-          daysOpen: 32,
-          risk: 'low',
-        },
-        {
-          id: 'r2',
-          role: 'Product Designer',
-          candidates: 8,
-          stage: 'Interview',
-          responsibility: 'waiting-on-recruiter',
-          daysOpen: 45,
-          risk: 'medium',
-        },
-        {
-          id: 'r3',
-          role: 'Marketing Manager',
-          candidates: 4,
-          stage: 'Screening',
-          responsibility: 'candidates-aging',
-          daysOpen: 61,
-          risk: 'high',
-        },
-        {
-          id: 'r4',
-          role: 'Backend Engineer',
-          candidates: 6,
-          stage: 'Interview',
-          responsibility: 'waiting-on-recruiter',
-          daysOpen: 28,
-          risk: 'low',
-        },
-        {
-          id: 'r5',
-          role: 'Data Analyst',
-          candidates: 3,
-          stage: 'Screening',
-          responsibility: 'candidates-aging',
-          daysOpen: 35,
-          risk: 'medium',
-        },
-      ],
-      moreCount: 3,
-    },
-    funnelStages: [
-      { count: 3675 },
-      { count: 3273, conversionPct: 89.06 },
-      { count: 657, conversionPct: 20.07 },
-      { count: 439, conversionPct: 66.82 },
-      { count: 71, conversionPct: 16.17 },
-      { count: 69, conversionPct: 97.18 },
-    ],
+    funnelStages: funnelStages(ACTIVE_FUNNEL_BY_WEEK['2026-06-15']),
   }),
 
   '2026-06-22': week('2026-06-22', {
     kpis: [
-      { value: 8, delta: '2 this month', trend: 'up' },
-      { value: 33,
-        valueUnit: 'days',
-        delta: '6 days',
-        trend: 'down',
-      },
-      { value: 88,
-        valueUnit: '%',
-        delta: '7% this month',
-        trend: 'up',
-      },
-      { value: 6, delta: 'No change', trend: 'neutral' },
+      { value: 7, delta: '3 this month', trend: 'up' },
+      { value: 33, valueUnit: 'days', delta: '1 day', trend: 'down' },
+      { value: 89, valueUnit: '%', delta: '2% acceptance', trend: 'up' },
+      { value: 6, delta: '5 active offers', trend: 'up' },
     ],
     openRequisitions: {
       items: [
@@ -373,46 +342,53 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           candidates: 12,
           stage: 'Final Round',
           responsibility: 'waiting-on-me',
-          daysOpen: 52,
+          daysOpen: 45,
           risk: 'medium',
         },
         {
           id: 'r3',
           role: 'Marketing Manager',
-          candidates: 523,
-          stage: 'Assessment',
-          responsibility: 'candidates-aging',
-          daysOpen: 68,
+          candidates: 74,
+          stage: 'Interview',
+          responsibility: 'waiting-on-recruiter',
+          daysOpen: 38,
           risk: 'high',
         },
         {
           id: 'r4',
           role: 'Backend Engineer',
-          candidates: 68,
-          stage: 'Interview',
-          responsibility: 'waiting-on-recruiter',
-          daysOpen: 35,
-          risk: 'low',
+          candidates: 2,
+          stage: 'Offer',
+          responsibility: 'waiting-on-me',
+          daysOpen: 42,
+          risk: 'medium',
         },
         {
           id: 'r5',
           role: 'Data Analyst',
-          candidates: 914,
-          stage: 'Screening',
-          responsibility: 'candidates-aging',
-          daysOpen: 42,
+          candidates: 70,
+          stage: 'Interview',
+          responsibility: 'waiting-on-recruiter',
+          daysOpen: 37,
           risk: 'medium',
         },
       ],
-      moreCount: 3,
+      moreCount: 2,
     },
     candidates: [
       {
-        id: 'c-priya-shah',
-        name: 'Priya Shah',
+        id: 'c-amelia-stone',
+        name: 'Amelia Stone',
+        roleTitle: 'Senior Frontend Engineer',
+        roleSpecs:
+          'Frontend engineer in offer stage with Angular, accessibility, and team leadership experience.',
+      },
+      {
+        id: 'c-jonah-price',
+        name: 'Jonah Price',
         roleTitle: 'Product Designer',
         roleSpecs:
-          'Product designer with mobile-first UX, research synthesis, and design-system experience.',
+          'Product designer with research synthesis, interaction design, and stakeholder facilitation experience.',
       },
       {
         id: 'c-marcus-green',
@@ -421,48 +397,26 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
         roleSpecs:
           'Backend engineer with distributed systems, API design, and cloud deployment experience.',
       },
-      {
-        id: 'c-amelia-stone',
-        name: 'Amelia Stone',
-        roleTitle: 'Senior Frontend Engineer',
-        roleSpecs:
-          'Frontend engineer in offer stage with Angular, accessibility, and team leadership experience.',
-      },
     ],
     schedule: [
-      { id: 'i-0622-1', timeLabel: '10:00 AM', group: 'today', candidateId: 'c-priya-shah' },
-      { id: 'i-0622-2', timeLabel: '1:00 PM', group: 'today', candidateId: 'c-marcus-green' },
-      { id: 'i-0622-3', timeLabel: '3:30 PM', group: 'tomorrow', candidateId: 'c-amelia-stone' },
+      { id: 'i-0622-1', timeLabel: '10:00 AM', group: 'today', candidateId: 'c-amelia-stone' },
+      { id: 'i-0622-2', timeLabel: '1:00 PM', group: 'today', candidateId: 'c-jonah-price' },
+      { id: 'i-0622-3', timeLabel: '3:30 PM', group: 'tomorrow', candidateId: 'c-marcus-green' },
     ],
     bottlenecks: [
       { responsibility: 'waiting-on-me', candidateCount: 3, avgMetric: 5.1 },
       { responsibility: 'waiting-on-recruiter', candidateCount: 5, avgMetric: 3.8 },
       { responsibility: 'candidates-aging', candidateCount: 7, avgMetric: 15.9 },
     ],
-    funnelStages: [
-      { count: 3820 },
-      { count: 3401, conversionPct: 89.03 },
-      { count: 2015, conversionPct: 59.25 },
-      { count: 473, conversionPct: 23.47 },
-      { count: 76, conversionPct: 16.07 },
-      { count: 72, conversionPct: 94.74 },
-    ],
+    funnelStages: funnelStages(ACTIVE_FUNNEL_BY_WEEK['2026-06-22']),
   }),
 
   '2026-06-29': week('2026-06-29', {
     kpis: [
-      { value: 7, delta: '1 this month', trend: 'down' },
-      { value: 31,
-        valueUnit: 'days',
-        delta: '8 days',
-        trend: 'down',
-      },
-      { value: 89,
-        valueUnit: '%',
-        delta: '8% this month',
-        trend: 'up',
-      },
-      { value: 7, delta: '1 this month', trend: 'up' },
+      { value: 8, delta: '4 this month', trend: 'up' },
+      { value: 31, valueUnit: 'days', delta: '8 days', trend: 'down' },
+      { value: 94, valueUnit: '%', delta: '5% acceptance', trend: 'up' },
+      { value: 6, delta: '3 active offers', trend: 'up' },
     ],
     openRequisitions: {
       items: [
@@ -470,7 +424,7 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           id: 'r1',
           role: 'Senior Frontend Engineer',
           candidates: 1,
-          stage: 'Hired',
+          stage: 'Offer',
           responsibility: 'waiting-on-me',
           daysOpen: 46,
           risk: 'low',
@@ -481,16 +435,16 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           candidates: 2,
           stage: 'Offer',
           responsibility: 'waiting-on-me',
-          daysOpen: 59,
+          daysOpen: 52,
           risk: 'medium',
         },
         {
           id: 'r3',
           role: 'Marketing Manager',
-          candidates: 61,
-          stage: 'Interview',
-          responsibility: 'waiting-on-recruiter',
-          daysOpen: 75,
+          candidates: 12,
+          stage: 'Final Round',
+          responsibility: 'waiting-on-me',
+          daysOpen: 45,
           risk: 'high',
         },
         {
@@ -499,20 +453,20 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
           candidates: 11,
           stage: 'Final Round',
           responsibility: 'waiting-on-me',
-          daysOpen: 42,
+          daysOpen: 49,
           risk: 'low',
         },
         {
           id: 'r5',
           role: 'Data Analyst',
-          candidates: 495,
-          stage: 'Assessment',
-          responsibility: 'candidates-aging',
-          daysOpen: 49,
+          candidates: 64,
+          stage: 'Interview',
+          responsibility: 'waiting-on-recruiter',
+          daysOpen: 44,
           risk: 'medium',
         },
       ],
-      moreCount: 2,
+      moreCount: 3,
     },
     candidates: [
       {
@@ -531,9 +485,9 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
       {
         id: 'c-maya-singh',
         name: 'Maya Singh',
-        roleTitle: 'Marketing Manager',
+        roleTitle: 'Data Analyst',
         roleSpecs:
-          'Demand generation marketer with strong content strategy and cross-functional execution.',
+          'Analyst who translates hiring and business data into dashboards and recommendations. SQL, spreadsheet modeling, and clear stakeholder communication required.',
       },
     ],
     schedule: [
@@ -546,13 +500,6 @@ export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData>
       { responsibility: 'waiting-on-recruiter', candidateCount: 4, avgMetric: 3.2 },
       { responsibility: 'candidates-aging', candidateCount: 5, avgMetric: 14.7 },
     ],
-    funnelStages: [
-      { count: 3952 },
-      { count: 3524, conversionPct: 89.17 },
-      { count: 2121, conversionPct: 60.19 },
-      { count: 511, conversionPct: 24.09 },
-      { count: 83, conversionPct: 16.24 },
-      { count: 78, conversionPct: 93.98 },
-    ],
+    funnelStages: funnelStages(ACTIVE_FUNNEL_BY_WEEK['2026-06-29']),
   }),
 };

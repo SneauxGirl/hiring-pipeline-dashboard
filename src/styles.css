@@ -233,4 +233,20 @@
   .sidebar-user-card .p-card-body {
     padding-bottom: 0;
   }
+
+  .week-range-select.p-select:not(.p-disabled):hover,
+  .week-range-select.p-select.p-focus {
+    border-color: var(--pip-nav-active-ink);
+  }
+
+  .week-range-select-panel .p-select-option.p-focus:not(.p-select-option-selected) {
+    background: var(--pip-nav-hover-bg);
+    color: var(--pip-nav-hover-ink);
+  }
+
+  .week-range-select-panel .p-select-option.p-select-option-selected,
+  .week-range-select-panel .p-select-option.p-select-option-selected.p-focus {
+    background: var(--pip-nav-active-bg);
+    color: var(--pip-nav-active-ink);
+  }
 }
