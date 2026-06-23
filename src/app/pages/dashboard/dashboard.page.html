@@ -1,4 +1,4 @@
-<div class="flex min-h-screen bg-surface-0">
+<div class="flex min-h-screen w-full min-w-0 flex-col bg-surface-0 md:flex-row">
   @let data = dashboard();
 
   <app-sidebar-nav
@@ -7,11 +7,11 @@
     (toggle)="sidebarCollapsed = !sidebarCollapsed"
   />
 
-  <div class="dashboard-page flex min-w-0 flex-1 flex-col bg-surface-50">
+  <div class="dashboard-page flex w-full min-w-0 flex-none flex-col bg-surface-50 md:flex-1">
     <app-mobile-header [user]="user" />
 
     <main
-      class="dashboard-main flex flex-1 flex-col gap-5 pb-5 pt-[length:var(--dashboard-header-padding-block)] lg:flex-row lg:flex-wrap lg:pb-6 lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
+      class="dashboard-main flex min-w-0 flex-1 flex-col gap-5 pb-5 pt-[length:var(--dashboard-header-padding-block)] lg:flex-row lg:flex-wrap lg:pb-6 lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
     >
       <app-page-header
         class="hidden w-full min-w-0 md:block lg:order-1"

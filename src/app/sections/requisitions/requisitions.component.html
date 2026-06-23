@@ -1,6 +1,6 @@
-<p-card>
-  <div class="flex flex-col gap-4">
-    <div class="flex items-start justify-between gap-3">
+<p-card styleClass="min-w-0">
+  <div class="flex min-w-0 flex-col gap-4">
+    <div class="flex min-w-0 items-start justify-between gap-3">
       <h2
         class="m-0 text-[length:var(--font-size-label)] text-color"
       >
@@ -15,8 +15,9 @@
       </a>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="w-full min-w-[36rem] border-collapse text-base">
+    <div class="dashboard-scroll-clip">
+      <div class="dashboard-scroll-x">
+        <table class="border-collapse text-base">
         <thead>
           <tr>
             <th
@@ -104,7 +105,8 @@
             </tr>
           }
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
 
     @if (requisitions.moreCount > 0) {

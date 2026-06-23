@@ -29,6 +29,7 @@ import {
     TrendsComponent,
   ],
   templateUrl: './dashboard.page.html',
+  host: { class: 'block w-full min-w-0 min-h-screen' },
 })
 export class DashboardPage {
   readonly user = MOCK_DASHBOARD_USER;

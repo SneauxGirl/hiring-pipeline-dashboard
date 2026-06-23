@@ -22,15 +22,9 @@
           [style.border-inline-start-width]="'3px'"
           [style.border-inline-start-color]="accentColor(bottleneck.responsibility)"
         >
-          <div
-            class="pointer-events-none absolute inset-y-0 start-3 -ms-3 z-0 w-[calc(0.75rem+2.75rem)] rounded-e-border"
-            [style.background]="washBg(bottleneck.responsibility)"
-            aria-hidden="true"
-          ></div>
-
           <span
-            class="relative z-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-border text-base"
-            [style.background]="iconBg(bottleneck.responsibility)"
+            class="relative z-1 -my-3 -ms-3 flex w-9 shrink-0 items-center justify-center self-stretch rounded-e-border text-base"
+            [style.background]="washBg(bottleneck.responsibility)"
             [style.color]="accentColor(bottleneck.responsibility)"
             aria-hidden="true"
           >
@@ -39,9 +33,6 @@
 
           <div class="min-w-0 flex-1">
             <div class="text-base font-bold text-color">{{ bottleneck.title }}</div>
-            <div class="text-[length:var(--font-size-label)] text-muted-color">
-              {{ bottleneck.subtitle }}
-            </div>
           </div>
 
           <div class="flex shrink-0 items-center gap-4 text-right sm:gap-5">
