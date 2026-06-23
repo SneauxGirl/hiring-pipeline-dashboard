@@ -1,14 +1,10 @@
 import { DecimalPipe, NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Card } from 'primeng/card';
-import { Select } from 'primeng/select';
 
 import {
   FUNNEL_DURATION_SEGMENTS,
-  FUNNEL_PERIOD_OPTIONS,
   FUNNEL_STAGE_DEFINITIONS,
-  FunnelPeriodKey,
 } from './funnel.catalog';
 import { FunnelStage, FunnelStageWeekData, StageDuration } from '../../models/dashboard.models';
 import {
@@ -20,7 +16,7 @@ import {
 
 @Component({
   selector: 'app-funnel',
-  imports: [Card, DecimalPipe, FormsModule, NgStyle, Select],
+  imports: [Card, DecimalPipe, NgStyle],
   templateUrl: './funnel.component.html',
   styles: `
     :host {
@@ -39,11 +35,6 @@ import {
   `,
 })
 export class FunnelComponent {
-  readonly periodOptions = FUNNEL_PERIOD_OPTIONS;
-
-  /** Placeholder — only Active is backed by mock data today. */
-  selectedPeriod: FunnelPeriodKey = 'active';
-
   @Input({ required: true }) funnelStageValues: FunnelStageWeekData[] = [];
   @Input({ required: true }) stageDurationDays: number[] = [];
 

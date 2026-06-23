@@ -1,24 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Avatar } from 'primeng/avatar';
-import { Button } from 'primeng/button';
 import { Drawer } from 'primeng/drawer';
 import { Menu } from 'primeng/menu';
+import { Select } from 'primeng/select';
 
 import { DASHBOARD_NAV_ITEMS } from '../../config/dashboard-nav.config';
+import { DashboardWeekKey } from '../../data/dashboard-weeks.mock';
 import { DashboardUser } from '../../models/dashboard.models';
-import { brandIndigo } from '../../theme/theme-colors';
 
 @Component({
   selector: 'app-mobile-header',
-  imports: [Button, Drawer, Menu, Avatar],
+  imports: [Drawer, FormsModule, Menu, Avatar, Select],
   templateUrl: './mobile-header.component.html',
   host: { class: 'block md:hidden' },
 })
 export class MobileHeaderComponent {
-  readonly wordmarkColor = brandIndigo();
+  @ViewChild(Menu) private navMenu?: Menu;
 
   @Input({ required: true }) user!: DashboardUser;
+  @Input({ required: true }) weeks!: ReadonlyArray<{ key: DashboardWeekKey; label: string }>;
+  @Input({ required: true }) selectedWeek!: DashboardWeekKey;
+  @Output() readonly selectedWeekChange = new EventEmitter<DashboardWeekKey>();
 
   drawerVisible = false;
 
@@ -27,18 +31,12 @@ export class MobileHeaderComponent {
       id: item.id,
       label: item.label,
       icon: item.icon,
-      url: item.href,
       styleClass: item.active ? 'nav-item--active' : undefined,
-      command: () => this.closeDrawer(),
+      command: () => {
+        queueMicrotask(() => this.navMenu?.onListBlur(new FocusEvent('blur')));
+        this.closeDrawer();
+      },
     }));
-  }
-
-  get userInitials(): string {
-    const parts = this.user.name.trim().split(/\s+/);
-    return parts
-      .slice(0, 2)
-      .map((part) => part.charAt(0).toUpperCase())
-      .join('');
   }
 
   openDrawer(): void {
@@ -47,5 +45,9 @@ export class MobileHeaderComponent {
 
   closeDrawer(): void {
     this.drawerVisible = false;
+  }
+
+  onWeekChange(key: DashboardWeekKey): void {
+    this.selectedWeekChange.emit(key);
   }
 }

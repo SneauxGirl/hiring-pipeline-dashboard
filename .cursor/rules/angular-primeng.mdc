@@ -1,5 +1,5 @@
 ---
-description: Angular and PrimeNG patterns for Pipeline dashboard
+description: Angular and PrimeNG patterns for PIP Tech dashboard
 globs: src/**/*.{ts,html}
 alwaysApply: false
 ---

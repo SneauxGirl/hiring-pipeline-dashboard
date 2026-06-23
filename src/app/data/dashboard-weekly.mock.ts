@@ -26,42 +26,21 @@ function funnelStages(counts: readonly [number, number, number, number, number, 
 }
 
 /**
- * Funnel is ACTIVE pipeline, not YTD.
+ * Funnel is rolling 30-day pipeline movement, not YTD and not the current active
+ * stage snapshot.
  *
- * These counts represent candidates currently sitting in each stage across the
- * visible requisitions plus the hidden requisitions represented by `moreCount`.
+ * These counts represent candidates who entered or moved through each funnel
+ * stage during the trailing 30-day window for the selected dashboard week.
  *
- * Stage mapping:
- * - Application -> Applicants
- * - Screening -> Screened
- * - Assessment -> Assessment
- * - Interview + Final Round -> Interviews
- * - Offer -> Offer
- * - Hired -> Hired
- *
- * The Offer Acceptance KPI should match the active funnel's Offer -> Hired rate.
+ * This keeps the funnel large enough to feel like a real hiring funnel while
+ * avoiding the mismatch created by using one-week active requisition counts.
  */
 const ACTIVE_FUNNEL_BY_WEEK: Record<DashboardWeekKey, readonly [number, number, number, number, number, number]> = {
-  // Visible reqs only: Product Designer + Data Analyst in Screening;
-  // Frontend + Backend in Assessment.
-  '2026-06-01': [0, 1715, 1160, 0, 0, 0],
-
-  // Visible reqs only: Marketing in Screening; Designer + Data Analyst in Assessment;
-  // Frontend + Backend in Interview.
-  '2026-06-08': [0, 967, 1047, 181, 0, 0],
-
-  // Visible reqs plus 2 hidden offer-stage reqs:
-  // Hidden: People Ops Offer 2, Customer Success Manager Offer 1.
-  '2026-06-15': [1042, 0, 1056, 99, 3, 0],
-
-  // Visible reqs plus 2 hidden reqs:
-  // Hidden: People Ops Hired 1, Customer Success Manager Offer 1.
-  '2026-06-22': [0, 0, 0, 156, 5, 1],
-
-  // Visible reqs plus 3 hidden reqs:
-  // Hidden: People Ops Hired 1, Customer Success Manager Hired 1,
-  // Recruiting Operations Coordinator Screening 884.
-  '2026-06-29': [0, 884, 0, 87, 3, 2],
+  '2026-06-01': [2875, 2638, 1582, 214, 15, 13],
+  '2026-06-08': [3210, 2947, 1766, 246, 15, 13],
+  '2026-06-15': [3560, 3260, 1958, 288, 23, 20],
+  '2026-06-22': [3825, 3482, 2104, 326, 28, 25],
+  '2026-06-29': [4110, 3718, 2260, 368, 34, 32],
 };
 
 export const MOCK_DASHBOARD_BY_WEEK: Record<DashboardWeekKey, DashboardWeekData> = {

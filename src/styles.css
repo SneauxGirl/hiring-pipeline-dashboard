@@ -22,9 +22,12 @@
   --dashboard-margin: 20px;
   --dashboard-header-padding-block: 1.25rem;
   --dashboard-header-padding-block-lg: 1.5rem;
-  --dashboard-header-row-height: var(--sidebar-logo-height);
-  --sidebar-logo-height: 3rem;
-  --sidebar-width: 240px;
+  --dashboard-brand-logo-height: 3rem;
+  --dashboard-header-row-height: var(--dashboard-brand-logo-height);
+  --dashboard-control-height: 2.875rem;
+  --mobile-header-logo-height: calc(var(--dashboard-control-height) - 0.5rem);
+  --sidebar-toggle-size: 2rem;
+  --sidebar-width: 200px;
   --sidebar-width-collapsed: 4.5rem;
   --sidebar-edge-gap: 75px; /* viewport edge → first nav item top; mirrored below user text */
   --letter-spacing-caps: 0.12em;
@@ -123,6 +126,8 @@
 
   .dashboard-nav-menu.p-menu {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     border: none;
     background: transparent;
     padding: 0;
@@ -133,10 +138,27 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .dashboard-nav-menu .p-menu-item {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .dashboard-nav-menu .p-menu-item > .p-menu-item-content {
     border-radius: var(--p-content-border-radius);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .dashboard-nav-menu .p-menu-item-link {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .dashboard-nav-menu .p-menu-item:not(.nav-item--active) .p-menu-item-icon {
@@ -147,19 +169,125 @@
     color: var(--pip-nav-active-ink);
   }
 
-  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover .p-menu-item-icon,
-  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:focus-within .p-menu-item-icon {
+  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover .p-menu-item-icon {
     color: var(--pip-nav-hover-ink);
   }
 
-  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover,
-  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:focus-within {
+  .dashboard-nav-menu .p-menu-item:not(.nav-item--active) > .p-menu-item-content:hover {
     background: var(--pip-nav-hover-bg);
+    color: var(--pip-nav-hover-ink);
+  }
+
+  /* PrimeNG sets p-focus on click; reset so only Overview stays highlighted */
+  .dashboard-nav-menu .p-menu-item.p-focus:not(.nav-item--active) > .p-menu-item-content {
+    background: transparent;
+    color: inherit;
+  }
+
+  .dashboard-nav-menu .p-menu-item.p-focus:not(.nav-item--active) .p-menu-item-icon {
+    color: var(--p-text-muted-color);
+  }
+
+  .dashboard-nav-menu .p-menu-item.p-focus:not(.nav-item--active) > .p-menu-item-content:hover {
+    background: var(--pip-nav-hover-bg);
+    color: var(--pip-nav-hover-ink);
+  }
+
+  .dashboard-nav-menu .p-menu-item.p-focus:not(.nav-item--active) > .p-menu-item-content:hover .p-menu-item-icon {
     color: var(--pip-nav-hover-ink);
   }
 
   .dashboard-drawer.p-drawer {
     width: min(18rem, 85vw);
+  }
+
+  .mobile-header {
+    border-bottom: 1px solid var(--p-content-border-color);
+    background: var(--p-surface-0);
+    padding: 0.5rem var(--dashboard-margin);
+  }
+
+  .mobile-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: var(--dashboard-control-height);
+  }
+
+  .mobile-header-brand {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    height: var(--dashboard-control-height);
+  }
+
+  .sidebar-brand .dashboard-brand-logo {
+    height: var(--dashboard-brand-logo-height);
+    transform: translateY(-0.125rem);
+  }
+
+  .mobile-header .dashboard-brand-logo {
+    height: var(--mobile-header-logo-height);
+    transform: none;
+  }
+
+  .dashboard-brand-logo {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .mobile-header-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: var(--dashboard-control-height);
+    height: var(--dashboard-control-height);
+    padding: 0;
+    border: 0;
+    border-radius: var(--p-content-border-radius);
+    background: transparent;
+    color: var(--pip-nav-active-ink);
+    cursor: pointer;
+    line-height: 0;
+  }
+
+  .mobile-header-menu:hover {
+    background: var(--p-content-hover-background);
+  }
+
+  .mobile-header-menu:focus {
+    outline: none;
+  }
+
+  .mobile-header-menu:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--pip-nav-active-ink);
+  }
+
+  .mobile-header-menu .pi {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .mobile-header-schedule {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    min-width: 0;
+    height: var(--dashboard-control-height);
+    color: var(--p-text-muted-color);
+  }
+
+  .mobile-header-schedule .week-range-select.p-select {
+    height: var(--dashboard-control-height);
   }
 
   .candidate-dialog.p-dialog {
@@ -298,7 +426,6 @@
   }
 
   .sidebar-shell--collapsed .dashboard-nav-menu.p-menu {
-    min-width: 0;
     width: 100%;
   }
 
@@ -333,14 +460,21 @@
     padding-inline: 0;
   }
 
+  .sidebar-shell--collapsed .sidebar-user-card .p-card-content {
+    padding: 0;
+  }
+
   .sidebar-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding: 0.5rem;
+    box-sizing: border-box;
+    width: var(--sidebar-toggle-size);
+    height: var(--sidebar-toggle-size);
+    min-width: var(--sidebar-toggle-size);
+    min-height: var(--sidebar-toggle-size);
+    padding: 0;
     border: 0;
     border-radius: var(--p-content-border-radius);
     background: transparent;
@@ -353,9 +487,13 @@
     background: var(--p-content-hover-background);
   }
 
+  .sidebar-toggle:focus {
+    outline: none;
+  }
+
   .sidebar-toggle:focus-visible {
-    outline: 2px solid var(--pip-nav-active-ink);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--pip-nav-active-ink);
   }
 
   .sidebar-user-card.p-card {
@@ -363,7 +501,11 @@
   }
 
   .sidebar-user-card .p-card-body {
-    padding-bottom: 0;
+    padding: 0;
+  }
+
+  .sidebar-user-card .p-card-content {
+    padding-left: 1rem;
   }
 
   .week-range-select.p-select:not(.p-disabled):hover,

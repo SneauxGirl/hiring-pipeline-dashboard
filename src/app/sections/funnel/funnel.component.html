@@ -1,32 +1,22 @@
 <p-card styleClass="min-w-0">
   <div class="flex min-w-0 flex-col gap-4">
-    <div class="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
-      <div class="min-w-0">
-        <h2
-          class="m-0 text-[length:var(--font-size-label)] text-color"
-        >
-          Recruitment funnel
-        </h2>
-        <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-muted-color">
-          Active applicants (% of going to next stage)
-        </p>
-      </div>
-
-      <p-select
-        [options]="periodOptions"
-        [(ngModel)]="selectedPeriod"
-        optionLabel="label"
-        optionValue="value"
-        ariaLabel="Funnel time range"
-        class="funnel-period-select w-full sm:w-auto sm:min-w-[7.5rem] sm:shrink-0"
-      />
+    <div class="min-w-0">
+      <h2
+        class="m-0 text-[length:var(--font-size-label)] text-color"
+      >
+        30 day funnel
+      </h2>
+      <p class="m-0 mt-1 text-[length:var(--font-size-label)] text-muted-color">
+        
+        (% movement from prior stage)
+      </p>
     </div>
 
     <div class="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
       <div
         class="funnel-chart flex min-w-0 flex-1 flex-col"
         role="img"
-        [attr.aria-label]="'Recruitment funnel chart, max stage ' + (maxCount | number) + ' applicants'"
+        [attr.aria-label]="'30 day funnel chart, max stage ' + (maxCount | number) + ' applicants'"
       >
         @for (stage of funnelStages; track stage.stageKey; let index = $index) {
           <div class="funnel-stage-row flex h-9 w-full items-stretch justify-center">
@@ -42,7 +32,7 @@
 
       <div
         class="flex min-w-0 flex-col sm:w-[17rem]"
-        aria-label="Recruitment funnel stage details"
+        aria-label="30 day funnel stage details"
       >
         @for (stage of funnelStages; track stage.stageKey; let index = $index) {
           <div

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Avatar } from 'primeng/avatar';
 import { Card } from 'primeng/card';
@@ -17,6 +17,8 @@ import { DashboardUser } from '../../models/dashboard.models';
   },
 })
 export class SidebarNavComponent {
+  @ViewChild(Menu) private navMenu?: Menu;
+
   @Input({ required: true }) user!: DashboardUser;
   @Input() collapsed = false;
   @Output() toggle = new EventEmitter<void>();
@@ -31,10 +33,14 @@ export class SidebarNavComponent {
       id: item.id,
       label: item.label,
       icon: item.icon,
-      url: item.href,
       title: this.collapsed ? item.label : undefined,
       styleClass: item.active ? 'nav-item--active' : undefined,
+      command: () => this.resetNavFocus(),
     }));
+  }
+
+  private resetNavFocus(): void {
+    queueMicrotask(() => this.navMenu?.onListBlur(new FocusEvent('blur')));
   }
 
   get toggleLabel(): string {

@@ -8,7 +8,12 @@
   />
 
   <div class="dashboard-page flex w-full min-w-0 flex-none flex-col bg-surface-50 md:flex-1">
-    <app-mobile-header [user]="user" />
+    <app-mobile-header
+      [user]="user"
+      [weeks]="weeks"
+      [selectedWeek]="selectedWeekKey()"
+      (selectedWeekChange)="selectedWeekKey.set($event)"
+    />
 
     <main
       class="dashboard-main flex min-w-0 flex-1 flex-col gap-5 pb-5 pt-[length:var(--dashboard-header-padding-block)] lg:flex-row lg:flex-wrap lg:pb-6 lg:pt-[length:var(--dashboard-header-padding-block-lg)]"

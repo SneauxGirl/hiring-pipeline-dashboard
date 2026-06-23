@@ -1,12 +1,3 @@
-export type FunnelPeriodKey = 'active' | '30d' | '90d' | 'ytd';
-
-export const FUNNEL_PERIOD_OPTIONS: ReadonlyArray<{ label: string; value: FunnelPeriodKey }> = [
-  { label: 'Active', value: 'active' },
-  { label: '30 days', value: '30d' },
-  { label: '90 days', value: '90d' },
-  { label: 'YTD', value: 'ytd' },
-];
-
 export const FUNNEL_STAGE_DEFINITIONS = [
   { stageKey: 'h1', label: 'Applicants' },
   { stageKey: 'h2', label: 'Screened' },

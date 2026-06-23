@@ -1,20 +1,22 @@
 <nav
   id="sidebar-main-nav"
-  class="sidebar-nav flex h-full w-full flex-col bg-surface-0 px-3 pb-[length:var(--sidebar-edge-gap)] pt-[length:var(--dashboard-header-padding-block)] lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
+  class="sidebar-nav flex h-full w-full min-w-0 flex-col bg-surface-0 px-3 pb-[length:var(--sidebar-edge-gap)] pt-[length:var(--dashboard-header-padding-block)] lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
   aria-label="Main navigation"
 >
   <div
-    class="flex min-h-[length:var(--dashboard-header-row-height)] items-end gap-2 px-2"
+    class="flex min-h-[length:var(--dashboard-header-row-height)] items-center gap-2"
     [class.justify-between]="!collapsed"
     [class.justify-center]="collapsed"
   >
-    <div class="sidebar-brand flex min-w-0 items-center">
-      <img
-        src="/piplogotrsp.png"
-        alt="Pipeline"
-        class="h-[length:var(--sidebar-logo-height)] w-auto shrink-0 object-contain"
-      />
-    </div>
+    @if (!collapsed) {
+      <div class="sidebar-brand flex min-w-0 items-center">
+        <img
+          src="/PIPTechLogo.png"
+          alt="PIP Tech"
+          class="dashboard-brand-logo shrink-0"
+        />
+      </div>
+    }
 
     <button
       type="button"
@@ -25,7 +27,7 @@
       (click)="toggle.emit()"
     >
       <span
-        class="pi text-lg"
+        class="pi text-base"
         [class.pi-chevron-left]="!collapsed"
         [class.pi-chevron-right]="collapsed"
         aria-hidden="true"
@@ -37,7 +39,7 @@
     [model]="menuModel"
     [popup]="false"
     ariaLabel="Dashboard sections"
-    styleClass="dashboard-nav-menu mt-6 w-full flex-1"
+    styleClass="dashboard-nav-menu mt-6 w-full min-w-0 flex-1"
   />
 
   <p-card styleClass="sidebar-user-card mt-auto w-full">

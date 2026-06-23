@@ -1,10 +1,10 @@
-# Pipeline Dashboard
+# PIP Tech Dashboard
 
 Work in progress: Hiring-manager dashboard. Built in Angular, with Typescript and Tailwind and using PrimeNG components. Mocked with dummy data.
 
 **Live demo:** [pipeline-dashboard-seven-chi.vercel.app/](https://pipeline-dashboard-seven-chi.vercel.app/)
 
-![Pipeline dashboard at desktop](docs/images/dashboard-colorlock.png)
+![PIP Tech dashboard at desktop](docs/images/dashboard-colorlock.png)
 
 ## Stack
 
