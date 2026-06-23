@@ -206,6 +206,25 @@
     }
   }
 
+  @media (max-width: 379px) {
+    .dashboard-scroll-x {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+    }
+
+    .dashboard-scroll-x > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .dashboard-scroll-x table {
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+
   @media (min-width: 768px) {
     .dashboard-scroll-x > table {
       min-width: 36rem;

@@ -1,14 +1,12 @@
-<p-card>
-  <div class="flex flex-col gap-4">
-    <div class="flex items-center justify-between gap-3">
-      <h2
-        class="m-0 shrink-0 text-[length:var(--font-size-label)] text-color"
-      >
-        Upcoming interviews
-      </h2>
+<p-card styleClass="min-w-0">
+  <div class="flex min-w-0 flex-col gap-4">
+    <div
+      class="flex min-w-0 flex-col gap-1 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between min-[380px]:gap-3"
+    >
+      <h2 class="m-0 text-[length:var(--font-size-label)] text-color">Upcoming interviews</h2>
       <a
         href="#"
-        class="shrink-0 text-[length:var(--font-size-label)] text-muted-color no-underline hover:underline"
+        class="min-w-0 max-w-full truncate whitespace-nowrap text-[length:var(--font-size-label)] text-muted-color no-underline hover:underline"
       >
         View calendar
       </a>
@@ -16,7 +14,7 @@
 
     @for (group of groupConfigs; track group.key; let last = $last) {
       @if (entriesForGroup(group.key).length > 0) {
-        <section [attr.aria-label]="group.label">
+        <section class="min-w-0" [attr.aria-label]="group.label">
           <h3
             class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold"
             [class.text-color]="group.key === 'tomorrow'"
@@ -28,51 +26,51 @@
           <ul class="m-0 flex list-none flex-col gap-3 p-0">
             @for (entry of entriesForGroup(group.key); track entry.id) {
               @if (isPto(entry)) {
-                <li class="flex items-center gap-3">
-                  <span
-                    class="w-[5.5rem] shrink-0 text-[length:var(--font-size-label)] text-muted-color"
-                  >
+                <li
+                  class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)_auto] min-[380px]:items-center min-[380px]:gap-3"
+                >
+                  <span class="text-[length:var(--font-size-label)] text-muted-color">
                     {{ ptoCopy.timeLabel }}
                   </span>
 
-                  <div class="min-w-0 flex-1">
-                    <p class="m-0 text-base font-bold text-color">{{ ptoCopy.title }}</p>
-                    <div class="truncate text-[length:var(--font-size-label)] text-muted-color">
+                  <div class="min-w-0 flex-1 overflow-hidden">
+                    <p class="m-0 truncate text-base font-bold text-color">{{ ptoCopy.title }}</p>
+                    <div class="truncate text-sm text-muted-color">
                       {{ ptoCopy.subtitle }}
                     </div>
                   </div>
 
                   <span
-                    class="inline-flex shrink-0 text-muted-color"
+                    class="inline-flex shrink-0 text-muted-color min-[380px]:justify-self-end"
                     [attr.aria-label]="ptoCopy.ariaLabel"
                   >
                     <span class="pi pi-bell-slash text-lg" aria-hidden="true"></span>
                   </span>
                 </li>
               } @else if (candidateFor(entry); as candidate) {
-                <li class="flex items-center gap-3">
-                  <span
-                    class="w-[5.5rem] shrink-0 text-[length:var(--font-size-label)] text-muted-color"
-                  >
+                <li
+                  class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)_auto] min-[380px]:items-center min-[380px]:gap-3"
+                >
+                  <span class="text-[length:var(--font-size-label)] text-muted-color">
                     {{ entry.timeLabel }}
                   </span>
 
-                  <div class="min-w-0 flex-1">
+                  <div class="min-w-0 flex-1 overflow-hidden">
                     <button
                       type="button"
-                      class="m-0 cursor-pointer border-0 bg-transparent p-0 text-left text-base font-bold text-color hover:underline"
+                      class="m-0 block w-full min-w-0 cursor-pointer truncate border-0 bg-transparent p-0 text-left text-base font-bold text-color hover:underline"
                       (click)="openCandidate(candidate.id)"
                     >
                       {{ candidate.name }}
                     </button>
-                    <div class="truncate text-[length:var(--font-size-label)] text-muted-color">
+                    <div class="truncate text-sm text-muted-color">
                       {{ candidate.roleTitle }}
                     </div>
                   </div>
 
                   <a
                     href="#"
-                    class="shrink-0 text-muted-color no-underline hover:text-color"
+                    class="shrink-0 text-muted-color no-underline hover:text-color min-[380px]:justify-self-end"
                     [attr.aria-label]="'Zoom link for ' + candidate.name"
                   >
                     <span class="pi pi-users text-lg" aria-hidden="true"></span>
