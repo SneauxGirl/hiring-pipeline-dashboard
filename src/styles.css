@@ -20,7 +20,6 @@
 
   --dashboard-max-width: 1440px;
   --dashboard-margin: 20px;
-  --dashboard-margin-mobile: 3%;
   --dashboard-header-padding-block: 1.25rem;
   --dashboard-header-padding-block-lg: 1.5rem;
   --dashboard-header-row-height: var(--sidebar-logo-height);
@@ -47,12 +46,26 @@
 
   html,
   body {
-    margin: 0;
+    width: 100%;
+    max-width: 100%;
     min-height: 100%;
+    margin: 0;
+    overflow-x: clip;
     font-family: var(--font-body);
     font-size: var(--font-size-body);
     color: var(--p-text-color);
     background: var(--p-surface-0);
+  }
+
+  body {
+    position: relative;
+  }
+
+  app-root {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   h1,
@@ -240,11 +253,13 @@
     min-width: 0;
   }
 
-  @media (max-width: 359px) {
+  @media (max-width: 767px) {
     :root {
-      --dashboard-margin: var(--dashboard-margin-mobile);
+      --dashboard-margin: 0.75rem;
     }
+  }
 
+  @media (max-width: 359px) {
     .dashboard-main .p-card {
       border: none;
       border-radius: 0;
@@ -366,4 +381,16 @@
     background: var(--pip-nav-active-bg);
     color: var(--pip-nav-active-ink);
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
