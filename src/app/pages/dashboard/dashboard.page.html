@@ -16,7 +16,7 @@
     />
 
     <main
-      class="dashboard-main flex min-w-0 flex-1 flex-col gap-5 pb-5 pt-[length:var(--dashboard-header-padding-block)] lg:flex-row lg:flex-wrap lg:pb-6 lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
+      class="dashboard-main flex min-w-0 flex-1 flex-col gap-[length:var(--dashboard-grid-gap)] pb-5 pt-[length:var(--dashboard-header-padding-block)] lg:flex-row lg:flex-wrap lg:pb-6 lg:pt-[length:var(--dashboard-header-padding-block-lg)]"
     >
       <app-page-header
         class="hidden w-full min-w-0 md:block lg:order-1"
@@ -27,7 +27,7 @@
       />
       <app-kpi class="order-1 w-full min-w-0 lg:order-2" [kpiValues]="data.kpis" />
       <app-schedule
-        class="order-2 w-full min-w-0 lg:order-4 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)/3)]"
+        class="order-2 w-full min-w-0 lg:order-4"
         [schedule]="data.schedule"
         [candidates]="data.candidates"
       />
@@ -36,7 +36,7 @@
         [bottleneckMetrics]="data.bottlenecks"
       />
       <app-requisitions
-        class="order-4 w-full min-w-0 lg:order-6 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-2.5rem)*0.65)]"
+        class="order-4 w-full min-w-0 lg:order-6 lg:shrink-0 lg:grow-0 lg:basis-[calc((100%-var(--dashboard-grid-gap))*0.65)]"
         [requisitions]="data.openRequisitions"
       />
       <app-trends

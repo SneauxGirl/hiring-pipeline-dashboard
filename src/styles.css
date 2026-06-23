@@ -19,6 +19,7 @@
   --font-accent-weight: 400;
 
   --dashboard-max-width: 1440px;
+  --dashboard-grid-gap: 1rem;
   --dashboard-margin: 20px;
   --dashboard-header-padding-block: 1.25rem;
   --dashboard-header-padding-block-lg: 1.5rem;
@@ -253,12 +254,12 @@
   @media (min-width: 1024px) {
     app-bottleneck {
       display: flex;
-      flex: 0 0 340px;
+      flex: 0 0 338px;
       flex-direction: column;
       align-self: stretch;
-      width: 340px;
-      min-width: 340px;
-      max-width: 340px;
+      width: 338px;
+      min-width: 338px;
+      max-width: 338px;
     }
 
     app-bottleneck > p-card {
@@ -294,8 +295,12 @@
 
     app-schedule {
       display: flex;
+      flex: 0 0 338px;
       flex-direction: column;
       align-self: stretch;
+      width: 338px;
+      min-width: 338px;
+      max-width: 338px;
     }
 
     app-schedule > p-card {
@@ -795,6 +800,20 @@
   .week-range-select-panel .p-select-option.p-select-option-selected.p-focus {
     background: var(--pip-nav-active-bg);
     color: var(--pip-nav-active-ink);
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-main > app-schedule {
+    order: 1;
+  }
+
+  .dashboard-main > app-bottleneck {
+    order: 2;
+  }
+
+  .dashboard-main > app-kpi {
+    order: 3;
   }
 }
 
