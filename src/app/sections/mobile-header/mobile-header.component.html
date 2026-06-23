@@ -1,29 +1,44 @@
-<header class="mobile-header" aria-label="Mobile navigation">
-  <div class="mobile-header-bar">
+<header
+  class="border-b border-surface bg-surface-0 px-[length:var(--dashboard-margin)] py-2 max-[459px]:px-2"
+  aria-label="Mobile navigation"
+>
+  <div
+    class="flex min-h-[length:var(--dashboard-control-height)] items-center justify-between gap-3 max-[459px]:gap-2"
+  >
     <button
       type="button"
-      class="mobile-header-icon-btn mobile-header-menu"
+      [class]="iconBtnClass + ' text-[color:var(--pip-nav-active-ink)]'"
       aria-label="Open navigation menu"
       (click)="openDrawer()"
     >
-      <span class="pi pi-bars" aria-hidden="true"></span>
+      <span class="pi pi-bars text-xl leading-none" aria-hidden="true"></span>
     </button>
 
-    <div class="mobile-header-brand">
-      <img class="dashboard-brand-logo" src="/PurplePipLogo.png" alt="PIP Tech" />
+    <div
+      class="flex h-[length:var(--dashboard-control-height)] min-w-0 flex-1 items-center justify-center"
+    >
+      <img
+        class="dashboard-brand-logo h-[length:var(--mobile-header-logo-height)] shrink-0"
+        src="/PurplePipLogo.png"
+        alt="PIP Tech"
+      />
     </div>
 
-    <div class="mobile-header-schedule">
+    <div
+      class="flex h-[length:var(--dashboard-control-height)] min-w-0 shrink-0 items-center"
+    >
       <button
         type="button"
-        class="mobile-header-icon-btn mobile-header-calendar"
+        [class]="iconBtnClass + ' hidden text-[color:var(--pip-nav-active-ink)] max-[459px]:inline-flex'"
         aria-label="Select week"
         (click)="openWeekDrawer()"
       >
-        <span class="pi pi-calendar" aria-hidden="true"></span>
+        <span class="pi pi-calendar text-xl leading-none" aria-hidden="true"></span>
       </button>
 
-      <div class="mobile-header-week-inline">
+      <div
+        class="flex h-[length:var(--dashboard-control-height)] min-w-0 shrink-0 items-center gap-2 text-muted-color max-[459px]:hidden"
+      >
         <span class="pi pi-calendar" aria-hidden="true"></span>
         <p-select
           [options]="weeks"
@@ -32,7 +47,7 @@
           optionLabel="label"
           optionValue="key"
           ariaLabel="Select week"
-          class="week-range-select mobile-header-week-select w-full min-w-[10rem] max-w-[11rem]"
+          class="week-range-select h-[length:var(--dashboard-control-height)] w-full min-w-[10rem] max-w-[11rem]"
           panelStyleClass="week-range-select-panel"
         />
       </div>
@@ -44,10 +59,27 @@
   [(visible)]="drawerVisible"
   position="left"
   [modal]="true"
-  [closable]="true"
-  ariaCloseLabel="Close navigation menu"
+  [closable]="false"
   styleClass="dashboard-drawer"
 >
+  <ng-template #header>
+    <div class="flex w-full min-w-0 items-center justify-between gap-3">
+      <img
+        src="/PurplePipLogo.png"
+        alt="PIP Tech"
+        class="dashboard-brand-logo h-[length:var(--dashboard-brand-logo-height)] shrink-0 -translate-y-0.5"
+      />
+      <button
+        type="button"
+        [class]="iconBtnClass + ' text-muted-color hover:text-color'"
+        aria-label="Close navigation menu"
+        (click)="closeDrawer()"
+      >
+        <span class="pi pi-times text-xl leading-none" aria-hidden="true"></span>
+      </button>
+    </div>
+  </ng-template>
+
   <div class="flex flex-col gap-4">
     <p-menu
       [model]="menuItems"
@@ -67,7 +99,9 @@
       />
       <div class="min-w-0">
         <div class="truncate text-base font-medium text-color">{{ user.name }}</div>
-        <div class="truncate text-[length:var(--font-size-label)] text-muted-color">{{ user.title }}</div>
+        <div class="truncate text-[length:var(--font-size-label)] text-muted-color">
+          {{ user.title }}
+        </div>
       </div>
     </div>
   </div>
@@ -77,14 +111,31 @@
   [(visible)]="weekDrawerVisible"
   position="right"
   [modal]="true"
-  [closable]="true"
-  ariaCloseLabel="Close week selector"
+  [closable]="false"
   styleClass="mobile-week-drawer"
   (onShow)="onWeekDrawerShow()"
   (onHide)="onWeekDrawerHide()"
 >
-  <div class="mobile-week-drawer-panel">
-    <div class="mobile-week-drawer-trigger flex min-w-0 shrink-0 items-center">
+  <ng-template #header>
+    <div class="flex w-full min-w-0 items-center justify-between gap-3">
+      <img
+        src="/PurplePipLogo.png"
+        alt="PIP Tech"
+        class="dashboard-brand-logo h-[length:var(--dashboard-brand-logo-height)] shrink-0 -translate-y-0.5"
+      />
+      <button
+        type="button"
+        [class]="iconBtnClass + ' text-muted-color hover:text-color'"
+        aria-label="Close week selector"
+        (click)="closeWeekDrawer()"
+      >
+        <span class="pi pi-times text-xl leading-none" aria-hidden="true"></span>
+      </button>
+    </div>
+  </ng-template>
+
+  <div class="relative flex min-h-0 min-w-0 flex-1 flex-col">
+    <div class="flex min-w-0 shrink-0 items-center">
       <p-select
         #weekDrawerSelect
         [options]="weeks"
@@ -93,7 +144,7 @@
         optionLabel="label"
         optionValue="key"
         ariaLabel="Select week"
-        class="week-range-select min-w-0 w-full flex-1"
+        class="week-range-select h-[length:var(--dashboard-control-height)] min-w-0 w-full flex-1"
         panelStyleClass="week-range-select-panel"
       />
     </div>

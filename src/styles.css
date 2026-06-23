@@ -342,6 +342,12 @@
     width: min(18rem, 85vw);
   }
 
+  .dashboard-drawer .p-drawer-header,
+  .p-drawer.mobile-week-drawer .p-drawer-header {
+    width: 100%;
+    padding: 1.125rem;
+  }
+
   .p-drawer.mobile-week-drawer.p-drawer-right {
     top: 0;
     right: 0;
@@ -358,14 +364,6 @@
     border-radius: 0 !important;
   }
 
-  .p-drawer.mobile-week-drawer .p-drawer-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-shrink: 0;
-    padding: 1.125rem;
-  }
-
   .p-drawer.mobile-week-drawer .p-drawer-content {
     display: flex;
     flex: 1 1 auto;
@@ -375,50 +373,9 @@
     overflow: hidden;
   }
 
-  .mobile-week-drawer-panel {
-    position: relative;
-    display: flex;
-    min-width: 0;
-    flex: 1 1 auto;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .mobile-week-drawer-panel .week-range-select.p-select {
-    height: var(--dashboard-control-height);
-  }
-
-  .mobile-header {
-    border-bottom: 1px solid var(--p-content-border-color);
-    background: var(--p-surface-0);
-    padding: 0.5rem var(--dashboard-margin);
-  }
-
-  .mobile-header-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    min-height: var(--dashboard-control-height);
-  }
-
-  .mobile-header-brand {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    height: var(--dashboard-control-height);
-  }
-
   .sidebar-brand .dashboard-brand-logo {
     height: var(--dashboard-brand-logo-height);
     transform: translateY(-0.125rem);
-  }
-
-  .mobile-header .dashboard-brand-logo {
-    height: var(--mobile-header-logo-height);
-    transform: none;
   }
 
   .dashboard-brand-logo {
@@ -426,89 +383,6 @@
     width: auto;
     max-width: 100%;
     object-fit: contain;
-  }
-
-  .mobile-header-icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    width: var(--dashboard-control-height);
-    height: var(--dashboard-control-height);
-    padding: 0;
-    border: 0;
-    border-radius: var(--p-content-border-radius);
-    background: transparent;
-    cursor: pointer;
-    line-height: 0;
-  }
-
-  .mobile-header-icon-btn:hover {
-    background: var(--p-content-hover-background);
-  }
-
-  .mobile-header-icon-btn:focus {
-    outline: none;
-  }
-
-  .mobile-header-icon-btn:focus-visible {
-    outline: none;
-    box-shadow: inset 0 0 0 2px var(--pip-nav-active-ink);
-  }
-
-  .mobile-header-icon-btn .pi {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .mobile-header-menu,
-  .mobile-header-calendar {
-    color: var(--pip-nav-active-ink);
-  }
-
-  .mobile-header-calendar {
-    display: none;
-  }
-
-  .mobile-header-week-inline {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-    min-width: 0;
-    height: var(--dashboard-control-height);
-    color: var(--p-text-muted-color);
-  }
-
-  .mobile-header-schedule {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 0;
-    height: var(--dashboard-control-height);
-  }
-
-  .mobile-header-week-inline .week-range-select.p-select {
-    height: var(--dashboard-control-height);
-  }
-
-  @media (max-width: 459px) {
-    .mobile-header {
-      padding-inline: 0.5rem;
-    }
-
-    .mobile-header-bar {
-      gap: 0.5rem;
-    }
-
-    .mobile-header-calendar {
-      display: inline-flex;
-    }
-
-    .mobile-header-week-inline {
-      display: none;
-    }
   }
 
   .candidate-dialog.p-dialog {
