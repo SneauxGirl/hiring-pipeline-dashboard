@@ -7,7 +7,7 @@ import { Menu } from 'primeng/menu';
 import { Select } from 'primeng/select';
 
 import { DASHBOARD_NAV_ITEMS } from '../../config/dashboard-nav.config';
-import { DashboardWeekKey } from '../../data/dashboard-weeks.mock';
+import { StoryDateOption } from '../../data/dashboard-story-day.resolver';
 import { DashboardUser } from '../../models/dashboard.models';
 
 @Component({
@@ -23,9 +23,9 @@ export class MobileHeaderComponent {
     'inline-flex size-[length:var(--dashboard-control-height)] shrink-0 cursor-pointer items-center justify-center rounded-[length:var(--p-content-border-radius)] border-0 bg-transparent p-0 leading-none hover:bg-[color:var(--p-content-hover-background)] focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]';
 
   @Input({ required: true }) user!: DashboardUser;
-  @Input({ required: true }) weeks!: ReadonlyArray<{ key: DashboardWeekKey; label: string }>;
-  @Input({ required: true }) selectedWeek!: DashboardWeekKey;
-  @Output() readonly selectedWeekChange = new EventEmitter<DashboardWeekKey>();
+  @Input({ required: true }) storyDates!: ReadonlyArray<StoryDateOption>;
+  @Input({ required: true }) selectedDateKey!: string;
+  @Output() readonly selectedDateKeyChange = new EventEmitter<string>();
 
   drawerVisible = false;
 
@@ -50,7 +50,7 @@ export class MobileHeaderComponent {
     this.drawerVisible = false;
   }
 
-  onWeekChange(key: DashboardWeekKey): void {
-    this.selectedWeekChange.emit(key);
+  onDateChange(dateKey: string): void {
+    this.selectedDateKeyChange.emit(dateKey);
   }
 }

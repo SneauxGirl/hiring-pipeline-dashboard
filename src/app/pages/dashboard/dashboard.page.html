@@ -10,9 +10,9 @@
   <div class="dashboard-page flex w-full min-w-0 flex-none flex-col bg-surface-50 md:flex-1">
     <app-mobile-header
       [user]="user"
-      [weeks]="weeks"
-      [selectedWeek]="selectedWeekKey()"
-      (selectedWeekChange)="selectedWeekKey.set($event)"
+      [storyDates]="storyDateOptions"
+      [selectedDateKey]="selectedDateKey()"
+      (selectedDateKeyChange)="selectedDateKey.set($event)"
     />
 
     <main
@@ -21,9 +21,9 @@
       <app-page-header
         class="hidden w-full min-w-0 md:block lg:order-1"
         [user]="user"
-        [weeks]="weeks"
-        [selectedWeek]="selectedWeekKey()"
-        (selectedWeekChange)="selectedWeekKey.set($event)"
+        [storyDates]="storyDateOptions"
+        [selectedDateKey]="selectedDateKey()"
+        (selectedDateKeyChange)="selectedDateKey.set($event)"
       />
       <app-kpi class="order-1 w-full min-w-0 lg:order-2" [kpiValues]="data.kpis" />
       <app-schedule

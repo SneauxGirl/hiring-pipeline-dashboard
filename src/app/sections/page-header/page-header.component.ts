@@ -2,8 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 
-import { DashboardWeekKey } from '../../data/dashboard-weeks.mock';
+import { StoryDateOption } from '../../data/dashboard-story-day.resolver';
 import { DashboardUser } from '../../models/dashboard.models';
+
+export type { StoryDateOption };
 
 @Component({
   selector: 'app-page-header',
@@ -12,9 +14,9 @@ import { DashboardUser } from '../../models/dashboard.models';
 })
 export class PageHeaderComponent {
   @Input({ required: true }) user!: DashboardUser;
-  @Input({ required: true }) weeks!: ReadonlyArray<{ key: DashboardWeekKey; label: string }>;
-  @Input({ required: true }) selectedWeek!: DashboardWeekKey;
-  @Output() readonly selectedWeekChange = new EventEmitter<DashboardWeekKey>();
+  @Input({ required: true }) storyDates!: ReadonlyArray<StoryDateOption>;
+  @Input({ required: true }) selectedDateKey!: string;
+  @Output() readonly selectedDateKeyChange = new EventEmitter<string>();
 
   get firstName(): string {
     return this.user.name.trim().split(/\s+/)[0] ?? this.user.name;
@@ -31,7 +33,7 @@ export class PageHeaderComponent {
     return 'Good evening, ';
   }
 
-  onWeekChange(key: DashboardWeekKey): void {
-    this.selectedWeekChange.emit(key);
+  onDateChange(dateKey: string): void {
+    this.selectedDateKeyChange.emit(dateKey);
   }
 }

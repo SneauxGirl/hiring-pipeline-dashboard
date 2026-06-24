@@ -40,12 +40,12 @@
       >
         <span class="pi pi-calendar" aria-hidden="true"></span>
         <p-select
-          [options]="weeks"
-          [ngModel]="selectedWeek"
-          (ngModelChange)="onWeekChange($event)"
+          [options]="storyDates"
+          [ngModel]="selectedDateKey"
+          (ngModelChange)="onDateChange($event)"
           optionLabel="label"
-          optionValue="key"
-          ariaLabel="Select week"
+          optionValue="value"
+          ariaLabel="Select date"
           class="week-range-select h-[length:var(--dashboard-control-height)] w-full min-w-[10rem] max-w-[11rem]"
           panelStyleClass="week-range-select-panel"
         />

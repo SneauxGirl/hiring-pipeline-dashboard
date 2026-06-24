@@ -1,9 +1,14 @@
 import { Component, computed, signal } from '@angular/core';
 
-import { MOCK_DASHBOARD_USER } from '../../data/dashboard-user.mock';
+import {
+  dashboardForDate,
+  fromDateKey,
+  startOfDay,
+  storyDateSelectOptions,
+  toDateKey,
+} from '../../data/dashboard-story-day.resolver';
 import { trendsForViewer } from '../../data/dashboard-trends.mock';
-import { DASHBOARD_WEEKS, DashboardWeekKey } from '../../data/dashboard-weeks.mock';
-import { MOCK_DASHBOARD_BY_WEEK } from '../../data/dashboard-weekly.mock';
+import { MOCK_DASHBOARD_USER } from '../../data/dashboard-user.mock';
 import {
   BottleneckComponent,
   FunnelComponent,
@@ -35,10 +40,14 @@ import {
 export class DashboardPage {
   readonly user = MOCK_DASHBOARD_USER;
   readonly trendValues = trendsForViewer();
-  readonly weeks = DASHBOARD_WEEKS;
-  readonly selectedWeekKey = signal<DashboardWeekKey>('2026-06-15');
+  readonly referenceDate = startOfDay(new Date());
+  readonly storyDateOptions = storyDateSelectOptions(this.referenceDate);
+  readonly selectedDateKey = signal(toDateKey(this.referenceDate));
+  readonly selectedDate = computed(() => fromDateKey(this.selectedDateKey()));
   readonly dashboard = computed(
-    () => MOCK_DASHBOARD_BY_WEEK[this.selectedWeekKey()] ?? MOCK_DASHBOARD_BY_WEEK['2026-06-15'],
+    () =>
+      dashboardForDate(this.selectedDate(), this.referenceDate) ??
+      dashboardForDate(this.referenceDate, this.referenceDate)!,
   );
 
   sidebarCollapsed = false;
