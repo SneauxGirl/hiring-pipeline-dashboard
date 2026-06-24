@@ -31,17 +31,17 @@ const SCHEDULE_SLOT_SOURCES: Record<DashboardCalendarDay, ScheduleSlotPlan> = {
   12: { today: [12], tomorrow: [13], rest: [] },
   13: { today: [13], tomorrow: [], rest: [] },
   14: { today: [], tomorrow: [], rest: [] },
-  15: { today: [], tomorrow: [16], rest: [17, 18, 19, 20] },
-  16: { today: [16], tomorrow: [17], rest: [18, 19, 20] },
-  17: { today: [17], tomorrow: [18], rest: [19, 20] },
-  18: { today: [18], tomorrow: [19], rest: [20] },
-  19: { today: [19], tomorrow: [20], rest: [] },
-  20: { today: [20], tomorrow: [], rest: [] },
-  21: { today: [], tomorrow: [], rest: [] },
 };
 
 export function scheduleSlotsForCalendarDay(calendarDay: DashboardCalendarDay): ScheduleSlotPlan {
   return SCHEDULE_SLOT_SOURCES[calendarDay];
+}
+
+const WEEKDAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
+
+/** Narrative calendar day 1 = Sun … 7 = Sat within each week block. */
+export function weekdayLabelForCalendarDay(calendarDay: DashboardCalendarDay): string {
+  return WEEKDAY_SHORT[(calendarDay - 1) % 7];
 }
 
 function isPtoSchedule(schedule: ScheduleEntry[]): boolean {
@@ -61,7 +61,12 @@ function entriesForSlot(
 
     return raw
       .filter((entry): entry is ScheduleInterviewEntry => entry.kind !== 'pto')
-      .map((entry) => ({ ...entry, group }));
+      .map((entry) => ({
+        ...entry,
+        group,
+        timeLabel:
+          group === 'this-week' ? weekdayLabelForCalendarDay(calendarDay) : entry.timeLabel,
+      }));
   });
 }
 

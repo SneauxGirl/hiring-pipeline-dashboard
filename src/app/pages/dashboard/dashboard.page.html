@@ -24,25 +24,6 @@
         (selectedDateChange)="onSelectedDateChange($event)"
       />
 
-      @if (!isViewingViewerDay()) {
-        <div
-          class="dashboard-viewing-banner order-0 flex w-full min-w-0 flex-col gap-2 rounded-[length:var(--p-content-border-radius)] border border-[color:var(--pip-nav-active-ink)] bg-[color:var(--pip-nav-active-bg)] px-4 py-3 text-base text-color sm:flex-row sm:items-center sm:justify-between lg:order-1"
-          role="status"
-        >
-          <p class="m-0">
-            Viewing <span class="font-medium">{{ selectedDateLabel() }}</span>. Your today is
-            <span class="font-medium">{{ viewerDayLabel() }}</span>.
-          </p>
-          <button
-            type="button"
-            class="shrink-0 cursor-pointer rounded-[length:var(--p-content-border-radius)] border border-[color:var(--pip-nav-active-ink)] bg-surface-0 px-3 py-1.5 text-base text-color hover:bg-[color:var(--pip-nav-hover-bg)]"
-            (click)="returnToViewerDay()"
-          >
-            Return to today
-          </button>
-        </div>
-      }
-
       <app-kpi class="order-1 w-full min-w-0 lg:order-2" [kpiValues]="data.kpis" />
       <app-schedule
         class="order-2 w-full min-w-0 lg:order-4"

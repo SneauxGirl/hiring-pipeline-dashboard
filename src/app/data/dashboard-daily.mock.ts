@@ -1,10 +1,9 @@
 import { BottleneckWeekMetrics, DashboardDayData } from '../models/dashboard.models';
 
 export type DashboardCalendarDay =
-  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
-  | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21;
+  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
 
-export const DASHBOARD_CALENDAR_DAY_COUNT = 21;
+export const DASHBOARD_CALENDAR_DAY_COUNT = 14;
 
 export const DASHBOARD_CALENDAR_DAYS = [
   { key: 1, label: 'Week 1 · Sun' },
@@ -21,27 +20,17 @@ export const DASHBOARD_CALENDAR_DAYS = [
   { key: 12, label: 'Week 2 · Thu' },
   { key: 13, label: 'Week 2 · Fri' },
   { key: 14, label: 'Week 2 · Sat' },
-  { key: 15, label: 'Week 3 · Sun' },
-  { key: 16, label: 'Week 3 · Mon' },
-  { key: 17, label: 'Week 3 · Tue' },
-  { key: 18, label: 'Week 3 · Wed' },
-  { key: 19, label: 'Week 3 · Thu' },
-  { key: 20, label: 'Week 3 · Fri' },
-  { key: 21, label: 'Week 3 · Sat' },
 ] as const satisfies ReadonlyArray<{ key: DashboardCalendarDay; label: string }>;
 
-type StoryWeek = 1 | 2 | 3;
+type StoryWeek = 1 | 2;
 
 const STAGE_DURATION_DAYS_BY_STORY_WEEK: Record<StoryWeek, readonly number[]> = {
   1: [10, 9, 18, 14, 62, 3],
   2: [9, 8, 17, 12, 58, 2],
-  3: [9, 8, 16, 11, 55, 2],
 };
 
 function calendarWeekForDay(calendarDay: DashboardCalendarDay): StoryWeek {
-  if (calendarDay <= 7) return 1;
-  if (calendarDay <= 14) return 2;
-  return 3;
+  return calendarDay <= 7 ? 1 : 2;
 }
 
 function calendarDay(
@@ -93,13 +82,6 @@ const THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY: Record<
   12: [3416, 3142, 1898, 272, 20, 17],
   13: [3488, 3205, 1936, 281, 21, 18],
   14: [3488, 3205, 1936, 281, 21, 18],
-  15: [3560, 3260, 1958, 281, 21, 18],
-  16: [3560, 3260, 1958, 281, 21, 18],
-  17: [3634, 3315, 1986, 281, 21, 18],
-  18: [3712, 3374, 2016, 281, 21, 18],
-  19: [3790, 3435, 2048, 281, 21, 18],
-  20: [3868, 3492, 2076, 281, 21, 18],
-  21: [3868, 3492, 2076, 281, 21, 18],
 };
 
 type Stage = 'Application' | 'Screening' | 'Assessment' | 'Interview' | 'Final Round' | 'Offer' | 'Hired';
@@ -232,12 +214,6 @@ const KPI_WEEK2 = [
   { value: 6, delta: 'no change', trend: 'neutral' },
 ] as const;
 
-const KPI_WEEK3 = [
-  { value: 8, delta: '4 this month', trend: 'up' },
-  { value: 35, valueUnit: 'days', delta: '6 days', trend: 'down' },
-  { value: 89, valueUnit: '%', delta: '2% acceptance', trend: 'up' },
-  { value: 6, delta: 'PTO week', trend: 'neutral' },
-] as const;
 
 export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, DashboardDayData> = {
   1: calendarDay(1, {
@@ -541,133 +517,6 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
     bottlenecks: bottlenecks(4, 6, 9, 6.2, 4.1, 17.3),
     funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[14]),
   }),
-
-  15: calendarDay(15, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 30, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 36, 'medium'],
-        ['r3', 'Marketing Manager', 612, 'Assessment', 'candidates-aging', 31, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 33, 'medium'],
-        ['r5', 'Data Analyst', 552, 'Assessment', 'candidates-aging', 30, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [],
-    bottlenecks: bottlenecks(4, 6, 9, 6.2, 4.1, 17.3),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[15]),
-  }),
-
-  16: calendarDay(16, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 30, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 36, 'medium'],
-        ['r3', 'Marketing Manager', 612, 'Assessment', 'candidates-aging', 31, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 33, 'medium'],
-        ['r5', 'Data Analyst', 552, 'Assessment', 'candidates-aging', 30, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [CANDIDATES.priya, CANDIDATES.grace],
-    schedule: [...PTO_SCHEDULE],
-    bottlenecks: bottlenecks(4, 6, 9, 6.2, 4.1, 17.3),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[16]),
-  }),
-
-  17: calendarDay(17, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 31, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 37, 'medium'],
-        ['r3', 'Marketing Manager', 624, 'Assessment', 'candidates-aging', 32, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 34, 'medium'],
-        ['r5', 'Data Analyst', 560, 'Assessment', 'candidates-aging', 31, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [...PTO_SCHEDULE],
-    bottlenecks: bottlenecks(5, 6, 10, 6.5, 4.2, 17.8),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[17]),
-  }),
-
-  18: calendarDay(18, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 32, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 38, 'medium'],
-        ['r3', 'Marketing Manager', 638, 'Assessment', 'candidates-aging', 33, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 35, 'medium'],
-        ['r5', 'Data Analyst', 568, 'Assessment', 'candidates-aging', 32, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [...PTO_SCHEDULE],
-    bottlenecks: bottlenecks(5, 7, 11, 6.8, 4.4, 18.3),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[18]),
-  }),
-
-  19: calendarDay(19, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 33, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 39, 'medium'],
-        ['r3', 'Marketing Manager', 650, 'Assessment', 'candidates-aging', 34, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 36, 'medium'],
-        ['r5', 'Data Analyst', 576, 'Assessment', 'candidates-aging', 33, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [...PTO_SCHEDULE],
-    bottlenecks: bottlenecks(6, 7, 12, 7.1, 4.6, 18.9),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[19]),
-  }),
-
-  20: calendarDay(20, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 34, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 40, 'medium'],
-        ['r3', 'Marketing Manager', 662, 'Assessment', 'candidates-aging', 35, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 37, 'medium'],
-        ['r5', 'Data Analyst', 584, 'Assessment', 'candidates-aging', 34, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [...PTO_SCHEDULE],
-    bottlenecks: bottlenecks(7, 8, 13, 7.4, 4.9, 19.4),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[20]),
-  }),
-
-  21: calendarDay(21, {
-    kpis: [...KPI_WEEK3],
-    openRequisitions: reqs(
-      [
-        ['r1', 'Senior Frontend Engineer', 18, 'Final Round', 'waiting-on-me', 34, 'low'],
-        ['r2', 'Product Designer', 92, 'Interview', 'waiting-on-recruiter', 40, 'medium'],
-        ['r3', 'Marketing Manager', 662, 'Assessment', 'candidates-aging', 35, 'medium'],
-        ['r4', 'Backend Engineer', 16, 'Final Round', 'waiting-on-me', 37, 'medium'],
-        ['r5', 'Data Analyst', 584, 'Assessment', 'candidates-aging', 34, 'medium'],
-      ],
-      3,
-    ),
-    candidates: [],
-    schedule: [],
-    bottlenecks: bottlenecks(7, 8, 13, 7.4, 4.9, 19.4),
-    funnelStages: funnelStages(THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY[21]),
-  }),
-
 };
 
 export function dashboardForCalendarDay(calendarDayKey: DashboardCalendarDay): DashboardDayData {

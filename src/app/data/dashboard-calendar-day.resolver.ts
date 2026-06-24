@@ -5,21 +5,18 @@ import {
 } from './dashboard-daily.mock';
 import { resolveScheduleForCalendarDay } from './dashboard-schedule.resolver';
 
-/** Narrative anchor by real weekday — Sun=0 … Sat=6. */
+/** Narrative "today" on first load by real weekday — Sun=0 … Sat=6. */
 const CALENDAR_TODAY_BY_DOW: Record<number, DashboardCalendarDay> = {
-  0: 6,
+  0: 8,
   1: 9,
   2: 10,
   3: 11,
-  4: 5,
-  5: 6,
-  6: 6,
+  4: 12,
+  5: 13,
+  6: 14,
 };
 
 const MS_PER_DAY = 86_400_000;
-
-/** Su3 — present in the grid but not user-selectable. */
-export const UNSELECTABLE_CALENDAR_DAY = 15 as DashboardCalendarDay;
 
 export function startOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -65,14 +62,14 @@ export function calendarDayForDate(
   targetDate: Date,
   referenceDate: Date = new Date(),
 ): DashboardCalendarDay | null {
-  const anchor = calendarTodayForDate(referenceDate);
-  const calendarDay = anchor + calendarDaysBetween(referenceDate, targetDate);
+  const viewerToday = calendarTodayForDate(referenceDate);
+  const calendarDay = viewerToday + calendarDaysBetween(referenceDate, targetDate);
 
   if (calendarDay < 1 || calendarDay > DASHBOARD_CALENDAR_DAY_COUNT) {
     return null;
   }
 
-  if (calendarDay === UNSELECTABLE_CALENDAR_DAY) {
+  if (calendarDay > viewerToday) {
     return null;
   }
 
@@ -83,18 +80,15 @@ export function dateForCalendarDay(
   calendarDay: DashboardCalendarDay,
   referenceDate: Date = new Date(),
 ): Date {
-  const anchor = calendarTodayForDate(referenceDate);
-  return addCalendarDays(referenceDate, calendarDay - anchor);
+  const viewerToday = calendarTodayForDate(referenceDate);
+  return addCalendarDays(referenceDate, calendarDay - viewerToday);
 }
 
 export function selectableCalendarDates(referenceDate: Date = new Date()): Date[] {
+  const viewerToday = calendarTodayForDate(referenceDate);
   const dates: Date[] = [];
 
-  for (let calendarDay = 1; calendarDay <= DASHBOARD_CALENDAR_DAY_COUNT; calendarDay++) {
-    if (calendarDay === UNSELECTABLE_CALENDAR_DAY) {
-      continue;
-    }
-
+  for (let calendarDay = 1; calendarDay <= viewerToday; calendarDay++) {
     dates.push(dateForCalendarDay(calendarDay as DashboardCalendarDay, referenceDate));
   }
 

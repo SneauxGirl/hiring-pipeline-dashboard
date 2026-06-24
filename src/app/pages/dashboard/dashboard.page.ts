@@ -10,7 +10,6 @@ import { trendsForDate } from '../../data/dashboard-trends.mock';
 import {
   calendarNavRangeForDate,
   captureViewerDay,
-  formatStoryDateLabel,
   msUntilLocalMidnight,
 } from '../../data/dashboard-viewer-day';
 import { MOCK_DASHBOARD_USER } from '../../data/dashboard-user.mock';
@@ -65,11 +64,6 @@ export class DashboardPage implements OnDestroy {
 
     return dashboardForDate(selected, anchor) ?? dashboardForDate(anchor, anchor)!;
   });
-  readonly isViewingViewerDay = computed(
-    () => this.selectedDateKey() === this.viewerDay().dayKey,
-  );
-  readonly selectedDateLabel = computed(() => formatStoryDateLabel(this.selectedDate()));
-  readonly viewerDayLabel = computed(() => formatStoryDateLabel(this.viewerDay().date));
 
   sidebarCollapsed = false;
 
@@ -87,10 +81,6 @@ export class DashboardPage implements OnDestroy {
 
   onSelectedDateChange(date: Date): void {
     this.selectedDateKey.set(toDateKey(date));
-  }
-
-  returnToViewerDay(): void {
-    this.selectedDateKey.set(this.viewerDay().dayKey);
   }
 
   private scheduleViewerDayRefresh(): void {
