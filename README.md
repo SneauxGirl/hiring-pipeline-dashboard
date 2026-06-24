@@ -4,7 +4,7 @@ Work in progress: Hiring-manager dashboard. Built in Angular, with Typescript an
 
 **Live demo:** [pipeline-dashboard-seven-chi.vercel.app/](https://pipeline-dashboard-seven-chi.vercel.app/)
 
-![PIP Tech dashboard at desktop](docs/images/dashboard-colorlock.png)
+![PIP Tech dashboard mid-refactor](docs/images/PipDashboard-DayRefactor.png)
 
 ## Stack
 
@@ -57,14 +57,7 @@ static from `src/app/data/`. Design tokens in `src/app/theme/pip-tokens.ts`; glo
 
 ### Mock Data
 
-```
-src/app/data/
-  dashboard-user.mock.ts          # Signed-in user (Alex Rivera) — same every week
-  dashboard-weeks.mock.ts         # Week keys and picker labels
-  dashboard-weekly.mock.ts        # All five weekly snapshots (KPIs, requisitions, schedule, …)
-  dashboard-trends.mock.ts        # Trend & stage-duration number builders per week
-  dashboard-rules.mock.ts         # Schedule rules (e.g. interview-eligible stages)
-```
+Currently mid-refactor from weekly to daily.
 
 ## Scripts
 
