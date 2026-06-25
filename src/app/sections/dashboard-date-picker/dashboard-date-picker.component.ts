@@ -15,6 +15,7 @@ import {
 import {
   addCalendarDays,
   isSameDay,
+  isSelectableCalendarDate,
   startOfDay,
 } from '../../data/dashboard-calendar-day.resolver';
 import { ViewerDay } from '../../data/dashboard-viewer-day';
@@ -127,8 +128,7 @@ export class DashboardDatePickerComponent implements OnDestroy {
     return buildMonthGrid(
       this.panelMonth.getFullYear(),
       this.panelMonth.getMonth(),
-      this.calendarMinDate,
-      this.calendarMaxDate,
+      this.viewerDay.date,
     );
   }
 
@@ -213,8 +213,16 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   selectDate(date: Date): void {
     const normalized = startOfDay(date);
+    if (!isSelectableCalendarDate(normalized, this.viewerDay.date)) {
+      return;
+    }
+
     this.selectedDateChange.emit(normalized);
     this.closePanel();
+  }
+
+  isStoryDayCell(cell: DashboardDatePickerCell): boolean {
+    return cell.inMonth && isSelectableCalendarDate(cell.date, this.viewerDay.date);
   }
 
   isSelectedCell(cell: DashboardDatePickerCell): boolean {
@@ -258,11 +266,8 @@ function startOfMonth(date: Date): Date {
 function buildMonthGrid(
   year: number,
   month: number,
-  minDate: Date,
-  maxDate: Date,
+  viewerAnchor: Date,
 ): DashboardDatePickerCell[] {
-  const min = startOfDay(minDate);
-  const max = startOfDay(maxDate);
   const firstOfMonth = new Date(year, month, 1);
   const startOffset = firstOfMonth.getDay();
   const gridStart = new Date(year, month, 1 - startOffset);
@@ -278,8 +283,7 @@ function buildMonthGrid(
       date: normalized,
       day: normalized.getDate(),
       inMonth,
-      selectable:
-        inMonth && normalized.getTime() >= min.getTime() && normalized.getTime() <= max.getTime(),
+      selectable: inMonth && isSelectableCalendarDate(normalized, viewerAnchor),
     });
   }
 

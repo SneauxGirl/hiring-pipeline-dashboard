@@ -2,7 +2,6 @@ import { Component, computed, linkedSignal, OnDestroy, signal } from '@angular/c
 
 import {
   dashboardForDate,
-  disabledDatesInCalendarNav,
   fromDateKey,
   toDateKey,
 } from '../../data/dashboard-calendar-day.resolver';
@@ -54,9 +53,6 @@ export class DashboardPage implements OnDestroy {
   });
 
   readonly calendarNav = computed(() => calendarNavRangeForDate(this.viewerDay().date));
-  readonly disabledStoryDates = computed(() =>
-    disabledDatesInCalendarNav(this.viewerDay().date, this.calendarNav()),
-  );
   readonly trendValues = computed(() => trendsForDate(this.selectedDate()));
   readonly dashboard = computed(() => {
     const anchor = this.viewerDay().date;

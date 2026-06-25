@@ -83,6 +83,7 @@
                 type="button"
                 role="gridcell"
                 class="inline-flex size-8 cursor-pointer items-center justify-center justify-self-center rounded-full border-0 text-base focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-35"
+                [class.font-semibold]="isStoryDayCell(cell)"
                 [class.bg-primary]="isSelectedCell(cell) && cell.selectable"
                 [class.font-semibold]="isSelectedCell(cell) && cell.selectable"
                 [class.text-primary-contrast]="isSelectedCell(cell) && cell.selectable"
