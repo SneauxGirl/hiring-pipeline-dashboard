@@ -39,11 +39,6 @@ import { TREND_METRIC_DEFINITIONS } from './trends.catalog';
 
 type TrendsViewMode = 'chart' | 'table';
 
-interface QuarterRow {
-  label: string;
-  monthIndex: number;
-}
-
 const MONTH_LABELS = [
   'Jan',
   'Feb',
@@ -59,19 +54,13 @@ const MONTH_LABELS = [
   'Dec',
 ] as const;
 
-const QUARTER_AXIS_LABELS: Record<number, string> = {
-  2: 'Q1',
-  5: 'Q2',
-  8: 'Q3',
-  11: 'Q4',
+/** Chart x-axis: month labels at quarter-end positions (indices 2, 5, 8, 11). */
+const CHART_AXIS_LABELS: Record<number, string> = {
+  2: 'Mar',
+  5: 'Jun',
+  8: 'Sep',
+  11: 'Dec',
 };
-
-const QUARTER_ROWS: QuarterRow[] = [
-  { label: 'Q1', monthIndex: 2 },
-  { label: 'Q2', monthIndex: 5 },
-  { label: 'Q3', monthIndex: 8 },
-  { label: 'Q4', monthIndex: 11 },
-];
 
 @Component({
   selector: 'app-trends',
@@ -86,14 +75,20 @@ export class TrendsComponent implements OnChanges, OnDestroy {
 
   @Input({ required: true }) trendValues!: TrendWeekData;
   @ViewChild('chartCanvas') chartCanvas?: ElementRef<HTMLCanvasElement>;
+  @ViewChild('viewMenu') viewMenu?: Menu;
+  @ViewChild('tableScroll') tableScroll?: ElementRef<HTMLDivElement>;
 
   private readonly platformId = inject(PLATFORM_ID);
   private chart: import('chart.js').Chart<'line'> | null = null;
 
   viewMode: TrendsViewMode = 'chart';
+  canScrollTableLeft = false;
+  canScrollTableRight = false;
+
+  readonly tableScrollButtonClass =
+    'inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-border border border-surface bg-surface-0 text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-color disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]';
 
   readonly monthLabels = MONTH_LABELS;
-  readonly quarterRows = QUARTER_ROWS;
 
   get trends(): WorkforceTrends {
     const calendarYear = this.trendValues.calendarYear;
@@ -117,6 +112,7 @@ export class TrendsComponent implements OnChanges, OnDestroy {
   }
 
   constructor() {
+    this.syncViewMenuModel();
     afterNextRender(() => {
       if (this.viewMode === 'chart') {
         this.createChart();
@@ -124,18 +120,26 @@ export class TrendsComponent implements OnChanges, OnDestroy {
     });
   }
 
-  readonly viewMenuItems: MenuItem[] = [
-    {
-      label: 'Chart view',
-      icon: 'pi pi-chart-line',
-      command: () => this.setViewMode('chart'),
-    },
-    {
-      label: 'Table view',
-      icon: 'pi pi-table',
-      command: () => this.setViewMode('table'),
-    },
-  ];
+  viewMenuModel: MenuItem[] = [];
+
+  private syncViewMenuModel(): void {
+    this.viewMenuModel = [
+      {
+        id: 'chart',
+        label: 'Chart view',
+        icon: 'pi pi-chart-line',
+        styleClass: this.viewMode === 'chart' ? 'nav-item--active' : undefined,
+        command: () => this.selectViewMode('chart'),
+      },
+      {
+        id: 'table',
+        label: 'Table view',
+        icon: 'pi pi-table',
+        styleClass: this.viewMode === 'table' ? 'nav-item--active' : undefined,
+        command: () => this.selectViewMode('table'),
+      },
+    ];
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['trendValues'] && !changes['trendValues'].firstChange && this.viewMode === 'chart') {
@@ -159,12 +163,21 @@ export class TrendsComponent implements OnChanges, OnDestroy {
     }
 
     this.viewMode = mode;
+    this.syncViewMenuModel();
 
     if (mode === 'chart' && isPlatformBrowser(this.platformId)) {
       requestAnimationFrame(() => this.createChart());
     } else {
       this.destroyChart();
+      if (mode === 'table' && isPlatformBrowser(this.platformId)) {
+        requestAnimationFrame(() => this.updateTableScrollState());
+      }
     }
+  }
+
+  private selectViewMode(mode: TrendsViewMode): void {
+    this.setViewMode(mode);
+    queueMicrotask(() => this.viewMenu?.onListBlur(new FocusEvent('blur')));
   }
 
   isPriorMonth(monthIndex: number): boolean {
@@ -175,6 +188,44 @@ export class TrendsComponent implements OnChanges, OnDestroy {
     return this.isPriorMonth(monthIndex)
       ? series.priorYear[monthIndex]
       : series.currentYear[monthIndex];
+  }
+
+  seriesColor(metricId: WorkforceTrendSeries['id']): string {
+    return trendSeriesColor(metricId as PipTrendMetricId);
+  }
+
+  scrollTableMonths(direction: -1 | 1): void {
+    const container = this.tableScroll?.nativeElement;
+    if (!container) {
+      return;
+    }
+
+    const step = this.tableMonthScrollStep(container);
+    if (step <= 0) {
+      return;
+    }
+
+    container.scrollBy({ left: direction * step, behavior: 'smooth' });
+    requestAnimationFrame(() => this.updateTableScrollState());
+  }
+
+  updateTableScrollState(): void {
+    const container = this.tableScroll?.nativeElement;
+    if (!container) {
+      this.canScrollTableLeft = false;
+      this.canScrollTableRight = false;
+      return;
+    }
+
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+    const epsilon = 1;
+    this.canScrollTableLeft = container.scrollLeft > epsilon;
+    this.canScrollTableRight = container.scrollLeft < maxScrollLeft - epsilon;
+  }
+
+  private tableMonthScrollStep(container: HTMLElement): number {
+    const monthHeader = container.querySelector<HTMLElement>('thead th:nth-child(2)');
+    return monthHeader?.offsetWidth ?? 0;
   }
 
   yearLabelForMonth(monthIndex: number): string {
@@ -308,7 +359,7 @@ export class TrendsComponent implements OnChanges, OnDestroy {
               font: { family: this.fontFamily(), size: 14 },
               maxRotation: 0,
               autoSkip: false,
-              callback: (_value, index) => QUARTER_AXIS_LABELS[index] ?? '',
+              callback: (_value, index) => CHART_AXIS_LABELS[index] ?? '',
             },
           },
           y: {

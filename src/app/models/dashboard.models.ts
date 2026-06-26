@@ -61,7 +61,6 @@ export interface BottleneckWeekMetrics {
 export interface BottleneckCard extends BottleneckWeekMetrics {
   id: string;
   title: string;
-  titleLine2?: string;
   subtitle: string;
   avgLabel: string;
 }

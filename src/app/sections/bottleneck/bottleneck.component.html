@@ -29,16 +29,7 @@
             <div
               class="min-w-0 flex-1 break-words text-base font-bold text-color @max-[420px]/bottleneck:flex-none"
             >
-              @if (bottleneck.titleLine2) {
-                <span class="bottleneck-title-line block @min-[421px]/bottleneck:inline">{{
-                  bottleneck.title
-                }}</span>
-                <span class="bottleneck-title-line block @min-[421px]/bottleneck:inline">{{
-                  bottleneck.titleLine2
-                }}</span>
-              } @else {
-                {{ bottleneck.title }}
-              }
+              {{ bottleneck.title }}
             </div>
 
             <div
@@ -58,7 +49,7 @@
                 </span>
               </div>
               <div
-                class="bottleneck-metrics-delay flex shrink-0 flex-col items-start gap-[0.175rem] leading-tight lg:items-end lg:text-right"
+                class="bottleneck-metrics-delay flex shrink-0 flex-col items-start text-left gap-[0.175rem] leading-tight"
               >
                 <span
                   class="text-base font-bold"

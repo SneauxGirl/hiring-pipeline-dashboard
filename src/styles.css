@@ -119,12 +119,6 @@
     line-height: 1.35;
   }
 
-  @container bottleneck (min-width: 421px) {
-    .bottleneck-title-line + .bottleneck-title-line::before {
-      content: ' ';
-    }
-  }
-
   .dashboard-nav-menu .p-menu-item.nav-item--active > .p-menu-item-content {
     background: var(--pip-nav-active-bg);
     color: var(--pip-nav-active-ink);

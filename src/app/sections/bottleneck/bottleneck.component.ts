@@ -27,7 +27,6 @@ export class BottleneckComponent {
       return {
         id: definition.responsibility,
         title: definition.title,
-        titleLine2: definition.titleLine2,
         subtitle: definition.subtitle,
         avgLabel: definition.avgLabel,
         responsibility: definition.responsibility,
