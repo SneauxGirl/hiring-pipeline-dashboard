@@ -85,6 +85,9 @@ export class TrendsComponent implements OnChanges, OnDestroy {
   canScrollTableLeft = false;
   canScrollTableRight = false;
 
+  readonly menuButtonStyleClass =
+    '!size-6 !min-w-6 !min-h-6 shrink-0 !p-0 rounded-border text-muted-color hover:text-color';
+
   readonly tableScrollButtonClass =
     'inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-border border border-surface bg-surface-0 text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-color disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]';
 

@@ -14,19 +14,19 @@ export const DASHBOARD_SECTION_FULL_ROW =
 
 /** BN & Trends — flex-1 pair below wide; fixed 338px at wide. */
 export const DASHBOARD_GRID_COLUMN_CLASS =
-  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:min-w-[calc(50%-0.5rem)] @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[64.5rem]/dashboard:w-[338px] @min-[64.5rem]/dashboard:min-w-[338px] @min-[64.5rem]/dashboard:max-w-[338px] @min-[64.5rem]/dashboard:flex-none';
+  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:min-w-[calc(50%-0.5rem)] @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[64.5rem]/dashboard:w-[338px] @min-[64.5rem]/dashboard:min-w-[338px] @min-[64.5rem]/dashboard:max-w-[338px] @min-[64.5rem]/dashboard:flex-none';
 
 /** Schedule — 338px from pair breakpoint (sits beside funnel when wrapped). */
 export const DASHBOARD_SCHEDULE_COLUMN_CLASS =
-  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:w-[338px] @min-[43.25rem]/dashboard:min-w-[338px] @min-[43.25rem]/dashboard:max-w-[338px] @min-[43.25rem]/dashboard:flex-none @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch';
+  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:w-[338px] @min-[43.25rem]/dashboard:min-w-[338px] @min-[43.25rem]/dashboard:max-w-[338px] @min-[43.25rem]/dashboard:flex-none @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch';
 
 /** Funnel — grows from pair breakpoint; min 340px. */
 export const DASHBOARD_FUNNEL_COLUMN_CLASS =
-  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-w-[340px] @min-[43.25rem]/dashboard:max-w-full @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch';
+  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:min-w-[340px] @min-[43.25rem]/dashboard:max-w-full @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch';
 
 /** Open reqs — fills space beside 338px schedule on bottom row. */
 export const DASHBOARD_REQS_COLUMN_CLASS =
-  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[43.25rem]/dashboard:min-w-[calc(100%-338px-var(--dashboard-grid-gap))]';
+  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[43.25rem]/dashboard:min-w-[calc(100%-338px-var(--dashboard-grid-gap))]';
 
 /** @deprecated Use DASHBOARD_GRID_COLUMN_CLASS */
 export const DASHBOARD_LG_COLUMN_CLASS = DASHBOARD_GRID_COLUMN_CLASS;
@@ -34,11 +34,18 @@ export const DASHBOARD_LG_COLUMN_CLASS = DASHBOARD_GRID_COLUMN_CLASS;
 /** @deprecated Use DASHBOARD_REQS_COLUMN_CLASS */
 export const DASHBOARD_LG_FILL_COLUMN_CLASS = DASHBOARD_REQS_COLUMN_CLASS;
 
-const cardStretchRoot = 'w-full max-w-full min-w-0 lg:flex lg:flex-1 lg:flex-col lg:min-h-0';
+const cardStretchRoot =
+  'w-full max-w-full min-w-0 min-h-0 @min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col';
 
 const cardStretchPtBase: CardPassThrough = {
-  body: { class: 'lg:flex lg:flex-1 lg:flex-col lg:min-h-0' },
-  content: { class: 'lg:flex lg:flex-1 lg:flex-col lg:min-h-0' },
+  body: {
+    class:
+      '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:min-h-0',
+  },
+  content: {
+    class:
+      '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:min-h-0',
+  },
 };
 
 /** Column cards that fill available height (schedule, bottleneck). */
@@ -57,8 +64,14 @@ export function dashboardCardPanelStyleClass(cardClass: string): string {
 
 export function dashboardCardPanelPt(): CardPassThrough {
   return {
-    body: { class: 'lg:flex lg:flex-1 lg:flex-col lg:min-h-0' },
-    content: { class: 'lg:flex lg:flex-1 lg:flex-col lg:min-h-[375px]' },
+    body: {
+      class:
+        '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:min-h-0',
+    },
+    content: {
+      class:
+        '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:min-h-[375px]',
+    },
   };
 }
 

@@ -1,5 +1,5 @@
-<p-card styleClass="w-full max-w-full min-w-0">
-  <div class="flex min-w-0 flex-col gap-4">
+<p-card [styleClass]="cardStyleClass" [pt]="cardPt">
+  <div class="funnel-layout flex min-h-0 min-w-0 flex-col gap-4 @min-[43.25rem]/dashboard:flex-1">
     <div class="min-w-0">
       <h2
         class="m-0 text-[length:var(--font-size-label)] text-color"
@@ -12,7 +12,7 @@
       </p>
     </div>
 
-    <div class="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+    <div class="flex min-h-0 min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4 @min-[43.25rem]/dashboard:flex-1">
       <div
         class="funnel-chart flex min-w-0 flex-1 flex-col"
         role="img"

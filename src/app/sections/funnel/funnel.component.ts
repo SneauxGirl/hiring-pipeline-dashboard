@@ -3,6 +3,10 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'primeng/card';
 
 import {
+  dashboardCardStretchPt,
+  dashboardCardStretchStyleClass,
+} from '../../config/dashboard-layout';
+import {
   FUNNEL_DURATION_SEGMENTS,
   FUNNEL_STAGE_DEFINITIONS,
 } from './funnel.catalog';
@@ -35,6 +39,9 @@ import {
   `,
 })
 export class FunnelComponent {
+  readonly cardStyleClass = dashboardCardStretchStyleClass('funnel-card');
+  readonly cardPt = dashboardCardStretchPt();
+
   @Input({ required: true }) funnelStageValues: FunnelStageWeekData[] = [];
   @Input({ required: true }) stageDurationDays: number[] = [];
 
