@@ -5,7 +5,8 @@ import { CardPassThrough } from 'primeng/types/card';
  * Sidebar open/closed changes main width and triggers reflow automatically.
  *
  * Pair (43.25rem / 692px): BN + Trends side by side (tier 3).
- * Wide (64.5rem / 1032px): BN + Trends + Funnel on one row (tier 4).
+ * Wide (68rem / 1088px): BN + Trends fixed 338px when three columns fit (tier 4).
+ * Threshold = 1048px flex row + 2× --dashboard-margin on dashboard-page.
  */
 
 /** Row breakers in flex-row only — basis-full in flex-col sets height, not width. */
@@ -14,7 +15,7 @@ export const DASHBOARD_SECTION_FULL_ROW =
 
 /** BN & Trends — flex-1 pair below wide; fixed 338px at wide. */
 export const DASHBOARD_GRID_COLUMN_CLASS =
-  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:min-w-[calc(50%-0.5rem)] @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[64.5rem]/dashboard:w-[338px] @min-[64.5rem]/dashboard:min-w-[338px] @min-[64.5rem]/dashboard:max-w-[338px] @min-[64.5rem]/dashboard:flex-none';
+  '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:min-w-[calc(50%-0.5rem)] @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[68rem]/dashboard:w-[338px] @min-[68rem]/dashboard:min-w-[338px] @min-[68rem]/dashboard:max-w-[338px] @min-[68rem]/dashboard:flex-none';
 
 /** Schedule — 338px from pair breakpoint (sits beside funnel when wrapped). */
 export const DASHBOARD_SCHEDULE_COLUMN_CLASS =
