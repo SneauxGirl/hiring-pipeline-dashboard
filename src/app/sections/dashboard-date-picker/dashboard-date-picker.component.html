@@ -1,49 +1,61 @@
 @if (showPicker) {
-  <div class="relative min-h-[length:var(--dashboard-control-height)]">
-    <button
-      #triggerBtn
-      type="button"
-      class="flex min-h-[length:var(--dashboard-control-height)] w-full cursor-pointer items-stretch overflow-hidden rounded-border border border-surface bg-surface-0 text-left focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]"
-      [attr.aria-label]="ariaLabel"
-      aria-haspopup="dialog"
-      [attr.aria-expanded]="panelOpen"
-      (click)="togglePanel()"
-      (mouseenter)="onControlMouseEnter()"
-      (mouseleave)="onControlMouseLeave()"
-      (focus)="onFieldFocus()"
-      (blur)="onFieldBlur()"
-    >
-      <span
-        class="flex min-w-[7.5rem] flex-1 items-center px-3 text-base leading-none text-color"
-        aria-hidden="true"
+  <div
+    [class]="
+      inline
+        ? 'w-full'
+        : 'relative min-h-[length:var(--dashboard-control-height)]'
+    "
+  >
+    @if (!inline) {
+      <button
+        #triggerBtn
+        type="button"
+        class="flex min-h-[length:var(--dashboard-control-height)] w-full cursor-pointer items-stretch overflow-hidden rounded-border border border-surface bg-surface-0 text-left focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]"
+        [attr.aria-label]="ariaLabel"
+        aria-haspopup="dialog"
+        [attr.aria-expanded]="panelOpen"
+        (click)="togglePanel()"
+        (mouseenter)="onControlMouseEnter()"
+        (mouseleave)="onControlMouseLeave()"
+        (focus)="onFieldFocus()"
+        (blur)="onFieldBlur()"
       >
-        @if (usesFriendlyLabel) {
-          <span [class.hidden]="showDateDetail">{{ friendlyLabel }}</span>
-          <span class="hidden" [class.inline]="showDateDetail">{{ formattedDate }}</span>
-        } @else {
-          <span>{{ formattedDate }}</span>
-        }
-      </span>
+        <span
+          class="flex min-w-[7.5rem] flex-1 items-center px-3 text-base leading-none text-color"
+          aria-hidden="true"
+        >
+          @if (usesFriendlyLabel) {
+            <span [class.hidden]="showDateDetail">{{ friendlyLabel }}</span>
+            <span class="hidden" [class.inline]="showDateDetail">{{ formattedDate }}</span>
+          } @else {
+            <span>{{ formattedDate }}</span>
+          }
+        </span>
 
-      <span
-        class="inline-flex size-[length:var(--dashboard-control-height)] shrink-0 items-center justify-center border-s border-surface text-color"
-        aria-hidden="true"
-      >
-        <span class="pi pi-calendar"></span>
-      </span>
-    </button>
+        <span
+          class="inline-flex size-[length:var(--dashboard-control-height)] shrink-0 items-center justify-center border-s border-surface text-color"
+          aria-hidden="true"
+        >
+          <span class="pi pi-calendar"></span>
+        </span>
+      </button>
+    }
 
     <div class="sr-only" aria-live="polite" aria-atomic="true">
       {{ selectionAnnouncement }}
     </div>
 
-    @if (panelOpen) {
+    @if (showCalendarPanel) {
       <div
         #panel
-        class="absolute top-[calc(100%+0.375rem)] right-0 z-20 w-[min(100vw-2rem,18rem)] rounded-border border border-surface bg-surface-0 p-3 shadow-[var(--p-overlay-select-shadow,var(--p-overlay-popover-shadow,0_2px_10px_rgb(0_0_0_/_12%)))]"
-        role="dialog"
-        aria-modal="true"
-        [attr.aria-label]="dialogAriaLabel"
+        [class]="
+          inline
+            ? 'w-full'
+            : 'absolute top-[calc(100%+0.375rem)] right-0 z-20 w-[min(100vw-2rem,18rem)] rounded-border border border-surface bg-surface-0 p-3 shadow-[var(--p-overlay-select-shadow,var(--p-overlay-popover-shadow,0_2px_10px_rgb(0_0_0_/_12%)))]'
+        "
+        [attr.role]="inline ? 'group' : 'dialog'"
+        [attr.aria-modal]="inline ? null : true"
+        [attr.aria-label]="inline ? monthTitle : dialogAriaLabel"
       >
         <div class="mb-3 flex items-center justify-between gap-2">
           <button

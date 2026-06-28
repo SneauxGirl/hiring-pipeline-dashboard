@@ -42,6 +42,8 @@ export const DASHBOARD_NAV_MENU_PT: MenuPassThrough = {
 
 export const DASHBOARD_DRAWER_STYLE_CLASS = '!w-[min(18rem,85vw)]';
 
+export const DASHBOARD_CALENDAR_DRAWER_STYLE_CLASS = '!w-[min(100vw,28rem)]';
+
 export const DASHBOARD_DRAWER_PT: DrawerPassThrough = {
   header: { class: 'w-full p-[1.125rem]' },
 };

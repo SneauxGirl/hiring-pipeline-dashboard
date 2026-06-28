@@ -8,9 +8,9 @@
       </h2>
     </div>
 
-    <div class="flex min-h-0 min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4 @min-[43.25rem]/dashboard:flex-1">
+    <div class="flex min-h-0 min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-[clamp(12px,2.5vw,48px)] @min-[43.25rem]/dashboard:flex-1">
       <div
-        class="funnel-chart flex min-w-0 flex-1 flex-col gap-1.5"
+        class="funnel-chart flex min-w-[50px] flex-1 flex-col gap-1.5"
         role="img"
         [attr.aria-label]="'30 day funnel chart, max stage ' + (maxCount | number) + ' applicants'"
       >
@@ -27,7 +27,7 @@
       </div>
 
       <div
-        class="flex min-w-0 flex-col gap-1.5 sm:w-[17rem]"
+        class="flex w-[14rem] min-w-0 flex-col shrink-0 gap-1.5"
         aria-label="30 day funnel stage details"
       >
         @for (stage of funnelStages; track stage.stageKey; let index = $index) {

@@ -4,13 +4,17 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
   HostListener,
   inject,
   Injector,
   Input,
+  OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   PLATFORM_ID,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -33,9 +37,9 @@ export type DashboardDatePickerCell = {
 @Component({
   selector: 'app-dashboard-date-picker',
   templateUrl: './dashboard-date-picker.component.html',
-  host: { class: 'block shrink-0' },
+  host: { class: 'block' },
 })
-export class DashboardDatePickerComponent implements OnDestroy {
+export class DashboardDatePickerComponent implements OnInit, OnChanges, OnDestroy {
   /** Delay before hover swaps Today/Yesterday to the formatted date. */
   private static readonly FRIENDLY_HOVER_DELAY_MS = 1500;
 
@@ -94,7 +98,19 @@ export class DashboardDatePickerComponent implements OnDestroy {
   @Input({ required: true }) calendarMinDate!: Date;
   @Input({ required: true }) calendarMaxDate!: Date;
   @Input({ required: true }) selectedDate!: Date;
+  @Input() inline = false;
+  @Input() closeOnSelect = true;
   @Output() readonly selectedDateChange = new EventEmitter<Date>();
+
+  @HostBinding('class.shrink-0')
+  get shrinkHost(): boolean {
+    return !this.inline;
+  }
+
+  @HostBinding('class.w-full')
+  get fullWidthHost(): boolean {
+    return this.inline;
+  }
 
   protected panelOpen = false;
   protected panelMonth: Date = startOfDay(new Date());
@@ -108,6 +124,10 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   readonly monthNavButtonClass =
     'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-border border-0 bg-transparent text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-[color:var(--p-text-hover-color)] focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-40';
+
+  get showCalendarPanel(): boolean {
+    return this.inline || this.panelOpen;
+  }
 
   get showDateDetail(): boolean {
     return this.panelOpen || this.fieldFocused || this.hoverDateRevealed;
@@ -183,6 +203,10 @@ export class DashboardDatePickerComponent implements OnDestroy {
   }
 
   closePanel(returnFocusToTrigger = false): void {
+    if (this.inline) {
+      return;
+    }
+
     this.panelOpen = false;
     this.cancelHoverReveal();
     if (returnFocusToTrigger) {
@@ -214,6 +238,18 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   onFieldBlur(): void {
     this.fieldFocused = false;
+  }
+
+  ngOnInit(): void {
+    if (this.inline) {
+      this.syncInlinePanel();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['inline']?.currentValue === true) {
+      this.syncInlinePanel();
+    }
   }
 
   ngOnDestroy(): void {
@@ -257,7 +293,9 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
     this.selectionAnnouncement = `${this.calendarDayAriaLabel.format(normalized)} selected`;
     this.selectedDateChange.emit(normalized);
-    this.closePanel(true);
+    if (this.closeOnSelect) {
+      this.closePanel(true);
+    }
   }
 
   isStoryDayCell(cell: DashboardDatePickerCell): boolean {
@@ -295,14 +333,16 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
-    if (this.panelOpen) {
-      this.closePanel(true);
+    if (this.inline || !this.panelOpen) {
+      return;
     }
+
+    this.closePanel(true);
   }
 
   @HostListener('document:keydown', ['$event'])
   onDocumentKeydown(event: KeyboardEvent): void {
-    if (!this.panelOpen || event.key !== 'Tab') {
+    if (this.inline || !this.panelOpen || event.key !== 'Tab') {
       return;
     }
 
@@ -333,7 +373,7 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    if (!this.panelOpen) {
+    if (this.inline || !this.panelOpen) {
       return;
     }
 
@@ -343,6 +383,11 @@ export class DashboardDatePickerComponent implements OnDestroy {
     }
 
     this.closePanel();
+  }
+
+  private syncInlinePanel(): void {
+    this.panelMonth = startOfDay(this.selectedDate);
+    this.panelOpen = true;
   }
 
   private focusInitialDay(): void {

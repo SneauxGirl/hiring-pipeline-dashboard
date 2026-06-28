@@ -24,19 +24,15 @@
       />
     </div>
 
-    <div class="flex shrink-0 items-center">
-      <button
-        type="button"
-        [class]="iconBtnClass + ' hidden text-[color:var(--pip-nav-active-ink)] max-[459px]:inline-flex'"
-        aria-label="Schedule"
-      >
-        <span class="pi pi-calendar text-xl leading-none" aria-hidden="true"></span>
-      </button>
-      <span
-        class="inline-flex size-[length:var(--dashboard-control-height)] max-[459px]:hidden"
-        aria-hidden="true"
-      ></span>
-    </div>
+    <button
+      type="button"
+      [class]="iconBtnClass + ' text-[color:var(--pip-nav-active-ink)]'"
+      aria-label="Open calendar and schedule"
+      [attr.aria-expanded]="calendarDrawerVisible"
+      (click)="openCalendarDrawer()"
+    >
+      <span class="pi pi-calendar text-xl leading-none" aria-hidden="true"></span>
+    </button>
   </div>
 </header>
 
@@ -91,5 +87,51 @@
         </div>
       </div>
     </div>
+  </div>
+</p-drawer>
+
+<p-drawer
+  [(visible)]="calendarDrawerVisible"
+  position="right"
+  [modal]="true"
+  [closable]="false"
+  [styleClass]="calendarDrawerStyleClass"
+  [pt]="drawerPt"
+>
+  <ng-template #header>
+    <div class="flex w-full min-w-0 items-center justify-between gap-3">
+      <img
+        src="/PurplePipLogo.png"
+        alt="PIP Tech"
+        class="block h-[length:var(--dashboard-brand-logo-height)] w-auto max-w-full shrink-0 -translate-y-0.5 object-contain"
+      />
+      <button
+        type="button"
+        [class]="iconBtnClass + ' text-muted-color hover:text-color'"
+        aria-label="Close calendar and schedule"
+        (click)="closeCalendarDrawer()"
+      >
+        <span class="pi pi-times text-xl leading-none" aria-hidden="true"></span>
+      </button>
+    </div>
+  </ng-template>
+
+  <div class="flex flex-col gap-6">
+    <app-dashboard-date-picker
+      [inline]="true"
+      [closeOnSelect]="false"
+      [viewerDay]="viewerDay"
+      [calendarMinDate]="calendarMinDate"
+      [calendarMaxDate]="calendarMaxDate"
+      [selectedDate]="selectedDate"
+      (selectedDateChange)="onSelectedDateChange($event)"
+    />
+
+    <app-schedule
+      [schedule]="schedule"
+      [candidates]="candidates"
+      [showViewCalendarLink]="false"
+      [embedded]="true"
+    />
   </div>
 </p-drawer>

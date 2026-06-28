@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
@@ -22,7 +23,7 @@ interface ScheduleGroupConfig {
 
 @Component({
   selector: 'app-schedule',
-  imports: [Button, Card, Dialog],
+  imports: [Button, Card, Dialog, NgTemplateOutlet],
   templateUrl: './schedule.component.html',
 })
 export class ScheduleComponent {
@@ -31,6 +32,8 @@ export class ScheduleComponent {
 
   @Input({ required: true }) schedule: ScheduleEntry[] = [];
   @Input({ required: true }) candidates: CandidateProfile[] = [];
+  @Input() showViewCalendarLink = true;
+  @Input() embedded = false;
 
   dialogVisible = false;
   selectedCandidate: CandidateProfile | null = null;
