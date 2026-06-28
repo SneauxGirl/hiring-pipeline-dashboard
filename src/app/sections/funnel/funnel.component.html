@@ -65,14 +65,14 @@
         Avg days per stage
       </h3>
 
-      <div class="flex h-10 w-full overflow-hidden rounded-border">
-        @for (segment of stageDurations; track $index; let index = $index) {
+      <div class="flex h-8 w-full overflow-hidden rounded-border">
+        @for (segment of stageDurations; track $index; let index = $index; let isLast = $last) {
           <div
-            class="box-border flex min-w-0 items-center justify-center border-y border-s border-surface text-[length:var(--font-size-label)] font-medium last:border-e"
-            [style.width]="segmentWidth(segment.days)"
-            [style.background]="durationColor(index)"
-            [style.color]="barLabelColor(index)"
+            class="box-border flex min-w-0 items-center justify-center text-[length:var(--font-size-label)] font-bold"
+            [ngStyle]="segmentBarStyle(index, isLast)"
+            [style.color]="segmentTextColor()"
             [attr.title]="durationLabel(index) + ': ' + segment.days + ' days'"
+            [attr.aria-label]="durationLabel(index) + ', ' + segment.days + ' days'"
           >
             @if (showSegmentLabel(segment.days)) {
               {{ segment.days }}
@@ -83,13 +83,20 @@
 
       <ul class="m-0 mt-3 flex list-none flex-wrap gap-x-4 gap-y-2 p-0">
         @for (segment of stageDurations; track $index; let index = $index) {
-          <li class="flex items-center gap-1.5 text-[length:var(--font-size-label)] text-muted-color">
+          <li
+            class="flex items-center gap-1.5 text-[length:var(--font-size-label)] text-muted-color"
+            [attr.aria-label]="durationLabel(index) + ', ' + segment.days + ' days'"
+          >
             <span
               class="h-2.5 w-2.5 shrink-0 rounded-full"
-              [style.background]="durationColor(index)"
+              [style.background]="segmentSolidColor(index)"
               aria-hidden="true"
             ></span>
-            {{ durationLabel(index) }}
+            <span>
+              {{ durationLabel(index) }}–<span class="font-bold tabular-nums text-color">{{
+                segment.days
+              }}</span>
+            </span>
           </li>
         }
       </ul>

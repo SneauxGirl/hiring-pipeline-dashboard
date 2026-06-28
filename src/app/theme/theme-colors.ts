@@ -1,4 +1,5 @@
 import {
+  PIP_DARK_TOKENS,
   PIP_PALETTE,
   PIP_TOKENS,
   PipColor,
@@ -71,6 +72,11 @@ export function funnelBarSurfaceStyle(stageIndex: number): {
     border: `1px solid ${solid}`,
     boxShadow: `0 1px 2px ${drop}66`,
   };
+}
+
+/** Light text on solid accent fills — PIP dark scheme body tier, not pure white. */
+export function onSolidSurfaceTextColor(): string {
+  return PIP_DARK_TOKENS.text.color;
 }
 
 export function funnelDurationColor(durationIndex: number): string {

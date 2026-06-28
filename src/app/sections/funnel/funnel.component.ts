@@ -13,9 +13,10 @@ import {
 import { FunnelStage, FunnelStageWeekData, StageDuration } from '../../models/dashboard.models';
 import {
   funnelBarColor,
+  funnelBarGlassStyle,
   funnelBarLabelColor,
   funnelBarSurfaceStyle,
-  funnelDurationColor,
+  onSolidSurfaceTextColor,
 } from '../../theme/theme-colors';
 
 @Component({
@@ -95,26 +96,44 @@ export class FunnelComponent {
   }
 
   durationLabel(index: number): string {
-    return `h${index}/h${index + 1}`;
+    return FUNNEL_STAGE_DEFINITIONS[index]?.stageKey ?? `h${index + 1}`;
   }
 
-  segmentWidth(days: number): string {
-    if (this.totalDurationDays === 0) {
-      return '0%';
-    }
+  segmentSolidColor(index: number): string {
+    return funnelBarGlassStyle(index).ink;
+  }
 
-    return `${(days / this.totalDurationDays) * 100}%`;
+  segmentTextColor(): string {
+    return onSolidSurfaceTextColor();
+  }
+
+  segmentBarStyle(index: number, isLast: boolean): Record<string, string> {
+    const surface = funnelBarSurfaceStyle(index);
+    const solid = funnelBarGlassStyle(index).ink;
+
+    return {
+      background: surface.background,
+      boxShadow: surface.boxShadow,
+      flex: `${this.stageDurations[index]?.days ?? 0} 1 0`,
+      borderStyle: 'solid',
+      borderColor: solid,
+      borderTopWidth: '1px',
+      borderBottomWidth: '1px',
+      borderLeftWidth: index === 0 ? '1px' : '0',
+      borderRightWidth: isLast ? '1px' : '0',
+    };
   }
 
   showSegmentLabel(days: number): boolean {
-    return days >= 8 || (days / this.totalDurationDays) * 100 >= 8;
+    if (this.totalDurationDays === 0) {
+      return false;
+    }
+
+    const widthPct = (days / this.totalDurationDays) * 100;
+    return widthPct >= 5;
   }
 
   barLabelColor(index: number): string {
     return funnelBarLabelColor(index);
-  }
-
-  durationColor(durationIndex: number): string {
-    return funnelDurationColor(durationIndex);
   }
 }
