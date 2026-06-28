@@ -62,35 +62,6 @@ export function funnelDurationColor(durationIndex: number): string {
   return paletteFill(color);
 }
 
-/** @deprecated Use palettePair('blue') */
-export function brandBlue(): { fill: string; ink: string } {
-  return palettePair('blue');
-}
-
-/** @deprecated Use paletteInk('blue') */
-export function brandBlueInk(): string {
-  return paletteInk('blue');
-}
-
-/** @deprecated Use funnelBarColor */
-export function funnelStageColor(stageIndex: number): string {
-  return funnelBarColor(stageIndex);
-}
-
-/** @deprecated Use funnelBarLabelColor */
-export function funnelStageLabelColor(stageIndex: number): string {
-  return funnelBarLabelColor(stageIndex);
-}
-
-/** @deprecated Use funnelBarGlassStyle */
-export function funnelStageGlassStyle(stageIndex: number): { ink: string; fill: string } {
-  return funnelBarGlassStyle(stageIndex);
-}
-
-export function brandIndigo(): string {
-  return PIP_TOKENS.text.color;
-}
-
 export function riskPill(level: PipRiskLevel): { bg: string; text: string } {
   const color = PIP_TOKENS.risk[level];
   return { bg: paletteFill(color), text: paletteInk('charcoal') };

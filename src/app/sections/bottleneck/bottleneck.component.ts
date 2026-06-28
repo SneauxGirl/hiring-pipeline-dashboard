@@ -6,8 +6,15 @@ import {
   dashboardCardStretchStyleClass,
 } from '../../config/dashboard-layout';
 import { BOTTLENECK_DEFINITIONS } from './bottleneck.catalog';
-import { BottleneckCard, BottleneckWeekMetrics } from '../../models/dashboard.models';
+import { BottleneckWeekMetrics } from '../../models/dashboard.models';
 import { PipResponsibility } from '../../theme/pip-tokens';
+
+type BottleneckView = BottleneckWeekMetrics & {
+  id: PipResponsibility;
+  title: string;
+  subtitle: string;
+  avgLabel: string;
+};
 import { bottleneckAccent, bottleneckIconBg, bottleneckSolid } from '../../theme/theme-colors';
 
 @Component({
@@ -21,7 +28,7 @@ export class BottleneckComponent {
 
   @Input({ required: true }) bottleneckMetrics: BottleneckWeekMetrics[] = [];
 
-  get bottlenecks(): BottleneckCard[] {
+  get bottlenecks(): BottleneckView[] {
     return BOTTLENECK_DEFINITIONS.map((definition) => {
       const metrics = this.metricsFor(definition.responsibility);
       return {

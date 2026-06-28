@@ -10,11 +10,6 @@ export interface KpiWeekValues {
   trend?: KpiTrendDirection;
 }
 
-/** @deprecated Use KpiWeekValues with KPI_DEFINITIONS in the component. */
-export interface KpiMetric extends KpiWeekValues {
-  label: string;
-}
-
 export type ScheduleGroup = 'today' | 'tomorrow' | 'this-week';
 
 export type ScheduleInterviewEntry = {
@@ -33,9 +28,6 @@ export type SchedulePtoEntry = {
 
 export type ScheduleEntry = ScheduleInterviewEntry | SchedulePtoEntry;
 
-/** @deprecated Use ScheduleEntry */
-export type ScheduleInterview = ScheduleInterviewEntry;
-
 export interface CandidateProfile {
   id: string;
   name: string;
@@ -48,21 +40,11 @@ export interface WeekRangeOption {
   value: string;
 }
 
-export type BottleneckTheme = PipResponsibility;
-
 /** Weekly bottleneck metrics — copy and icons are in bottleneck.catalog.ts. */
 export interface BottleneckWeekMetrics {
   responsibility: PipResponsibility;
   candidateCount: number;
   avgMetric: number;
-}
-
-/** @deprecated Use BottleneckWeekMetrics with BOTTLENECK_DEFINITIONS. */
-export interface BottleneckCard extends BottleneckWeekMetrics {
-  id: string;
-  title: string;
-  subtitle: string;
-  avgLabel: string;
 }
 
 export type WorkforceTrendMetricId = 'attrition' | 'promotions' | 'transfers' | 'backfills';

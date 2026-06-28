@@ -377,6 +377,7 @@ export class TrendsComponent implements OnChanges, OnDestroy {
             bodyFont: { family: this.fontFamily(), size: 14 },
             padding: 12,
             cornerRadius: 8,
+            caretPadding: 16,
             callbacks: {
               title: (items) => {
                 const monthIndex = items[0]?.dataIndex ?? 0;

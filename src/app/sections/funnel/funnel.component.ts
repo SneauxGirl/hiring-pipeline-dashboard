@@ -30,7 +30,7 @@ import {
       max-width: 100%;
       border-radius: 0.5rem;
       border: 1px solid color-mix(in srgb, var(--bar-ink) white 72%);
-      background: color-mix(in srgb, var(--bar-ink) calc(var(--bar-opacity) * 100%), transparent);
+      background: var(--bar-ink);
     }
   `,
 })

@@ -79,6 +79,9 @@ export class DashboardDatePickerComponent implements OnDestroy {
 
   readonly weekdayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as const;
 
+  readonly monthNavButtonClass =
+    'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-border border-0 bg-transparent text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-[color:var(--p-text-hover-color)] focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-40';
+
   get showDateDetail(): boolean {
     return this.panelOpen || this.fieldFocused || this.hoverDateRevealed;
   }

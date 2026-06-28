@@ -29,12 +29,6 @@ export const DASHBOARD_FUNNEL_COLUMN_CLASS =
 export const DASHBOARD_REQS_COLUMN_CLASS =
   '@min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:min-h-0 @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col @min-[43.25rem]/dashboard:self-stretch @min-[43.25rem]/dashboard:min-w-[calc(100%-338px-var(--dashboard-grid-gap))]';
 
-/** @deprecated Use DASHBOARD_GRID_COLUMN_CLASS */
-export const DASHBOARD_LG_COLUMN_CLASS = DASHBOARD_GRID_COLUMN_CLASS;
-
-/** @deprecated Use DASHBOARD_REQS_COLUMN_CLASS */
-export const DASHBOARD_LG_FILL_COLUMN_CLASS = DASHBOARD_REQS_COLUMN_CLASS;
-
 const cardStretchRoot =
   'w-full max-w-full min-w-0 min-h-0 @min-[43.25rem]/dashboard:flex @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:flex-col';
 

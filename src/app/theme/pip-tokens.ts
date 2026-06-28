@@ -8,11 +8,11 @@ export const PIP_PALETTE = {
   teal: { fill: '#e7f2f1', solid: '#008782', ink: '#008782' },
   purple: { fill: '#f0ebf6', solid: '#6b229c', ink: '#6b229c' },
   orange: { fill: '#FFF1EB', solid: '#F85330', ink: '#C94327' },
-  gold: { fill: '#f9f2e2', solid: '#e5b82e', ink: '#cb911a' },
+  gold: { fill: '#FFFAE2', solid: '#e5b82e', ink: '#A95E00' },
   pink: { fill: '#FFF0F6', solid: '#D0356D', ink: '#7A1D42' },
   red: { fill: '#fce8ec', solid: '#DC143C', ink: '#9B1B30' },
   charcoal: { fill: '#F1F0F2', solid: '#B0ACB4', ink: '#251827' },
-  blue: { fill: '#ECEBF8', solid: '#413E96', ink: '#252356' },
+  blue: { fill: '#E6EDF3', solid: '#004887', ink: '#004887' },
   green: { fill: '#EAF8EB', solid: '#4CC851', ink: '#3C8735' },
 } as const;
 
@@ -76,14 +76,11 @@ export const PIP_TOKENS = {
   } satisfies Record<'attrition' | 'promotions' | 'transfers' | 'backfills', PipColor>,
   /** Stage index → palette color (h1 applicants → h6 hired). Aligns with responsibility hues from h3 onward. */
   funnel: {
-    bar: ['blue', 'purple', 'orange', 'teal', 'pink', 'charcoal'],
-    duration: ['blue', 'purple', 'orange', 'teal', 'pink', 'charcoal'],
+    bar: ['blue', 'purple', 'orange', 'teal', 'pink', 'gold'],
+    duration: ['blue', 'purple', 'orange', 'teal', 'pink', 'gold'],
   } satisfies { bar: readonly PipColor[]; duration: readonly PipColor[] },
 } as const;
 
 export type PipRiskLevel = 'low' | 'medium' | 'high';
 
 export type PipTrendMetricId = keyof typeof PIP_TOKENS.trends;
-
-/** @deprecated Use PipResponsibility */
-export type PipBottleneckTheme = PipResponsibility;

@@ -3,7 +3,9 @@ import { Card } from 'primeng/card';
 import { Tooltip } from 'primeng/tooltip';
 
 import { KPI_DEFINITIONS } from './kpi.catalog';
-import { KpiMetric, KpiWeekValues, KpiTrendDirection } from '../../models/dashboard.models';
+import { KpiWeekValues, KpiTrendDirection } from '../../models/dashboard.models';
+
+type KpiView = KpiWeekValues & { label: string };
 
 @Component({
   selector: 'app-kpi',
@@ -13,7 +15,7 @@ import { KpiMetric, KpiWeekValues, KpiTrendDirection } from '../../models/dashbo
 export class KpiComponent {
   @Input({ required: true }) kpiValues: KpiWeekValues[] = [];
 
-  get kpis(): KpiMetric[] {
+  get kpis(): KpiView[] {
     return KPI_DEFINITIONS.map((definition, index) => ({
       label: definition.label,
       ...this.kpiValues[index],
@@ -31,7 +33,7 @@ export class KpiComponent {
     }
   }
 
-  deltaAccessibleLabel(kpi: KpiMetric): string {
+  deltaAccessibleLabel(kpi: KpiView): string {
     if (!kpi.delta) {
       return '';
     }
