@@ -123,7 +123,7 @@ export class DashboardDatePickerComponent implements OnInit, OnChanges, OnDestro
   readonly weekdayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as const;
 
   readonly monthNavButtonClass =
-    'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-border border-0 bg-transparent text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-[color:var(--p-text-hover-color)] focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-40';
+    'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-border border-0 bg-transparent text-muted-color hover:bg-[color:var(--pip-nav-hover-bg)] hover:text-[color:var(--pip-nav-hover-ink)] active:bg-[color:var(--pip-nav-active-bg)] active:text-[color:var(--pip-nav-active-ink)] focus:outline-none focus-visible:bg-[color:var(--pip-nav-active-bg)] focus-visible:text-[color:var(--pip-nav-active-ink)] focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-40';
 
   get showCalendarPanel(): boolean {
     return this.inline || this.panelOpen;

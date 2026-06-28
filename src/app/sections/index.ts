@@ -1,3 +1,4 @@
+export { BackToTopComponent } from './back-to-top/back-to-top.component';
 export { DashboardDatePickerComponent } from './dashboard-date-picker/dashboard-date-picker.component';
 export { BottleneckComponent } from './bottleneck/bottleneck.component';
 export { FunnelComponent } from './funnel/funnel.component';
@@ -7,4 +8,5 @@ export { PageHeaderComponent } from './page-header/page-header.component';
 export { RequisitionsComponent } from './requisitions/requisitions.component';
 export { ScheduleComponent } from './schedule/schedule.component';
 export { SidebarNavComponent } from './sidebar-nav/sidebar-nav.component';
+export { SiteFooterComponent } from './site-footer/site-footer.component';
 export { TrendsComponent } from './trends/trends.component';

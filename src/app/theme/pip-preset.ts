@@ -1,7 +1,7 @@
 import { definePreset, palette } from '@primeuix/themes';
 import Lara from '@primeuix/themes/lara';
 
-import { PIP_PALETTE, PIP_TOKENS } from './pip-tokens';
+import { PIP_DARK_TOKENS, PIP_PALETTE, PIP_TOKENS } from './pip-tokens';
 
 const purple = PIP_PALETTE.purple;
 
@@ -28,6 +28,41 @@ export const PipPreset = definePreset(Lara, {
           hoverColor: PIP_TOKENS.text.hoverColor,
           mutedColor: PIP_TOKENS.text.mutedColor,
           hoverMutedColor: PIP_TOKENS.text.hoverMutedColor,
+        },
+        primary: {
+          color: purple.solid,
+          hoverColor: purple.solid,
+          activeColor: purple.solid,
+        },
+        highlight: {
+          background: purple.fill,
+          focusBackground: purple.fill,
+          color: purple.solid,
+          focusColor: purple.solid,
+        },
+        formField: {
+          hoverBorderColor: purple.solid,
+          focusBorderColor: purple.solid,
+          floatLabelFocusColor: purple.solid,
+        },
+      },
+      /**
+       * Dark scheme — framed, not active until `darkModeSelector` is set in app.config.
+       * Target selector: `prefers-color-scheme: dark` (later: session override via class on `html`).
+       * See `PIP_DARK_TOKENS` and hole list in pip-tokens.ts.
+       */
+      dark: {
+        surface: {
+          0: PIP_DARK_TOKENS.surface.card,
+          50: PIP_DARK_TOKENS.surface.page,
+          100: PIP_DARK_TOKENS.surface.hover,
+          200: PIP_DARK_TOKENS.surface.border,
+        },
+        text: {
+          color: PIP_DARK_TOKENS.text.color,
+          hoverColor: PIP_DARK_TOKENS.text.hoverColor,
+          mutedColor: PIP_DARK_TOKENS.text.mutedColor,
+          hoverMutedColor: PIP_DARK_TOKENS.text.hoverMutedColor,
         },
         primary: {
           color: purple.solid,

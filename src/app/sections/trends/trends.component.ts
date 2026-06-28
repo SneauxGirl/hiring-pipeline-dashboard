@@ -102,7 +102,7 @@ export class TrendsComponent implements OnChanges, OnDestroy {
   };
 
   readonly tableScrollButtonClass =
-    'inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-border border border-surface bg-surface-0 text-muted-color hover:bg-[color:var(--p-content-hover-background)] hover:text-color disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)]';
+    'inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-border border border-surface bg-surface-0 text-muted-color hover:bg-[color:var(--pip-nav-hover-bg)] hover:text-[color:var(--pip-nav-hover-ink)] active:bg-[color:var(--pip-nav-active-bg)] active:text-[color:var(--pip-nav-active-ink)] focus:outline-none focus-visible:bg-[color:var(--pip-nav-active-bg)] focus-visible:text-[color:var(--pip-nav-active-ink)] focus-visible:shadow-[inset_0_0_0_2px_var(--pip-nav-active-ink)] disabled:cursor-not-allowed disabled:opacity-40';
 
   readonly monthLabels = MONTH_LABELS;
 

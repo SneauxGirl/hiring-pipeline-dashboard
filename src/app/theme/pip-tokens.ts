@@ -51,6 +51,12 @@ export const PIP_TOKENS = {
     modal: '0 2px 6px color-mix(in srgb, #334155 22%, transparent)',
     navigation: '0 2px 10px color-mix(in srgb, #334155 9%, transparent)',
   },
+  /** Main content `.dashboard-page` radial — applied via `--dashboard-page-bg` in pip-css-vars.ts */
+  pageGradient: {
+    center: '#ffffff',
+    mid: '#fffdf8',
+    edge: '#f8f5f2',
+  },
   primary: PIP_PALETTE.purple.solid,
   nav: 'purple' satisfies PipColor,
   responsibility: {
@@ -84,3 +90,96 @@ export const PIP_TOKENS = {
 export type PipRiskLevel = 'low' | 'medium' | 'high';
 
 export type PipTrendMetricId = keyof typeof PIP_TOKENS.trends;
+
+/**
+ * Dark scheme tokens — framed for `prefers-color-scheme: dark` (not wired yet).
+ * Accent palette (`PIP_PALETTE`) stays shared with light; only surfaces, text, page gradient, shadows differ.
+ *
+ * Remapping intent (from light):
+ * - Former `text.color` (#1C1C1E) → page gradient center / lightest stop (not necessarily body text).
+ * - Former `text.hoverColor` (#242227) → card surface.
+ * - Former `text.mutedColor` / `hoverMutedColor` → dark text tiers (likely need re-tuning; fills may suit pills only).
+ */
+export const PIP_DARK_TOKENS = {
+  surface: {
+    /** p-card, sidebar, header chrome — former light `text.hoverColor` */
+    card: '#242227',
+    /** PrimeNG surface.50 — sits under `.dashboard-page` gradient; TODO: edge stop or transparent */
+    page: '#121214',
+    /** borders on cards/controls — TODO: define (light `#e8e8e7` fails on dark) */
+    border: '#3A3840',
+    /** row/cell hover — TODO: define */
+    hover: '#2E2C32',
+  },
+  text: {
+    /** Primary body — TODO: define readable on `#242227` (≠ gradient center `#1C1C1E`) */
+    color: '#E8E8EA',
+    /** Emphasis / hover — TODO: define */
+    hoverColor: '#FFFFFF',
+    /** Former light muted — verify contrast on card + gradient */
+    mutedColor: '#6f6c7c',
+    /** Secondary emphasis — TODO: define (former light `#2B292E` is too dark here) */
+    hoverMutedColor: '#9896A4',
+  },
+  /** Main content `.dashboard-page` radial — same hook as light; active when dark mode is wired */
+  pageGradient: {
+    /** Lightest stop — former light `text.color` */
+    center: '#1C1C1E',
+    /** TODO: define mid stop */
+    mid: '#161618',
+    /** TODO: define darkest edge */
+    edge: '#0D0D0F',
+  },
+  shadow: {
+    /** TODO: re-tune for dark surfaces (light scheme mixes `#334155` / blue-gray) */
+    card: '0 1px 3px color-mix(in srgb, rgb(0, 0, 0) 45%, transparent)',
+    popover: '0 1px 4px color-mix(in srgb, #000000 24%, transparent)',
+    select: '0 2px 10px color-mix(in srgb, #000000 28%, transparent)',
+    modal: '0 2px 6px color-mix(in srgb, #000000 40%, transparent)',
+    navigation: '0 2px 10px color-mix(in srgb, #000000 28%, transparent)',
+  },
+} as const;
+
+type PipPageGradientStops = { center: string; mid: string; edge: string };
+
+/** Shared radial shape for light and dark `.dashboard-page` backgrounds. */
+export function pipPageGradient(stops: PipPageGradientStops): string {
+  const { center, mid, edge } = stops;
+  return `radial-gradient(ellipse 180% 140% at 50% -30%, ${center} 0%, ${mid} 40%, ${edge} 100%)`;
+}
+
+export function pipLightPageGradient(): string {
+  return pipPageGradient(PIP_TOKENS.pageGradient);
+}
+
+export function pipDarkPageGradient(): string {
+  return pipPageGradient(PIP_DARK_TOKENS.pageGradient);
+}
+
+/**
+ * Dark mode — known holes (no wiring this pass).
+ *
+ * Activation (deferred):
+ * - `app.config.ts` → `darkModeSelector: 'prefers-color-scheme: dark'` (later: class + session override)
+ * - Session toggle defaults light; user choice locks for session — needs service + `html` class, not OS pref alone
+ *
+ * Tokens still to define / verify:
+ * - `surface.page`, `surface.border`, `surface.hover`
+ * - `text.color`, `text.hoverColor`, `text.hoverMutedColor` (contrast on `#242227`)
+ * - `pageGradient.mid`, `pageGradient.edge`
+ * - All `shadow.*` strengths on `#242227` cards
+ *
+ * Hardcoded light leaks (fix when dark goes live):
+ * - `pip-css-vars.ts` — swap `--dashboard-page-bg` to `pipDarkPageGradient()` under dark / session class
+ * - `styles.css` `html/body` `background: var(--p-surface-0)` — confirm sidebar vs main
+ * - `bottleneck.component.html` — `bg-white` inner cards → `bg-surface-0`
+ * - `pip-css-vars.ts` — nav hover `color-mix(..., white)` → mix against surface/card
+ * - `bottleneck.component.ts` — icon bg `color-mix(..., white)` → same
+ * - `trends.component.ts` — chart `pointBorderColor: '#fff'` → theme var
+ *
+ * Preset / component gaps:
+ * - `components.card.root.shadow` is global today — dark may need per-scheme override in preset
+ * - `applyPipCssVars()` — no dark branch; nav hover mixes assume light
+ * - `PIP_PALETTE` fills unchanged — pills OK; verify `riskPill` charcoal ink on dark cards
+ * - `theme-colors.ts` `blendHex(..., '#000000')` funnel drops — spot-check on dark
+ */

@@ -20,6 +20,7 @@ import {
 } from '../../data/dashboard-viewer-day';
 import { MOCK_DASHBOARD_USER } from '../../data/dashboard-user.mock';
 import {
+  BackToTopComponent,
   BottleneckComponent,
   FunnelComponent,
   KpiComponent,
@@ -28,12 +29,14 @@ import {
   RequisitionsComponent,
   ScheduleComponent,
   SidebarNavComponent,
+  SiteFooterComponent,
   TrendsComponent,
 } from '../../sections';
 
 @Component({
   selector: 'app-dashboard-page',
   imports: [
+    BackToTopComponent,
     BottleneckComponent,
     FunnelComponent,
     KpiComponent,
@@ -42,6 +45,7 @@ import {
     RequisitionsComponent,
     ScheduleComponent,
     SidebarNavComponent,
+    SiteFooterComponent,
     TrendsComponent,
   ],
   templateUrl: './dashboard.page.html',

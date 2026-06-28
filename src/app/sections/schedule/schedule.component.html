@@ -8,19 +8,7 @@
 
 <ng-template #scheduleBody>
   <div class="schedule-layout flex min-h-0 min-w-0 flex-col gap-4 @min-[43.25rem]/dashboard:flex-1">
-    <div
-      class="flex min-w-0 flex-col gap-1 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between min-[380px]:gap-3"
-    >
-      <h2 class="m-0 text-[length:var(--font-size-label)] text-color">Interviews</h2>
-      @if (showViewCalendarLink) {
-        <a
-          href="#"
-          class="min-w-0 max-w-full truncate whitespace-nowrap text-[length:var(--font-size-label)] text-muted-color no-underline hover:underline"
-        >
-          View calendar
-        </a>
-      }
-    </div>
+    <h2 class="m-0 text-[length:var(--font-size-label)] text-color">Interviews</h2>
 
     <div class="schedule-groups flex min-h-0 min-w-0 flex-col @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:justify-between">
       @for (group of groupConfigs; track group.key; let last = $last) {

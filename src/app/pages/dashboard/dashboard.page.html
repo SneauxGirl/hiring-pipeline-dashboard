@@ -8,7 +8,7 @@
   />
 
   <div
-    class="@container/dashboard dashboard-page flex w-full min-w-0 flex-none flex-col bg-surface-50 md:flex-1"
+    class="@container/dashboard dashboard-page flex w-full min-w-0 flex-none flex-col md:flex-1"
   >
     <app-mobile-header
       [user]="user"
@@ -22,7 +22,7 @@
     />
 
     <main
-      class="flex min-w-0 flex-1 flex-col gap-[length:var(--dashboard-grid-gap)] box-border w-full max-w-[length:var(--dashboard-max-width)] mx-auto px-[length:var(--dashboard-margin)] pb-5 pt-[length:var(--dashboard-header-padding-block)] @min-[43.25rem]/dashboard:flex-row @min-[43.25rem]/dashboard:flex-wrap @min-[43.25rem]/dashboard:items-stretch md:pb-6 md:pt-[length:var(--dashboard-header-padding-block-lg)] [&_.p-card-body>*]:min-w-0 [&_.p-card-content>*]:min-w-0"
+      class="flex min-w-0 flex-1 flex-col gap-[length:var(--dashboard-grid-gap)] box-border w-full max-w-[length:var(--dashboard-max-width)] mx-auto px-[length:var(--dashboard-margin)] pb-[length:var(--dashboard-grid-gap)] pt-[length:var(--dashboard-header-padding-block)] @min-[43.25rem]/dashboard:flex-row @min-[43.25rem]/dashboard:flex-wrap @min-[43.25rem]/dashboard:items-stretch md:pt-[length:var(--dashboard-header-padding-block-lg)] [&_.p-card-body>*]:min-w-0 [&_.p-card-content>*]:min-w-0"
     >
       <app-page-header
         class="{{ sectionFullRowClass }} hidden md:block"
@@ -59,6 +59,8 @@
         class="hidden w-full min-w-0 md:block {{ scheduleColumnClass }}"
         [schedule]="data.schedule"
         [candidates]="data.candidates"
+        [selectedDate]="selectedDate()"
+        [viewerDate]="viewerDay().date"
       />
 
       <app-requisitions
@@ -66,5 +68,9 @@
         [requisitions]="data.openRequisitions"
       />
     </main>
+
+    <app-site-footer />
   </div>
+
+  <app-back-to-top />
 </div>

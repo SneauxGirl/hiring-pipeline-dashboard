@@ -9,6 +9,10 @@ import {
   dashboardCardStretchStyleClass,
 } from '../../config/dashboard-layout';
 import {
+  addCalendarDays,
+  isSameDay,
+} from '../../data/dashboard-calendar-day.resolver';
+import {
   CandidateProfile,
   ScheduleEntry,
   ScheduleGroup,
@@ -32,8 +36,15 @@ export class ScheduleComponent {
 
   @Input({ required: true }) schedule: ScheduleEntry[] = [];
   @Input({ required: true }) candidates: CandidateProfile[] = [];
-  @Input() showViewCalendarLink = true;
+  @Input({ required: true }) selectedDate!: Date;
+  @Input({ required: true }) viewerDate!: Date;
   @Input() embedded = false;
+
+  private readonly scheduleDayLabel = new Intl.DateTimeFormat('en-US', {
+    weekday: 'short',
+    month: 'numeric',
+    day: 'numeric',
+  });
 
   dialogVisible = false;
   selectedCandidate: CandidateProfile | null = null;
@@ -48,7 +59,28 @@ export class ScheduleComponent {
   ];
 
   groupLabel(group: ScheduleGroupConfig): string {
-    return group.label;
+    if (isSameDay(this.selectedDate, this.viewerDate)) {
+      return group.label;
+    }
+
+    switch (group.key) {
+      case 'today':
+        return this.formatScheduleDay(this.selectedDate);
+      case 'tomorrow':
+        return this.formatScheduleDay(addCalendarDays(this.selectedDate, 1));
+      case 'this-week':
+        return 'Remaining Week';
+      default:
+        return group.label;
+    }
+  }
+
+  private formatScheduleDay(date: Date): string {
+    const parts = this.scheduleDayLabel.formatToParts(date);
+    const weekday = parts.find((part) => part.type === 'weekday')?.value ?? '';
+    const month = parts.find((part) => part.type === 'month')?.value ?? '';
+    const day = parts.find((part) => part.type === 'day')?.value ?? '';
+    return `${weekday} ${month}/${day}`;
   }
 
   entriesForGroup(group: ScheduleGroup): ScheduleEntry[] {

@@ -17,7 +17,7 @@
         @for (stage of funnelStages; track stage.stageKey; let index = $index) {
           <div class="funnel-stage-row flex h-8 w-full items-center justify-center">
             <div
-              class="funnel-stage-bar h-8.5 shrink-0 rounded-full"
+              class="funnel-stage-bar h-8 shrink-0 rounded-full"
               [style.width.%]="barWidthPct(stage.count)"
               [ngStyle]="barSurfaceStyle(index)"
               [attr.aria-label]="stageTitle(stage) + ', ' + (stage.count | number) + ' applicants'"
@@ -57,18 +57,18 @@
 
     <section
       class="border-t border-surface pt-4"
-      aria-label="Average days between funnel stages"
+      aria-label="Average days per stage"
     >
       <h3
-        class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold text-color"
+        class="m-0 mb-3 text-[length:var(--font-size-label)] font-semibold uppercase tracking-[length:var(--letter-spacing-caps)] text-color [font-family:var(--font-h2)]"
       >
-        Days to go through stages
+        Avg days per stage
       </h3>
 
       <div class="flex h-10 w-full overflow-hidden rounded-border">
         @for (segment of stageDurations; track $index; let index = $index) {
           <div
-            class="flex min-w-0 items-center justify-center text-[length:var(--font-size-label)] font-medium"
+            class="box-border flex min-w-0 items-center justify-center border-y border-s border-surface text-[length:var(--font-size-label)] font-medium last:border-e"
             [style.width]="segmentWidth(segment.days)"
             [style.background]="durationColor(index)"
             [style.color]="barLabelColor(index)"

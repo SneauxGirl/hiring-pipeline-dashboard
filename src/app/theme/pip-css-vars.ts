@@ -1,4 +1,4 @@
-import { PIP_PALETTE, PIP_TOKENS } from './pip-tokens';
+import { PIP_PALETTE, PIP_TOKENS, pipLightPageGradient } from './pip-tokens';
 
 /** Nav chrome — derived from PIP_TOKENS.nav palette entry. */
 export function pipNavCssVars(): Record<string, string> {
@@ -11,8 +11,16 @@ export function pipNavCssVars(): Record<string, string> {
   };
 }
 
+/** Theme-level CSS vars — light defaults; dark/session override in a later pass. */
+export function pipThemeCssVars(): Record<string, string> {
+  return {
+    ...pipNavCssVars(),
+    '--dashboard-page-bg': pipLightPageGradient(),
+  };
+}
+
 export function applyPipCssVars(root: HTMLElement): void {
-  for (const [name, value] of Object.entries(pipNavCssVars())) {
+  for (const [name, value] of Object.entries(pipThemeCssVars())) {
     root.style.setProperty(name, value);
   }
 }

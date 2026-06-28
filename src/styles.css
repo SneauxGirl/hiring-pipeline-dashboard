@@ -168,12 +168,7 @@
   .dashboard-page {
     max-width: 100%;
     min-width: 0;
-    --dashboard-page-bg: radial-gradient(
-      ellipse 180% 140% at 50% -30%,
-      #fff 0%,
-      #fffdf8 40%,
-      #f8f5f2 100%
-    );
+    /* Stops live in PIP_TOKENS.pageGradient — set on :root via applyPipCssVars */
     background: var(--dashboard-page-bg);
   }
 
