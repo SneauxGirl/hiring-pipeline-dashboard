@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { Dialog } from 'primeng/dialog';
+import { Tooltip } from 'primeng/tooltip';
 
 import {
   dashboardCardStretchPt,
@@ -18,7 +19,12 @@ import {
   ScheduleGroup,
   SchedulePtoEntry,
 } from '../../models/dashboard.models';
-import { NA_SCHEDULE_COPY, PTO_SCHEDULE_COPY } from './schedule.catalog';
+import {
+  NA_SCHEDULE_COPY,
+  PTO_SCHEDULE_COPY,
+  SCHEDULE_MORE_COPY,
+  SCHEDULE_VISIBLE_INTERVIEW_CAP,
+} from './schedule.catalog';
 
 interface ScheduleGroupConfig {
   key: ScheduleGroup;
@@ -27,7 +33,7 @@ interface ScheduleGroupConfig {
 
 @Component({
   selector: 'app-schedule',
-  imports: [Button, Card, Dialog, NgTemplateOutlet],
+  imports: [Button, Card, Dialog, NgTemplateOutlet, Tooltip],
   templateUrl: './schedule.component.html',
 })
 export class ScheduleComponent {
@@ -51,6 +57,7 @@ export class ScheduleComponent {
 
   readonly ptoCopy = PTO_SCHEDULE_COPY;
   readonly naCopy = NA_SCHEDULE_COPY;
+  readonly moreCopy = SCHEDULE_MORE_COPY;
 
   readonly groupConfigs: ScheduleGroupConfig[] = [
     { key: 'today', label: 'Today' },
@@ -85,6 +92,70 @@ export class ScheduleComponent {
 
   entriesForGroup(group: ScheduleGroup): ScheduleEntry[] {
     return this.schedule.filter((entry) => entry.group === group);
+  }
+
+  shouldShowGroup(group: ScheduleGroup): boolean {
+    return this.budgetBeforeGroup(group) > 0;
+  }
+
+  visibleEntriesForGroup(group: ScheduleGroup): ScheduleEntry[] {
+    const budget = this.budgetBeforeGroup(group);
+    if (budget <= 0) {
+      return [];
+    }
+
+    return this.entriesForGroup(group).slice(0, budget);
+  }
+
+  hasNextVisibleGroup(group: ScheduleGroup): boolean {
+    const index = this.groupOrder.indexOf(group);
+    return this.groupOrder.slice(index + 1).some((key) => this.shouldShowGroup(key));
+  }
+
+  hiddenInterviewCount(): number {
+    let hidden = 0;
+
+    for (const group of this.groupOrder) {
+      const all = this.entriesForGroup(group);
+      if (all.length === 0) {
+        continue;
+      }
+
+      hidden += all.length - this.visibleEntriesForGroup(group).length;
+    }
+
+    return hidden;
+  }
+
+  private readonly groupOrder: ScheduleGroup[] = ['today', 'tomorrow', 'this-week'];
+
+  private budgetBeforeGroup(group: ScheduleGroup): number {
+    let remaining = SCHEDULE_VISIBLE_INTERVIEW_CAP;
+
+    for (const key of this.groupOrder) {
+      if (key === group) {
+        break;
+      }
+
+      remaining -= this.slotsUsedByGroup(key);
+    }
+
+    return remaining;
+  }
+
+  private slotsUsedByGroup(group: ScheduleGroup): number {
+    if (!this.shouldShowGroup(group)) {
+      return 0;
+    }
+
+    const budget = this.budgetBeforeGroup(group);
+    const all = this.entriesForGroup(group);
+
+    if (all.length === 0) {
+      return 1;
+    }
+
+    return Math.min(all.length, budget);
   }
 
   isPto(entry: ScheduleEntry): entry is SchedulePtoEntry {

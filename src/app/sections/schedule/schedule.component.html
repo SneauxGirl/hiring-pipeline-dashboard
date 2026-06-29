@@ -11,7 +11,8 @@
     <h2 class="m-0 text-[length:var(--font-size-label)] text-color">Interviews</h2>
 
     <div class="schedule-groups flex min-h-0 min-w-0 flex-col @min-[43.25rem]/dashboard:flex-1 @min-[43.25rem]/dashboard:justify-between">
-      @for (group of groupConfigs; track group.key; let last = $last) {
+      @for (group of groupConfigs; track group.key) {
+        @if (shouldShowGroup(group.key)) {
         <section class="schedule-group min-w-0 shrink-0" [attr.aria-label]="groupLabel(group)">
           <h3 class="m-0 mb-3 text-[length:var(--font-size-label)] font-bold text-color">
             {{ groupLabel(group) }}
@@ -19,32 +20,34 @@
 
           <ul class="m-0 flex list-none flex-col gap-3 p-0">
             @if (entriesForGroup(group.key).length > 0) {
-              @for (entry of entriesForGroup(group.key); track entry.id) {
+              @for (entry of visibleEntriesForGroup(group.key); track entry.id) {
                 @if (isPto(entry)) {
                   <li
-                    class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)_auto] min-[380px]:items-center min-[380px]:gap-3"
+                    class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)] min-[380px]:items-center min-[380px]:gap-3"
                   >
                     <span class="text-[length:var(--font-size-label)] text-muted-color">
                       {{ ptoCopy.timeLabel }}
                     </span>
 
-                    <div class="min-w-0 flex-1 overflow-hidden">
-                      <p class="m-0 truncate text-base font-bold text-color">{{ ptoCopy.title }}</p>
-                      <div class="truncate text-sm text-muted-color">
-                        {{ ptoCopy.subtitle }}
+                    <div class="flex min-w-0 flex-1 items-start justify-between gap-3 overflow-hidden">
+                      <div class="min-w-0 flex-1 overflow-hidden">
+                        <p class="m-0 truncate text-base font-bold text-color">{{ ptoCopy.title }}</p>
+                        <div class="truncate text-sm text-muted-color">
+                          {{ ptoCopy.subtitle }}
+                        </div>
                       </div>
-                    </div>
 
-                    <span
-                      class="inline-flex shrink-0 text-muted-color min-[380px]:justify-self-end"
-                      [attr.aria-label]="ptoCopy.ariaLabel"
-                    >
-                      <span class="pi pi-bell-slash text-lg" aria-hidden="true"></span>
-                    </span>
+                      <span
+                        class="inline-flex shrink-0 text-muted-color"
+                        [attr.aria-label]="ptoCopy.ariaLabel"
+                      >
+                        <span class="pi pi-bell-slash text-lg" aria-hidden="true"></span>
+                      </span>
+                    </div>
                   </li>
                 } @else if (candidateFor(entry); as candidate) {
                   <li
-                    class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)_auto] min-[380px]:items-start min-[380px]:gap-3"
+                    class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)] min-[380px]:items-center min-[380px]:gap-3"
                   >
                     <span class="text-[length:var(--font-size-label)] text-muted-color">
                       {{ entry.timeLabel }}
@@ -62,21 +65,12 @@
                         {{ candidate.roleTitle }}
                       </div>
                     </div>
-
-                    <button
-                      type="button"
-                      class="inline-flex shrink-0 cursor-pointer self-start border-0 bg-transparent p-0 text-muted-color min-[380px]:justify-self-start"
-                      [attr.aria-label]="'Info about ' + candidate.name"
-                      (click)="openCandidate(candidate.id)"
-                    >
-                      <span class="pi pi-info-circle text-lg" aria-hidden="true"></span>
-                    </button>
                   </li>
                 }
               }
             } @else {
               <li
-                class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)_auto] min-[380px]:items-center min-[380px]:gap-3"
+                class="flex min-w-0 flex-col gap-1 min-[380px]:grid min-[380px]:grid-cols-[5rem_minmax(0,1fr)] min-[380px]:items-center min-[380px]:gap-3"
                 [attr.aria-label]="naCopy.ariaLabel"
               >
                 <span class="text-[length:var(--font-size-label)] text-muted-color">
@@ -86,23 +80,35 @@
                 <div class="min-w-0 flex-1 overflow-hidden">
                   <p class="m-0 truncate text-base font-bold text-color">{{ naCopy.title }}</p>
                 </div>
-
-                <span
-                  class="inline-flex shrink-0 text-muted-color min-[380px]:justify-self-end"
-                  aria-hidden="true"
-                ></span>
               </li>
             }
           </ul>
         </section>
 
-        @if (!last) {
+        @if (hasNextVisibleGroup(group.key)) {
           <div class="schedule-group-divider shrink-0 py-4" aria-hidden="true">
             <hr class="m-0 border-0 border-t border-surface" />
           </div>
         }
+        }
       }
     </div>
+
+    @if (hiddenInterviewCount() > 0) {
+      <div class="mt-auto flex shrink-0 justify-end">
+        <button
+          type="button"
+          class="inline-flex cursor-pointer items-center justify-center border-0 bg-transparent p-1 text-muted-color hover:text-color"
+          [attr.aria-label]="moreCopy.ariaLabel"
+          [pTooltip]="moreCopy.ariaLabel"
+          tooltipEvent="both"
+          tooltipPosition="top"
+          [fitContent]="true"
+        >
+          <span class="pi pi-ellipsis-h text-base" aria-hidden="true"></span>
+        </button>
+      </div>
+    }
   </div>
 </ng-template>
 
