@@ -28,6 +28,10 @@ export function paletteFill(color: PipColor): string {
   return PIP_PALETTE[color].fill;
 }
 
+export function paletteSoft(color: PipColor): string {
+  return PIP_PALETTE[color].soft;
+}
+
 export function responsibilityColor(responsibility: PipResponsibility): PipColor {
   return PIP_TOKENS.responsibility[responsibility];
 }
@@ -57,13 +61,36 @@ export function funnelBarGlassStyle(stageIndex: number): { ink: string; fill: st
   return { ink: paletteSolid(color), fill: paletteFill(color) };
 }
 
-/** Funnel bar glass — sheen on the bar only, at its displayed width (tuned for h-8.5 / 34px). */
 export function funnelBarSurfaceStyle(stageIndex: number): {
   background: string;
   border: string;
   boxShadow: string;
 } {
   const { ink: solid, fill } = funnelBarGlassStyle(stageIndex);
+  return funnelGlassSurfaceStyle(solid, fill);
+}
+
+export function funnelDurationGlassStyle(stageIndex: number): { ink: string; fill: string } {
+  const colors = PIP_TOKENS.funnel.duration;
+  const color = colors[Math.min(stageIndex, colors.length - 1)];
+  return { ink: paletteSoft(color), fill: paletteFill(color) };
+}
+
+export function funnelDurationSurfaceStyle(stageIndex: number): {
+  background: string;
+  border: string;
+  boxShadow: string;
+} {
+  const { ink: solid, fill } = funnelDurationGlassStyle(stageIndex);
+  return funnelDurationGlassSurfaceStyle(solid, fill);
+}
+
+// Funnel chart 
+function funnelGlassSurfaceStyle(solid: string, fill: string): {
+  background: string;
+  border: string;
+  boxShadow: string;
+} {
   const topSheen = blendHex(solid, '#ffffff', 0.32);
   const midSheen = blendHex(solid, '#ffffff', 0.1);
   const bottomDepth = blendHex(solid, fill, 0.34);
@@ -71,13 +98,29 @@ export function funnelBarSurfaceStyle(stageIndex: number): {
   const drop = blendHex(solid, '#000000', 0.32);
 
   return {
-    background: `linear-gradient(180deg, ${topSheen} 0%, ${midSheen} 26%, ${solid} 52%, ${bottomDepth} 100%)`,
+    background: `linear-gradient(180deg, ${topSheen} 0%, ${midSheen} 26%, ${solid} 42%, ${bottomDepth} 100%)`,
     border: `1px solid ${blendHex(solid, '#ffffff', 0.2)}`,
     boxShadow: `inset 0 2px 0 ${rim}, inset 0 -1px 0 ${blendHex(solid, '#000000', 0.1)}, 0 2px 3px ${drop}44`,
   };
 }
 
-/** Light text on solid accent fills — PIP dark scheme body tier, not pure white. */
+// Day chart
+function funnelDurationGlassSurfaceStyle(solid: string, fill: string): {
+  background: string;
+  border: string;
+  boxShadow: string;
+} {
+  const topSheen = blendHex(solid, '#ffffff', 0.48);
+  const bottomDepth = blendHex(solid, fill, 0.2);
+  const rim = blendHex('#ffffff', solid, 0.62);
+
+  return {
+    background: `linear-gradient(180deg, ${topSheen} 0%, ${solid} 38%, ${bottomDepth} 100%)`,
+    border: `1px solid ${blendHex(solid, '#ffffff', 0.12)}`,
+    boxShadow: `inset 0 1px 0 ${rim}`,
+  };
+}
+
 export function onSolidSurfaceTextColor(): string {
   return PIP_DARK_TOKENS.text.color;
 }

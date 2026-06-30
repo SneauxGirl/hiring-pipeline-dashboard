@@ -3,23 +3,22 @@
  * Lara surfaces/text/primary are overridden in pip-preset.ts.
  */
 
-/** Fill + solid + ink triples keyed by color name. Charts use solid; pills/labels use fill + ink. */
 export const PIP_PALETTE = {
-  teal: { fill: '#e7f2f1', solid: '#008782', ink: '#008782' },
-  purple: { fill: '#f0ebf6', solid: '#6b229c', ink: '#6b229c' },
-  orange: { fill: '#FFF1EB', solid: '#F85330', ink: '#C94327' },
-  gold: { fill: '#FFFAE2', solid: '#e5b82e', ink: '#A95E00' },
-  pink: { fill: '#FFF0F6', solid: '#D0356D', ink: '#7A1D42' },
-  red: { fill: '#fce8ec', solid: '#DC143C', ink: '#9B1B30' },
-  charcoal: { fill: '#F1F0F2', solid: '#B0ACB4', ink: '#251827' },
-  blue: { fill: '#E6EDF3', solid: '#004887', ink: '#004887' },
-  green: { fill: '#EAF8EB', solid: '#4CC851', ink: '#3C8735' },
+  teal: { fill: '#e7f2f1', solid: '#008782', soft: '#0A7D79', ink: '#008782' },
+  purple: { fill: '#f0ebf6', solid: '#6b229c', soft: '#692B93', ink: '#6b229c' },
+  orange: { fill: '#FFF1EB', solid: '#F85330', soft: '#EE593A', ink: '#C94327' },
+  gold: { fill: '#FFFAE2', solid: '#e5b82e', soft: '#DCB337', ink: '#A95E00' },
+  pink: { fill: '#FFF0F6', solid: '#D0356D', soft: '#C44170', ink: '#7A1D42' },
+  red: { fill: '#fce8ec', solid: '#DC143C', soft: '#DC143C', ink: '#9B1B30' },
+  charcoal: { fill: '#F1F0F2', solid: '#B0ACB4', soft: '#B0ACB4', ink: '#251827' },
+  blue: { fill: '#E6EDF3', solid: '#004887', soft: '#0A477D', ink: '#004887' },
+  green: { fill: '#EAF8EB', solid: '#4CC851', soft: '#4CC851', ink: '#3C8735' },
 } as const;
 
 export type PipColor = keyof typeof PIP_PALETTE;
 
 /**
- * Who owns the delay — shared by requisition stage pills and bottleneck cards.
+ * Color consistency: Who owns the stage? — shared by requisition stage pills and bottleneck cards.
  */
 export type PipResponsibility =
   | 'waiting-on-me'
@@ -35,8 +34,6 @@ export const PIP_TOKENS = {
   },
   /**
    * Text tiers — keys match PrimeNG `text.*` slots and tailwindcss-primeui utilities.
-   * Lara default: surface.700 / .800 / .500 / .600 (slate steps, not % black).
-   * Pip uses slate (blue-tinted gray), not neutral gray — lighter steps read cooler.
    */
   text: {
     color: '#1C1C1E', // slate-700 → text-color
@@ -92,7 +89,7 @@ export type PipRiskLevel = 'low' | 'medium' | 'high';
 export type PipTrendMetricId = keyof typeof PIP_TOKENS.trends;
 
 /**
- * Dark scheme tokens — framed for `prefers-color-scheme: dark` (not wired yet).
+ * In Process: Dark scheme tokens — framed for `prefers-color-scheme: dark` (not wired yet).
  * Accent palette (`PIP_PALETTE`) stays shared with light; only surfaces, text, page gradient, shadows differ.
  *
  * Remapping intent (from light):
@@ -113,7 +110,7 @@ export const PIP_DARK_TOKENS = {
   },
   text: {
     /** Primary body — TODO: define readable on `#242227` (≠ gradient center `#1C1C1E`) */
-    color: '#E8E8EA',
+    color: '#f8f8fA',
     /** Emphasis / hover — TODO: define */
     hoverColor: '#FFFFFF',
     /** Former light muted — verify contrast on card + gradient */
@@ -157,7 +154,7 @@ export function pipDarkPageGradient(): string {
 }
 
 /**
- * Dark mode — known holes (no wiring this pass).
+ * Dark mode — wiring notes for future implementation.
  *
  * Activation (deferred):
  * - `app.config.ts` → `darkModeSelector: 'prefers-color-scheme: dark'` (later: class + session override)
@@ -181,5 +178,6 @@ export function pipDarkPageGradient(): string {
  * - `components.card.root.shadow` is global today — dark may need per-scheme override in preset
  * - `applyPipCssVars()` — no dark branch; nav hover mixes assume light
  * - `PIP_PALETTE` fills unchanged — pills OK; verify `riskPill` charcoal ink on dark cards
+ * - `funnel.component.ts` — `borderColor: solid` → `borderColor: body` and glass styling
  * - `theme-colors.ts` `blendHex(..., '#000000')` funnel drops — spot-check on dark
  */

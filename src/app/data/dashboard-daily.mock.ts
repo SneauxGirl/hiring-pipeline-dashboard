@@ -37,16 +37,6 @@ function funnelStages(counts: readonly [number, number, number, number, number, 
   );
 }
 
-/**
- * Funnel is rolling 30-day movement as of the selected business day.
- *
- * These are not single-day active counts. They represent candidates who entered
- * or moved through each stage during the trailing 30-day window.
- *
- * During PTO week, top/middle funnel can still move because recruiters can add,
- * screen, and send assessments. Interviews, final rounds, offers, and hires do
- * not advance that week.
- */
 const THIRTY_DAY_FUNNEL_BY_CALENDAR_DAY: Record<
   DashboardCalendarDay,
   readonly [number, number, number, number, number, number]

@@ -13,9 +13,10 @@ import {
 import { FunnelStage, FunnelStageWeekData, StageDuration } from '../../models/dashboard.models';
 import {
   funnelBarColor,
-  funnelBarGlassStyle,
   funnelBarLabelColor,
   funnelBarSurfaceStyle,
+  funnelDurationGlassStyle,
+  funnelDurationSurfaceStyle,
   onSolidSurfaceTextColor,
 } from '../../theme/theme-colors';
 
@@ -100,7 +101,7 @@ export class FunnelComponent {
   }
 
   segmentSolidColor(index: number): string {
-    return funnelBarGlassStyle(index).ink;
+    return funnelDurationGlassStyle(index).ink;
   }
 
   segmentTextColor(): string {
@@ -108,8 +109,8 @@ export class FunnelComponent {
   }
 
   segmentBarStyle(index: number, isLast: boolean): Record<string, string> {
-    const surface = funnelBarSurfaceStyle(index);
-    const solid = funnelBarGlassStyle(index).ink;
+    const surface = funnelDurationSurfaceStyle(index);
+    const solid = funnelDurationGlassStyle(index).ink;
 
     return {
       background: surface.background,
