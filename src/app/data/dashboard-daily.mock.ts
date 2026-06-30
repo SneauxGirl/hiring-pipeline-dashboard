@@ -169,6 +169,7 @@ const CANDIDATES = {
   },
 };
 
+// Main default. Check days for individual overrides on time to fill and offer acceptance.
 const KPI_WEEK1 = [
   { value: 41, valueUnit: 'days', delta: '2 days above target', trend: 'up' },
   { value: 87, valueUnit: '%', delta: 'No change', trend: 'neutral' },
@@ -238,7 +239,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   4: calendarDay(4, {
     kpis: [
-      { value: 40, valueUnit: 'days', delta: '1 day', trend: 'down' },
+      { value: 40, valueUnit: 'days', delta: 'On Target!', trend: 'down' },
       { value: 88, valueUnit: '%', delta: '1% acceptance', trend: 'up' },
       KPI_WEEK1[2],
       KPI_WEEK1[3],
@@ -260,7 +261,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   5: calendarDay(5, {
     kpis: [
-      { value: 40, valueUnit: 'days', delta: '1 day', trend: 'down' },
+      { value: 40, valueUnit: 'days', delta: 'On Target!', trend: 'neutral' },
       { value: 88, valueUnit: '%', delta: '1% acceptance', trend: 'up' },
       KPI_WEEK1[2],
       { value: 5, delta: '1 this month', trend: 'up' },
@@ -283,7 +284,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   6: calendarDay(6, {
     kpis: [
-      { value: 39, valueUnit: 'days', delta: '2 days', trend: 'down' },
+      { value: 39, valueUnit: 'days', delta: '1 day below target', trend: 'down' },
       { value: 88, valueUnit: '%', delta: '1% acceptance', trend: 'up' },
       KPI_WEEK1[2],
       { value: 5, delta: '1 this month', trend: 'up' },
@@ -306,7 +307,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   7: calendarDay(7, {
     kpis: [
-      { value: 39, valueUnit: 'days', delta: '2 days', trend: 'down' },
+      { value: 39, valueUnit: 'days', delta: '1 day below target', trend: 'down' },
       { value: 88, valueUnit: '%', delta: '1% acceptance', trend: 'up' },
       KPI_WEEK1[2],
       { value: 5, delta: '1 this month', trend: 'up' },
@@ -368,7 +369,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   10: calendarDay(10, {
     kpis: [
-      { value: 38, valueUnit: 'days', delta: '3 days', trend: 'down' },
+      { value: 38, valueUnit: 'days', delta: '2 days below target', trend: 'down' },
       KPI_WEEK2[1],
       KPI_WEEK2[2],
       KPI_WEEK2[3],
@@ -391,7 +392,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   11: calendarDay(11, {
     kpis: [
-      { value: 37, valueUnit: 'days', delta: '4 days', trend: 'down' },
+      { value: 37, valueUnit: 'days', delta: '3 days below target', trend: 'down' },
       KPI_WEEK2[1],
       KPI_WEEK2[2],
       KPI_WEEK2[3],
@@ -417,7 +418,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   12: calendarDay(12, {
     kpis: [
-      { value: 36, valueUnit: 'days', delta: '5 days', trend: 'down' },
+      { value: 36, valueUnit: 'days', delta: '4 days below target', trend: 'down' },
       KPI_WEEK2[1],
       KPI_WEEK2[2],
       { value: 7, delta: '3 this month', trend: 'up' },
@@ -440,7 +441,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   13: calendarDay(13, {
     kpis: [
-      { value: 35, valueUnit: 'days', delta: '6 days', trend: 'down' },
+      { value: 35, valueUnit: 'days', delta: '5 days below target', trend: 'down' },
       { value: 89, valueUnit: '%', delta: '2% acceptance', trend: 'up' },
       KPI_WEEK2[2],
       { value: 8, delta: '4 this month', trend: 'up' },
@@ -466,7 +467,7 @@ export const MOCK_DASHBOARD_BY_CALENDAR_DAY: Record<DashboardCalendarDay, Dashbo
 
   14: calendarDay(14, {
     kpis: [
-      { value: 35, valueUnit: 'days', delta: '6 days', trend: 'down' },
+      { value: 35, valueUnit: 'days', delta: '5 days below target', trend: 'down' },
       { value: 89, valueUnit: '%', delta: '2% acceptance', trend: 'up' },
       KPI_WEEK2[2],
       { value: 8, delta: '4 this month', trend: 'up' },

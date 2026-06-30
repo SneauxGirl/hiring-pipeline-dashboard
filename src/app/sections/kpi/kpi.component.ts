@@ -39,14 +39,15 @@ export class KpiComponent {
     }
 
     const delta = kpi.delta.trim();
+    const isTimeToFill = kpi.valueUnit === 'days';
 
     switch (kpi.trend) {
       case 'up':
-        return `Increased by ${delta}`;
+        return isTimeToFill ? `Increased: ${delta}` : `Increased by ${delta}`;
       case 'down':
-        return `Decreased by ${delta}`;
+        return isTimeToFill ? `Decreased: ${delta}` : `Decreased by ${delta}`;
       default:
-        return delta;
+        return isTimeToFill ? 'On Target' : delta;
     }
   }
 }
