@@ -2,7 +2,7 @@ import { PipResponsibility, PipRiskLevel } from '../theme/pip-tokens';
 
 export type KpiTrendDirection = 'up' | 'down' | 'neutral';
 
-/** Weekly KPI values — labels are in kpi.catalog.ts. */
+/** KPI — labels are in kpi.catalog.ts. */
 export interface KpiWeekValues {
   value: string | number;
   valueUnit?: string;
@@ -40,7 +40,7 @@ export interface WeekRangeOption {
   value: string;
 }
 
-/** Weekly bottleneck metrics — copy and icons are in bottleneck.catalog.ts. */
+/** Bottleneck — copy and icons are in bottleneck.catalog.ts. */
 export interface BottleneckWeekMetrics {
   responsibility: PipResponsibility;
   candidateCount: number;
@@ -49,13 +49,13 @@ export interface BottleneckWeekMetrics {
 
 export type WorkforceTrendMetricId = 'attrition' | 'promotions' | 'transfers' | 'backfills';
 
-/** Twelve monthly values per year — index 0 = January. */
+/** Trends - 12 mos annual total */
 export interface TrendSeriesWeekValues {
   currentYear: number[];
   priorYear: number[];
 }
 
-/** Weekly trend numbers — metric labels and chart years are in trends.catalog.ts. */
+/** Trends — metric labels and chart years are in trends.catalog.ts. */
 export interface TrendWeekData {
   /** 0–11 (Jan–Dec); months before this index use currentYear; this month onward use priorYear. */
   asOfMonthIndex: number;
@@ -71,7 +71,6 @@ export interface WorkforceTrendSeries {
   priorYear: number[];
 }
 
-/** View model built by TrendsComponent from TrendWeekData + trends.catalog.ts. */
 export interface WorkforceTrends {
   currentYear: number;
   priorYear: number;

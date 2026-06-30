@@ -40,7 +40,7 @@ export type DashboardDatePickerCell = {
   host: { class: 'block' },
 })
 export class DashboardDatePickerComponent implements OnInit, OnChanges, OnDestroy {
-  /** Delay before hover swaps Today/Yesterday to the formatted date. */
+  /** Delay before hover swaps Today/Yesterday to the formatted date to confirm intention. */
   private static readonly FRIENDLY_HOVER_DELAY_MS = 1500;
 
   private static readonly ARROW_DAY_OFFSET: Partial<Record<string, number>> = {
@@ -79,7 +79,7 @@ export class DashboardDatePickerComponent implements OnInit, OnChanges, OnDestro
     year: 'numeric',
   });
 
-  /** Day buttons — year omitted; dialog title carries month and year. */
+  /** Day buttons — year omitted for brevity; dialog title carries month and year. */
   private readonly calendarDayAriaLabel = new Intl.DateTimeFormat('en-US', {
     weekday: 'long',
     month: 'long',

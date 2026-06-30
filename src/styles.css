@@ -31,7 +31,6 @@
   --sidebar-width-collapsed: 4.5rem;
   /* @container/dashboard on main — pair/wide tiers (content width, not viewport) */
   --dashboard-container-pair: 43.25rem; /* documentation only */
-  --dashboard-container-wide: 74.0625rem; /* only used for watcher */
   --sidebar-edge-gap: 75px; /* viewport edge → first nav item top; mirrored below user text */
   --letter-spacing-caps: 0.12em;
 }

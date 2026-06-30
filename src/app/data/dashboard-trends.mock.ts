@@ -1,3 +1,5 @@
+// Trends data is static regardless of date selection.
+
 import { TrendWeekData, WorkforceTrendMetricId } from '../models/dashboard.models';
 
 /** Prior calendar year — Jan through Dec (index 0 = January). */
@@ -37,7 +39,7 @@ function trendSeries(): TrendWeekData['series'] {
   };
 }
 
-/** Static workforce trends; month boundary and year labels follow the viewed calendar date. */
+/** Month boundary and year labels follow the viewed calendar date. */
 export function trendsForDate(viewDate: Date): TrendWeekData {
   return {
     asOfMonthIndex: viewDate.getMonth(),

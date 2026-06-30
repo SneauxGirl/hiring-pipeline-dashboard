@@ -5,7 +5,6 @@ import { PIP_DARK_TOKENS, PIP_PALETTE, PIP_TOKENS } from './pip-tokens';
 
 const purple = PIP_PALETTE.purple;
 
-/** PrimeNG base preset: Lara. Locked — do not switch to Nora, Aura, or another preset without explicit user approval. */
 export const PipPreset = definePreset(Lara, {
   semantic: {
     primary: palette(PIP_TOKENS.primary),
