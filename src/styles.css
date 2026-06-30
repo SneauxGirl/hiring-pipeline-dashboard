@@ -5,7 +5,6 @@
 
 :root {
   --font-size-body: 1rem;
-  --font-size-control: 1rem;
   --font-size-label: 0.875rem;
   --font-size-heading-sm: 1.125rem;
   --font-size-heading-md: 1.35rem;
@@ -31,8 +30,8 @@
   --sidebar-width: 240px;
   --sidebar-width-collapsed: 4.5rem;
   /* @container/dashboard on main — pair/wide tiers (content width, not viewport) */
-  --dashboard-container-pair: 43.25rem;
-  --dashboard-container-wide: 68rem; /* 1048px row + 40px main padding */
+  --dashboard-container-pair: 43.25rem; /* documentation only */
+  --dashboard-container-wide: 74.0625rem; /* only used for watcher */
   --sidebar-edge-gap: 75px; /* viewport edge → first nav item top; mirrored below user text */
   --letter-spacing-caps: 0.12em;
 }
